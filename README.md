@@ -219,8 +219,8 @@ The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
 
 Pariyojana is built for the global open-source community by sovereign developers. We welcome contributions from builders worldwide!
 
-- 🐛 **Found a bug?** Open an [Issue](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues).
-- 💡 **Have a feature idea?** Start a [Discussion](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/discussions).
+- 🐛 **Found a bug?** Open a [Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues).
+- 💡 **Have a feature idea?** Submit a [Feature Request](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues).
 - 🛠️ **Want to write code?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) and pick up a `good first issue`.
 - ⭐ **Love the project?** Give us a star on GitHub — it helps Pariyojana reach more sovereign builders!
 
