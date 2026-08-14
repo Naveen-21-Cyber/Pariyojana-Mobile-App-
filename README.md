@@ -33,11 +33,11 @@ Unlike commercial tools that monetize your personal notes, project roadmaps, and
 
 ---
 
-## 📸 Visual Showcase & App Tour
+## 📸 Visual Showcase & Feature Tour
 
 <div align="center">
-  <img src="GITHUB/SUR.png" alt="Pariyojana Hero Overview" width="92%" />
-  <p><em>Figure 1: Sovereign Command Dashboard, Dynamic Island, and Velvet Design Language.</em></p>
+  <img src="GITHUB/SUR.png" alt="Escape Corporate Surveillance - Pariyojana" width="92%" />
+  <p><em>Figure 1: Escape Corporate Surveillance — Move your professional execution into an encrypted vault on your device.</em></p>
 </div>
 
 <br/>
@@ -46,32 +46,32 @@ Unlike commercial tools that monetize your personal notes, project roadmaps, and
   <table>
     <tr>
       <td width="50%">
-        <img src="GITHUB/1.png" alt="Idea Vault & Agile Boards" width="100%" />
-        <p align="center"><strong>1. Sovereign Idea Vault & Kanban</strong></p>
+        <img src="GITHUB/1.png" alt="Reclaim Your Digital Borders" width="100%" />
+        <p align="center"><strong>1. Reclaim Your Digital Borders</strong><br/><em>Your Data · Your Device · Zero Subscriptions</em></p>
       </td>
       <td width="50%">
-        <img src="GITHUB/2.png" alt="World of Science Research Tracker" width="100%" />
-        <p align="center"><strong>2. Academic Research & Peer-Review Hub</strong></p>
-      </td>
-    </tr>
-    <tr>
-      <td width="50%">
-        <img src="GITHUB/3.png" alt="BYOK AI Multi-Model Studio" width="100%" />
-        <p align="center"><strong>3. BYOK Multi-Model AI Studio</strong></p>
-      </td>
-      <td width="50%">
-        <img src="GITHUB/4.png" alt="Biometric Vault & RAM Zeroing" width="100%" />
-        <p align="center"><strong>4. Zero-Knowledge Biometric Vault</strong></p>
+        <img src="GITHUB/2.png" alt="Your Absolute Professional Vault" width="100%" />
+        <p align="center"><strong>2. Absolute Professional Vault</strong><br/><em>256-bit Encrypted Environment You Alone Control</em></p>
       </td>
     </tr>
     <tr>
       <td width="50%">
-        <img src="GITHUB/5.png" alt="Focus Shield & Soundscapes" width="100%" />
-        <p align="center"><strong>5. Deep Work Focus Shield & Ambient Audio</strong></p>
+        <img src="GITHUB/5.png" alt="Stop Losing Your Ideas - Idea Vault & Kanban" width="100%" />
+        <p align="center"><strong>3. Stop Losing Your Ideas</strong><br/><em>Idea Vault & Visual 6-Stage Kanban Board</em></p>
       </td>
       <td width="50%">
-        <img src="GITHUB/6.png" alt="Settings & Telemetry Command" width="100%" />
-        <p align="center"><strong>6. Sovereign Customization & Theme Matrix</strong></p>
+        <img src="GITHUB/4.png" alt="Track Your Career Growth - Job Tracker" width="100%" />
+        <p align="center"><strong>4. Track Your Career Growth</strong><br/><em>Job Pipeline from Interview to Offer with Private Storage</em></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%">
+        <img src="GITHUB/3.png" alt="Built For Deep Work - Sanskrit Stoic Wisdom" width="100%" />
+        <p align="center"><strong>5. Built for Deep Work</strong><br/><em>Ancient Indian Wisdom Meets Disruptive Hardware</em></p>
+      </td>
+      <td width="50%">
+        <img src="GITHUB/6.png" alt="Zero Tracking, Zero Fees" width="100%" />
+        <p align="center"><strong>6. Zero Tracking · Zero Fees</strong><br/><em>Your Logic Stays Local · 100% Free & Open Source</em></p>
       </td>
     </tr>
   </table>
