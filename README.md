@@ -1,7 +1,7 @@
 # PARIYOJANA (परियोजना) v1.0.0
 ### Sovereign Focus & Productivity Vault for Android 🇮🇳
 
-[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.0.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk)
+[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.0.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)
 [![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20%F0%9F%87%AE%F0%9F%87%B3-FF9933?style=for-the-badge)](http://pariyojana.gt.tc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](LICENSE)
@@ -16,10 +16,10 @@
 ## 📥 1-Click Instant APK Download
 
 <div align="center">
-  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk">
+  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">
     <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.0.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
   </a>
-  <p><em>👉 Direct 1-Click Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk">Pariyojana.apk (v1.0.0 Production Release)</a></strong></em><br/>
+  <p><em>👉 Direct 1-Click Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">Pariyojana.apk (v1.0.0 Production Release)</a></strong></em><br/>
   Compatible with Android 10, 11, 12, 13, 14, and 15+ · Ultra-smooth 120 FPS</p>
 </div>
 
