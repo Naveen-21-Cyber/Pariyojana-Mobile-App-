@@ -1,0 +1,6 @@
+# Production Keystore Configuration Template for Pariyojana
+# Copy this file to `android/key.properties` and fill in your actual production keystore details:
+# storePassword=<your-store-password>
+# keyPassword=<your-key-password>
+# keyAlias=<your-key-alias>
+# storeFile=E:/path/to/upload-keystore.jks

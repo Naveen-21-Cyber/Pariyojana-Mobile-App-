@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ══════════ SECURITY HEADERS ══════════ -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://formsubmit.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formsubmit.co; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Pariyojana — Made in India | Encrypted Android Productivity &amp; Focus Vault</title>
+  <meta name="description"
+    content="Pariyojana (परियोजना) is 100% Free, Encrypted, Android-exclusive. Combines Idea Vault, Scrum Kanban, OpenRouter BYOK Free AI, Google Auth, Bhagavad Gita Focus Timer &amp; Job Tracker. Made in India.">
+  <meta name="keywords"
+    content="Pariyojana, Made in India, BYOK AI, OpenRouter free models, Google Auth, Biometrics, GitHub PAT, Android exclusive, SQLCipher encryption, Bhagavad Gita focus timer, Naveen Telasang">
+  <meta name="author" content="Naveen Telasang">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#FF522B">
+  <meta property="og:title" content="Pariyojana — Made in India | Encrypted Android Productivity &amp; Focus Vault">
+  <meta property="og:description"
+    content="100% Free, Encrypted, Android-Exclusive App. OpenRouter BYOK (Free Models), Google Auth, Biometrics, Bhagavad Gita Focus Timer, Scrum Kanban &amp; Job Tracker. Zero Ads. Zero Subscriptions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://pariyojana.gt.tc/">
+  <meta property="og:image" content="http://pariyojana.gt.tc/app_logo.png">
+  <meta property="og:site_name" content="Pariyojana">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="http://pariyojana.gt.tc/">
+  <link rel="icon" type="image/png" href="app_logo.png">
+  <link rel="apple-touch-icon" href="app_logo.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Serif+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- GSAP + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=1.0.2">
+</head>
+
+<body>
+
+
+
+  <!-- ══════════ NAVIGATION BAR ══════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="Pariyojana Home">
+        <div class="nav-logo-wrap">
+          <img src="app_logo.png" alt="Pariyojana" class="nav-logo-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="nav-logo-fallback">P</div>
+        </div>
+        <div class="nav-brand-group">
+          <span class="nav-brand-text"><span class="brand-orange">Pariyojana</span></span>
+          <span class="nav-version-tag">v1.0.0</span>
+        </div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#what-is-it">Overview</a>
+        <a href="#only-app">Why Unique</a>
+        <a href="#ai-security">BYOK AI &amp; Security</a>
+        <a href="#sanskrit-story">Made In India</a>
+        <a href="#features">Features</a>
+        <a href="#demo">Live Demo</a>
+        <a href="#developer">Developer</a>
+      </div>
+      <div class="nav-actions-group">
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-" class="nav-gh-star" target="_blank" rel="noopener noreferrer"
+          title="Star on GitHub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          <span>Star on GitHub</span>
+        </a>
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk" class="nav-cta" id="navCta">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2v13M5 9l7 7 7-7" />
+            <rect x="2" y="19" width="20" height="3" rx="1.5" />
+          </svg>
+          Download <span style="color:#fff;font-weight:900;">Free</span> APK
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO SECTION ══════════ -->
+  <section class="hero" id="hero" aria-labelledby="heroHeading">
+    <div class="hero-bg-grid" aria-hidden="true"></div>
+    <div class="hero-glow-orb" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-status-pill">
+        <span class="status-dot"></span>
+        <span><span class="brand-orange">Made in India 🇮🇳</span> · Android Exclusive · <span class="brand-orange">100% Free
+            ($0)</span> · <span class="brand-orange">Open Source</span></span>
+      </div>
+
+
+      <!-- CINEMATIC ZOOM-OUT TEXT ENTRY TARGET -->
+      <h1 id="heroHeading" class="hero-title">
+        <span class="hero-zoom-target"><span class="hero-title-gradient">PARIYOJANA</span></span>
+        <span class="hero-title-sub">Your Sovereign Productivity &amp; Focus Vault</span>
+      </h1>
+
+      <div class="motto-strip">
+        <span class="motto-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </span>
+        <blockquote class="motto-text">"Master Your Execution. Guard Your Sovereignty." · <em>योगः कर्मसु कौशलम्</em>
+        </blockquote>
+      </div>
+
+      <p class="hero-sub">
+        Proudly <span class="brand-orange">Made in India</span> — An Android-exclusive workspace combining your Idea
+        Vault, Scrum Projects, <span class="brand-orange">BYOK OpenRouter Free AI</span>, World of Science Academic Tracker, Bhagavad Gita
+        Focus Shield, and Biometric KeySafe into ONE encrypted app.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk" class="btn btn-primary" id="heroPrimaryBtn" target="_blank"
+          rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2v13M5 9l7 7 7-7" />
+            <rect x="2" y="19" width="20" height="3" rx="1.5" />
+          </svg>
+          Download Free Android APK ($0)
+        </a>
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          View Source Code (<span class="brand-orange">Open Source</span>)
+        </a>
+      </div>
+
+      <!-- Hero Metrics Bar -->
+      <div class="hero-metrics-bar">
+        <div class="metric-item">
+          <span class="metric-val"><span class="brand-orange">$0 Free</span></span>
+          <span class="metric-lbl">Zero Subscriptions</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-val"><span class="brand-orange">100% Offline</span></span>
+          <span class="metric-lbl">Core Tasks Storage</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-val"><span class="brand-orange">BYOK AI</span></span>
+          <span class="metric-lbl">OpenRouter Free Keys</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-val"><span class="brand-orange">Google Auth</span></span>
+          <span class="metric-lbl">+ Biometric Lock</span>
+        </div>
+      </div>
+
+      <!-- Offline-First Notice -->
+      <div class="hero-offline-notice">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+        <span><strong>100% Offline-First Architecture:</strong> All your notes, projects, timers, and job records live
+          <strong>100% offline on your device</strong>. Internet is ONLY used when you choose to execute AI model
+          prompts.</span>
+      </div>
+
+      <!-- Mockup Phone -->
+      <div class="hero-mockup" id="heroMockup">
+        <div class="mockup-phone">
+          <div class="mockup-notch"></div>
+          <div class="mockup-screen">
+            <div class="mockup-header-row">
+              <div class="mockup-logo-inline">
+                <img src="app_logo.png" alt="" class="mockup-logo-img" onerror="this.style.display='none'">
+                <span class="mockup-app-name"><span class="brand-orange">Pariyojana</span></span>
+              </div>
+              <span class="mockup-enc-badge">🔒 Android HSM</span>
+            </div>
+            <div class="mockup-stats-row">
+              <div class="mockup-stat"><span class="ms-val">10</span><span class="ms-lbl">Ideas</span></div>
+              <div class="mockup-stat"><span class="ms-val">10</span><span class="ms-lbl">Projects</span></div>
+              <div class="mockup-stat"><span class="ms-val">10</span><span class="ms-lbl">Jobs</span></div>
+            </div>
+            <div class="mockup-pipeline-row">
+              <span class="pp-step pp-done">💡</span><span class="pp-line"></span>
+              <span class="pp-step pp-done">📋</span><span class="pp-line"></span>
+              <span class="pp-step pp-active">🏃</span><span class="pp-line"></span>
+              <span class="pp-step">🧪</span><span class="pp-line"></span>
+              <span class="pp-step">🛡️</span><span class="pp-line"></span>
+              <span class="pp-step">✅</span>
+            </div>
+            <div class="mockup-gita-pill">
+              <span class="gita-devanagari">योगः कर्मसु कौशलम्</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ GITHUB STAR BANNER ══════════ -->
+  <div class="star-banner" aria-label="GitHub Star Banner">
+    <div class="star-banner-inner">
+      <span class="star-label"><span class="brand-orange">Proudly Made in India</span> · 100% Open Source Community
+        Software</span>
+      <a href="https://github.com/Naveen-21-Cyber" class="star-btn" id="starBtn" target="_blank"
+        rel="noopener noreferrer" aria-label="Star on GitHub">
+        <span class="star-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        </span>
+        <span>Star Repository on GitHub</span>
+        <span class="star-count" id="starCount">⭐</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════ SECTION 1: WHAT IS PARIYOJANA & HOW IT HELPS ══════════ -->
+  <section class="explain-sec" id="what-is-it" aria-labelledby="whatHeading">
+    <div class="section-header">
+      <span class="section-badge">EASY EXPLANATION</span>
+      <h2 id="whatHeading" class="reveal-up">What Is <span class="brand-orange">Pariyojana</span> &amp; How Does It Help
+        You?</h2>
+      <p class="section-sub reveal-up">Think of <span class="brand-orange">Pariyojana</span> as your personal notebook,
+        project manager, study vault, and focus timer — all combined into ONE easy Android app.</p>
+    </div>
+
+    <div class="explain-grid">
+      <div class="explain-card reveal-up">
+        <div class="ex-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M9.663 17h4.673M12 3a7 7 0 00-7 7c0 2.38 1.162 4.49 2.95 5.8 1.05.77 1.7 1.95 1.7 3.2v.5h4.7v-.5c0-1.25.65-2.43 1.7-3.2A7.003 7.003 0 0012 3z" />
+          </svg>
+        </div>
+        <h3>1. Stop Losing Your Ideas</h3>
+        <p>Ever have a great idea, write it down somewhere, and forget where it went? <span
+            class="brand-orange">Pariyojana's</span> <strong>Idea Vault</strong> saves thoughts instantly and lets you
+          turn them into real projects with 1 tap.</p>
+      </div>
+
+      <div class="explain-card reveal-up">
+        <div class="ex-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+          </svg>
+        </div>
+        <h3>2. Organize Your Projects Easily</h3>
+        <p>Use a simple 6-stage visual Kanban board (Backlog → Sprint → In Progress → QA → Security Audit → Shipped) to
+          manage coding projects, assignments, or personal goals.</p>
+      </div>
+
+      <div class="explain-card reveal-up">
+        <div class="ex-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <h3>3. Focus Better Without Distractions</h3>
+        <p>The built-in Pomodoro timer plays peaceful Bhagavad Gita wisdom shlokas with Vadya ambient soundscapes, while
+          <strong>Focus Shield</strong> locks out distracting phone notifications.
+        </p>
+      </div>
+
+      <div class="explain-card reveal-up">
+        <div class="ex-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+          </svg>
+        </div>
+        <h3>4. Track Your Job &amp; Career Search</h3>
+        <p>Keep track of every job you apply for — from Applied to Interview and Offer — with salary trackers and
+          AI-generated cover letters that save you hours of typing.</p>
+      </div>
+    </div>
+
+    <div class="simple-banner reveal-up">
+      <div class="sb-title">Summary: What Does It Do For You?</div>
+      <p class="sb-desc"><span class="brand-orange">Pariyojana</span> replaces 5 separate apps (notes, project board,
+        PDF reader, timer, job spreadsheet) with <strong>1 single app</strong> that lives on your phone, costs <span
+          class="brand-orange">$0 Free</span>, has <span class="brand-orange">zero ads</span>, and never steals your
+        private data.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 2: THE ONLY APP IN THE WORLD ══════════ -->
+  <section class="only-app-sec" id="only-app" aria-labelledby="onlyHeading">
+    <div class="section-header">
+      <span class="section-badge">WORLD FIRST &amp; EXCLUSIVE</span>
+      <h2 id="onlyHeading" class="reveal-up">The <em class="accent-em">ONLY App In The World</em> Combining These
+        Features</h2>
+      <p class="section-sub reveal-up">No other application — free or paid — integrates all these capabilities into 1
+        encrypted, <span class="brand-orange">100% offline-first</span> mobile package.</p>
+    </div>
+
+    <div class="only-grid">
+      <div class="only-card reveal-up">
+        <div class="only-num">01</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <h3>BYOK OpenRouter Free AI &amp; Manual Model Switcher</h3>
+        <p>The <strong>ONLY app globally</strong> with a built-in manual model switcher for <strong>OpenRouter BYOK
+            keys</strong> — swap freely between DeepSeek R1, Llama 3 70B, Gemini Flash Free, Mistral 8x7B without paying
+          subscriptions.</p>
+        <span class="only-tag"><span class="brand-orange">BYOK OpenRouter</span> · Manual Model Switch</span>
+      </div>
+
+      <div class="only-card reveal-up">
+        <div class="only-num">02</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <h3>Multi-Secure Auth: Google + Biometrics + 2FA</h3>
+        <p>The <strong>ONLY app globally</strong> providing multi-level auth: <strong>Google OAuth Sign-In</strong>,
+          Biometric Fingerprint/Face Unlock, Manual Username/Password, and <strong>Google Authenticator 2FA</strong>.
+        </p>
+        <span class="only-tag"><span class="brand-orange">Google Auth</span> · Biometrics &amp; 2FA</span>
+      </div>
+
+      <div class="only-card reveal-up">
+        <div class="only-num">03</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" />
+            <path d="M12 18h.01" />
+          </svg>
+        </div>
+        <h3>Natively Engineered For Android Hardware</h3>
+        <p>The <strong>ONLY app globally</strong> built specifically for Android to harness SQLCipher 256-bit database
+          encryption at rest, Android KeyStore TEE, and DRM <span class="brand-orange">FLAG_SECURE</span> screenshot
+          shielding.</p>
+        <span class="only-tag">Android Exclusive · <span class="brand-orange">SQLCipher 256-bit</span></span>
+      </div>
+
+      <div class="only-card reveal-up">
+        <div class="only-num">04</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <h3>Bhagavad Gita Focus Timer + Vadya Soundscapes</h3>
+        <p>The <strong>ONLY app globally</strong> that pairs Pomodoro focus cycles with 15 shuffled Bhagavad Gita
+          shlokas, ancient wisdom translations, and an independent Vadya ambient soundscape player.</p>
+        <span class="only-tag">Sanskrit Focus · <span class="brand-orange">100% Free</span></span>
+      </div>
+
+      <div class="only-card reveal-up">
+        <div class="only-num">05</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+        </div>
+        <h3>On-Device BYOK AI Token Saver (1024-Slot LRU)</h3>
+        <p>The <strong>ONLY app globally</strong> with an on-device prompt compression engine + 1024-slot LRU cache that
+          slashes your AI API expenses by <span class="brand-orange">60%+</span> while you Bring Your Own Keys (BYOK).
+        </p>
+        <span class="only-tag"><span class="brand-orange">60%+ Cost Reduction</span> · Privacy Sealed</span>
+      </div>
+
+      <div class="only-card reveal-up">
+        <div class="only-num">06</div>
+        <div class="only-icon-svg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+        </div>
+        <h3>100% Free &amp; Open Source · Made in India</h3>
+        <p>Proudly <span class="brand-orange">Made in India</span> by solo developer <strong>Naveen Telasang</strong> —
+          <span class="brand-orange">$0 cost</span>, zero subscriptions, zero ads, zero telemetry, zero corporate
+          paywalls. Forever. MIT License.
+        </p>
+        <span class="only-tag"><span class="brand-orange">Made in India</span> · MIT License</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 3: BYOK AI & MULTI-SECURE AUTH ══════════ -->
+  <section class="ai-sec" id="ai-security" aria-labelledby="aiHeading">
+    <div class="section-header">
+      <span class="section-badge">BYOK AI &amp; MULTI-SECURE AUTHENTICATION</span>
+      <h2 id="aiHeading" class="reveal-up">Bring Your Own Key (BYOK) &amp; Multi-Secure Auth</h2>
+      <p class="section-sub reveal-up">We do NOT provide or sell API keys — you bring your own keys securely. Enjoy
+        manual model switching and multi-level authentication at zero cost.</p>
+    </div>
+
+    <div class="ai-models-grid">
+      <div class="ai-card reveal-up">
+        <div class="ai-card-badge">⭐ RECOMMENDED · FREE MODELS</div>
+        <h3>🤖 OpenRouter BYOK &amp; Manual Switcher</h3>
+        <p>Bring your own <strong>OpenRouter key</strong> to access <span class="brand-orange">free-tier models</span> —
+          DeepSeek R1, Llama 3 70B, Mistral 8x7B, Gemini Flash Free — with no credit card needed. Use <span
+            class="brand-orange">Pariyojana's manual model switcher</span> to change with 1 tap. We recommend OpenRouter
+          for most users.</p>
+        <div class="ai-pills"><span>BYOK OpenRouter</span><span>DeepSeek R1 Free</span><span>Llama 3 70B
+            Free</span><span>Gemini Flash Free</span></div>
+      </div>
+
+      <div class="ai-card reveal-up">
+        <div class="ai-card-badge">MULTI-SECURE AUTH</div>
+        <h3>🔐 Google Auth + Biometrics + 2FA</h3>
+        <p>Choose your preferred login method: <strong>Google OAuth Sign-In</strong>, manual username/password,
+          <strong>Biometric Fingerprint/Face Unlock</strong>, or <strong>Google Authenticator 2FA</strong> for
+          multi-layered security.
+        </p>
+        <div class="ai-pills"><span>Google Auth</span><span>Biometric Lock</span><span>Authenticator
+            2FA</span><span>User Choice</span></div>
+      </div>
+
+      <div class="ai-card reveal-up">
+        <div class="ai-card-badge">HARDWARE SECURED · ZERO EXPOSURE</div>
+        <h3>🔑 GitHub PAT &amp; Key Hardware Enclave</h3>
+        <p>Your <strong>GitHub Personal Access Token (PAT)</strong> &amp; all AI keys are AES-256 encrypted inside the
+          <strong>Android KeyStore TEE Hardware Enclave</strong>. Keys never leave your device. <span
+            class="brand-orange">Even the developer cannot see your keys.</span>
+        </p>
+        <div class="ai-pills"><span>Android TEE</span><span>GitHub PAT</span><span>AES-256</span><span>Developer
+            Zero-Access</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 4: WHY PARIYOJANA IS IMPORTANT ══════════ -->
+  <section class="why-sec" id="why-important" aria-labelledby="whyHeading">
+    <div class="section-header">
+      <span class="section-badge">MODERN ERA PROBLEM</span>
+      <h2 id="whyHeading" class="reveal-up">Why <span class="brand-orange">Pariyojana</span> Is Important In Today's Era
+      </h2>
+      <p class="section-sub reveal-up">We live in an era where modern apps take your freedom away. Here is how <span
+          class="brand-orange">Pariyojana</span> fixes that.</p>
+    </div>
+
+    <div class="comparison-container">
+      <div class="comp-box comp-bad reveal-up">
+        <div class="comp-header">
+          <span class="comp-tag">❌ OTHER MODERN APPS</span>
+          <h3>The Subscription &amp; Tracking Trap</h3>
+        </div>
+        <ul class="comp-list">
+          <li><strong>Monthly Subscriptions:</strong> Charge $10–$20/month for basic note features.</li>
+          <li><strong>Data Harvesting:</strong> Sell your notes, habits, and search history to advertisers.</li>
+          <li><strong>Constant Ads:</strong> Interrupt your work with pop-up corporate advertisements.</li>
+          <li><strong>Internet Dependent:</strong> Stops working completely if your Wi-Fi or data drops.</li>
+          <li><strong>Notification Overload:</strong> Constantly pinging you to keep you addicted.</li>
+        </ul>
+      </div>
+
+      <div class="comp-box comp-good reveal-up">
+        <div class="comp-header">
+          <span class="comp-tag">✅ <span class="brand-orange">PARIYOJANA</span> WAY</span>
+          <h3>100% Sovereignty &amp; Privacy</h3>
+        </div>
+        <ul class="comp-list">
+          <li><strong><span class="brand-orange">100% Free Forever ($0):</span></strong> Zero subscriptions, zero
+            paywalls, open source.</li>
+          <li><strong><span class="brand-orange">256-bit Database Encryption:</span></strong> Sealed on your phone with
+            SQLCipher.</li>
+          <li><strong><span class="brand-orange">Zero Ads &amp; Zero Tracking:</span></strong> No corporate trackers or
+            analytics SDKs.</li>
+          <li><strong><span class="brand-orange">100% Offline-First:</span></strong> Access all notes, timers, and
+            boards on airplane mode.</li>
+          <li><strong><span class="brand-orange">Focus Shield Protection:</span></strong> Helps you disconnect and
+            achieve real deep work.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 5: WHO IS IT MEANT FOR ══════════ -->
+  <section class="who-sec" id="who-is-it-for" aria-labelledby="whoHeading">
+    <div class="section-header">
+      <span class="section-badge">TARGET AUDIENCE</span>
+      <h2 id="whoHeading" class="reveal-up">Who Is <span class="brand-orange">Pariyojana</span> Meant For &amp; Who Can
+        Download It?</h2>
+      <p class="section-sub reveal-up"><span class="brand-orange">Pariyojana</span> was created for anyone who wants to
+        take control of their time, projects, and personal privacy.</p>
+    </div>
+
+    <div class="who-grid">
+      <article class="who-card reveal-up">
+        <div class="who-badge">DEVELOPERS &amp; ENGINEERS</div>
+        <div class="who-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+          </svg>
+        </div>
+        <h3>Software Developers &amp; Solo Builders</h3>
+        <p>Organize repositories, manage feature sprints using the 6-stage Scrum pipeline, and cut AI API costs using
+          <span class="brand-orange">BYOK OpenRouter</span> &amp; <span class="brand-orange">GitHub PAT</span> tokens.
+        </p>
+      </article>
+
+      <article class="who-card reveal-up">
+        <div class="who-badge">STUDENTS &amp; RESEARCHERS</div>
+        <div class="who-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v10H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+        </div>
+        <h3>Students, Scholars &amp; Researchers</h3>
+        <p>Store research papers offline, organize bibliography citations, and use Bhagavad Gita focus timers to study
+          without social media interruptions.</p>
+      </article>
+
+      <article class="who-card reveal-up">
+        <div class="who-badge">JOB SEEKERS</div>
+        <div class="who-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+        </div>
+        <h3>Job Seekers &amp; Career Movers</h3>
+        <p>Keep a clear record of job applications, schedule interview dates, track salary offers, and generate tailored
+          AI cover letters.</p>
+      </article>
+
+      <article class="who-card reveal-up">
+        <div class="who-badge">PRIVACY ADVOCATES</div>
+        <div class="who-icon-svg">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <h3>Anyone Seeking Focus &amp; Privacy</h3>
+        <p>If you are tired of corporate apps spying on your notes, charging monthly fees, or locking you out when
+          offline — <span class="brand-orange">Pariyojana</span> is built for you.</p>
+      </article>
+    </div>
+
+    <div class="download-eligibility reveal-up">
+      <div class="de-icon-svg">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <path d="M12 18h.01" />
+        </svg>
+      </div>
+      <div class="de-info">
+        <h3>Who Can Download It Right Now?</h3>
+        <p>Anyone with an <strong>Android smartphone (Android 10+)</strong> can download <span
+            class="brand-orange">Pariyojana</span> for <span class="brand-orange">100% FREE ($0)</span>. Zero
+          registration, zero accounts, zero internet for core tasks.</p>
+      </div>
+      <a href="https://github.com/Naveen-21-Cyber" class="btn btn-primary de-btn" target="_blank"
+        rel="noopener noreferrer">Get App APK ($0)</a>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 6: SANSKRIT & MADE IN INDIA ══════════ -->
+  <section class="sanskrit-sec" id="sanskrit-story" aria-labelledby="sanskritHeading">
+    <div class="section-header">
+      <span class="section-badge">MADE IN INDIA · HERITAGE &amp; PHILOSOPHY</span>
+      <h2 id="sanskritHeading" class="reveal-up">Why Is It Named <span class="brand-orange">
+          Pariyojana
+          (परियोजना)?</span></h2>
+      <p class="section-sub reveal-up">Derived from ancient Sanskrit, <span class="brand-orange">Pariyojana</span>(परि
+        + योजना) means <strong>"A Plan of Noble Action &amp; Structured Project"</strong>.</p>
+    </div>
+
+    <div class="sanskrit-grid">
+      <div class="sanskrit-card reveal-up">
+        <div class="sk-symbol">परियोजना</div>
+        <h3>The Meaning of Pariyojana</h3>
+        <p>In Sanskrit, <strong>Pariyojana</strong> represents the transformation of a vision into reality through
+          systematic planning. We chose this name because every great achievement starts as an unorganized idea that
+          needs structure and dedicated effort.</p>
+      </div>
+
+      <div class="sanskrit-card reveal-up">
+        <div class="sk-symbol">विचार रक्षा</div>
+        <h3>Cherishing &amp; Nurturing Ideas</h3>
+        <p>Your creative thoughts are sacred seeds. Instead of letting them disappear in random notepad drafts, <span
+            class="brand-orange">Pariyojana</span> provides a dedicated encrypted vault where ideas are cherished,
+          organized, and promoted into active projects with 1 tap.</p>
+      </div>
+
+      <div class="sanskrit-card reveal-up">
+        <div class="sk-symbol">योगः कर्मसु</div>
+        <h3>Sanskrit Wisdom &amp; Deep Focus</h3>
+        <p>Incorporates ancient Indian focus philosophy (<em>"Yoga is excellence in action" — BG 2.50</em>). The
+          integrated Pomodoro timer displays 15 curated Sanskrit shlokas to calm your mind and help you maintain deep
+          focus during work sprints.</p>
+      </div>
+
+      <div class="sanskrit-card reveal-up">
+        <div class="sk-symbol">आत्मनिर्भर</div>
+        <h3>100% Sovereign Indian Software</h3>
+        <p>Built independently in India by solo developer <strong>Naveen Telasang</strong>. Champions <strong>Digital
+            Sovereignty</strong> — zero reliance on foreign cloud servers, zero monthly subscription traps, and zero
+          compromise on personal privacy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 7: FEATURES — MAGAZINE GRID LAYOUT ══════════ -->
+  <section class="features" id="features" aria-labelledby="featuresHeading">
+    <div class="section-header">
+      <span class="section-badge">8 CORE SYSTEM MODULES</span>
+      <h2 id="featuresHeading" class="reveal-up">State-of-the-Art Core System Modules</h2>
+      <p class="section-sub reveal-up">8 native engines built into <span class="brand-orange">Pariyojana</span> — all
+        offline-first, all encrypted, all <span class="brand-orange">100% free</span>.</p>
+    </div>
+
+    <div class="feat-grid">
+
+      <!-- MODULE 01 -->
+      <article class="feat-card feat-card--amber reveal-up">
+        <div class="feat-num">01</div>
+        <div class="feat-icon-wrap feat-icon--amber">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M9.663 17h4.673M12 3a7 7 0 00-7 7c0 2.38 1.162 4.49 2.95 5.8 1.05.77 1.7 1.95 1.7 3.2v.5h4.7v-.5c0-1.25.65-2.43 1.7-3.2A7.003 7.003 0 0012 3z" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 01 / 08</span>
+          <span class="feat-badge">🔒 Encrypted Vault</span>
+        </div>
+        <h3 class="feat-title">Idea Vault &amp; Promotion</h3>
+        <p class="feat-desc">Cherish and capture raw thoughts instantly. With 1 tap, promote any note into a full
+          6-stage Scrum project, study paper, or career job application.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>1-Tap</span>Promotion</div>
+          <div class="feat-metric"><span>0%</span>Data Loss</div>
+          <div class="feat-metric"><span>AES-256</span>Encrypted</div>
+        </div>
+        <div class="feat-tags"><span>Idea Vault</span><span>1-Tap Promote</span><span>Biometric Sealed</span></div>
+      </article>
+
+      <!-- MODULE 02 -->
+      <article class="feat-card feat-card--cyan reveal-up">
+        <div class="feat-num">02</div>
+        <div class="feat-icon-wrap feat-icon--cyan">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 02 / 08</span>
+          <span class="feat-badge">⭐ Recommended</span>
+        </div>
+        <h3 class="feat-title">BYOK AI Manual Switcher</h3>
+        <p class="feat-desc">Bring your own <strong>OpenRouter key</strong> (free models available — no credit card
+          needed) and switch between DeepSeek R1, Llama 3 70B, Gemini Flash Free, Mistral with 1 tap.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>BYOK</span>Your Keys</div>
+          <div class="feat-metric"><span>Free</span>Models Available</div>
+          <div class="feat-metric"><span>Manual</span>Model Switch</div>
+        </div>
+        <div class="feat-tags"><span>OpenRouter</span><span>GitHub PAT</span><span>Manual Switcher</span></div>
+      </article>
+
+      <!-- MODULE 03 -->
+      <article class="feat-card feat-card--coral reveal-up">
+        <div class="feat-num">03</div>
+        <div class="feat-icon-wrap feat-icon--coral">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 03 / 08</span>
+          <span class="feat-badge">📋 Agile Pipeline</span>
+        </div>
+        <h3 class="feat-title">6-Stage Scrum Board</h3>
+        <p class="feat-desc">Drag and drop project tasks through 6 visual pipeline stages: Backlog → Sprint → In Progress → QA → Security Audit → Shipped.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>6</span>Pipeline Stages</div>
+          <div class="feat-metric"><span>Visual</span>Sprint Drag</div>
+          <div class="feat-metric"><span>Offline</span>No Sync Needed</div>
+        </div>
+        <div class="feat-tags"><span>Visual Kanban</span><span>6 Stages</span><span>Progress Tracker</span></div>
+      </article>
+
+      <!-- MODULE 04 -->
+      <article class="feat-card feat-card--purple reveal-up">
+        <div class="feat-num">04</div>
+        <div class="feat-icon-wrap feat-icon--purple">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 04 / 08</span>
+          <span class="feat-badge">🌐 World of Science</span>
+        </div>
+        <h3 class="feat-title">World of Science Revisions Hub</h3>
+        <p class="feat-desc">Store study PDFs, detect SSRN submission stalls, manage peer-review action item checklists, and auto-generate scientific AI rebuttal letters to journal reviewers.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>SSRN</span>Stall Alert</div>
+          <div class="feat-metric"><span>AI</span>Rebuttal Letter</div>
+          <div class="feat-metric"><span>Peer</span>Review Tasks</div>
+        </div>
+        <div class="feat-tags"><span>World of Science</span><span>Reviewer Tasks</span><span>AI Rebuttal Generator</span></div>
+      </article>
+
+      <!-- MODULE 05 -->
+      <article class="feat-card feat-card--gold reveal-up">
+        <div class="feat-num">05</div>
+        <div class="feat-icon-wrap feat-icon--gold">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 05 / 08</span>
+          <span class="feat-badge">📜 Sanskrit Wisdom</span>
+        </div>
+        <h3 class="feat-title">Pomodoro + Gita Focus Shield</h3>
+        <p class="feat-desc">Deep work sprints with 15 Bhagavad Gita stoic wisdom verses to maintain unwavering mental clarity, plus offline Vadya ambient soundscapes for flow state.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>15</span>Sanskrit Verses</div>
+          <div class="feat-metric"><span>Vadya</span>Soundscapes</div>
+          <div class="feat-metric"><span>Custom</span>Sprint Length</div>
+        </div>
+        <div class="feat-tags"><span>15 Shlokas</span><span>Sanskrit Wisdom</span><span>Vadya Audio</span></div>
+      </article>
+
+      <!-- MODULE 06 -->
+      <article class="feat-card feat-card--coral reveal-up">
+        <div class="feat-num">06</div>
+        <div class="feat-icon-wrap feat-icon--coral">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 06 / 08</span>
+          <span class="feat-badge">🛡️ KeySafe &amp; RAM Zeroing</span>
+        </div>
+        <h3 class="feat-title">Biometric KeySafe &amp; Anti-Forensics</h3>
+        <p class="feat-desc">Biometric fingerprint authenticated vault partition with Master API KeySafe and Anti-Forensic RAM Zeroing that instantly wipes decrypted keys from memory on lock.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>RAM</span>Zero-Memory Wipe</div>
+          <div class="feat-metric"><span>AES-256</span>SQLCipher</div>
+          <div class="feat-metric"><span>Biometric</span>Fingerprint Lock</div>
+        </div>
+        <div class="feat-tags"><span>RAM Zeroing</span><span>Biometric Vault</span><span>DRM Shield</span></div>
+      </article>
+
+      <!-- MODULE 07 -->
+      <article class="feat-card feat-card--mint reveal-up">
+        <div class="feat-num">07</div>
+        <div class="feat-icon-wrap feat-icon--mint">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 07 / 08</span>
+          <span class="feat-badge">💼 Career Analytics</span>
+        </div>
+        <h3 class="feat-title">Job Application Tracker</h3>
+        <p class="feat-desc">Track every job application from Applied to Interview and Offer, with built-in salary analytics and AI-powered cover letter generation using your BYOK key.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>Full</span>Pipeline Track</div>
+          <div class="feat-metric"><span>AI</span>Cover Letter</div>
+          <div class="feat-metric"><span>Salary</span>Analytics</div>
+        </div>
+        <div class="feat-tags"><span>Job Pipeline</span><span>Salary Tracker</span><span>AI Cover Letters</span></div>
+      </article>
+
+      <!-- MODULE 08 -->
+      <article class="feat-card feat-card--amber reveal-up">
+        <div class="feat-num">08</div>
+        <div class="feat-icon-wrap feat-icon--amber">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+        </div>
+        <div class="feat-meta">
+          <span class="feat-module-tag">MODULE 08 / 08</span>
+          <span class="feat-badge">⚡ 120 FPS Engine</span>
+        </div>
+        <h3 class="feat-title">120 FPS High-Refresh Engine &amp; Heatmap</h3>
+        <p class="feat-desc">Hardware-accelerated rendering pipeline with isolated repaint boundaries and a 30-day activity heatmap tracking continuous development streaks.</p>
+        <div class="feat-metrics">
+          <div class="feat-metric"><span>120+</span>FPS Butter Smooth</div>
+          <div class="feat-metric"><span>30-Day</span>Habit Heatmap</div>
+          <div class="feat-metric"><span>0</span>Frame Jitter</div>
+        </div>
+        <div class="feat-tags"><span>120 FPS</span><span>Zero Lag</span><span>Habit Heatmap</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 8: INTERACTIVE LIVE BROWSER PREVIEW ══════════ -->
+  <section class="demo" id="demo" aria-labelledby="demoHeading">
+    <div class="section-header">
+      <span class="section-badge">INTERACTIVE DEMO</span>
+      <h2 id="demoHeading" class="reveal-up">Try <span class="brand-orange">Pariyojana</span> Live In Your Browser</h2>
+      <p class="section-sub reveal-up">Click the tabs below to test the actual app features right now.</p>
+    </div>
+
+    <div class="app-sim-wrap">
+      <div class="app-sim" id="appSim">
+        <div class="sim-notch"></div>
+        <div class="sim-header">
+          <div class="sim-logo-row">
+            <img src="app_logo.png" alt="" class="sim-logo-img" onerror="this.style.display='none'">
+            <span class="sim-title"><span class="brand-orange">Pariyojana</span></span>
+          </div>
+          <span class="sim-enc">🔒 Android HSM</span>
+        </div>
+
+        <div class="sim-tabs" role="tablist">
+          <button class="stab stab--on" onclick="simTab('timer')" id="t-timer" role="tab" aria-selected="true">🎯
+            Timer</button>
+          <button class="stab" onclick="simTab('kanban')" id="t-kanban" role="tab">📋 Scrum</button>
+          <button class="stab" onclick="simTab('vault')" id="t-vault" role="tab">💡 Vault</button>
+          <button class="stab" onclick="simTab('token')" id="t-token" role="tab">⚡ BYOK</button>
+        </div>
+
+        <div class="sim-view-wrap">
+          <!-- Timer -->
+          <div class="sv sv--on" id="v-timer">
+            <div class="sv-gita">
+              <div class="sv-sanskrit" id="svSanskrit">योगः कर्मसु कौशलम्</div>
+              <div class="sv-trans" id="svTrans">Excellence in action is true Yoga — BG 2.50</div>
+            </div>
+            <div class="timer-ring">
+              <svg viewBox="0 0 120 120">
+                <circle class="tr-bg" cx="60" cy="60" r="50" />
+                <circle class="tr-fill" id="trFill" cx="60" cy="60" r="50" />
+              </svg>
+              <div class="timer-center">
+                <div class="timer-time" id="timerTime">25:00</div>
+                <div class="timer-lbl">FOCUS</div>
+              </div>
+            </div>
+            <div class="dur-row">
+              <button class="dur" onclick="setDur(15)">15m</button>
+              <button class="dur dur--on" onclick="setDur(25)">25m</button>
+              <button class="dur" onclick="setDur(45)">45m</button>
+              <button class="dur" onclick="setDur(60)">60m</button>
+            </div>
+            <div class="timer-btns">
+              <button class="tbtn" onclick="resetTimer()">↺</button>
+              <button class="tbtn tbtn--play" id="playBtn" onclick="toggleTimer()">▶</button>
+              <button class="tbtn" onclick="nextShloka()">📜</button>
+            </div>
+          </div>
+
+          <!-- Kanban -->
+          <div class="sv" id="v-kanban">
+            <div class="kanban-cols">
+              <div class="kcol">
+                <div class="kcol-hd">📌 Backlog</div>
+                <div class="kcard">⚡ OpenRouter Free AI</div>
+                <div class="kcard">🧠 GitHub PAT Token</div>
+              </div>
+              <div class="kcol">
+                <div class="kcol-hd">🏃 In Progress</div>
+                <div class="kcard kcard--on">Pariyojana App</div>
+                <div class="kcard">Vadya Player</div>
+              </div>
+              <div class="kcol">
+                <div class="kcol-hd">✅ Done</div>
+                <div class="kcard kcard--done">SQLCipher DB</div>
+                <div class="kcard kcard--done">Focus Shield</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vault -->
+          <div class="sv" id="v-vault">
+            <div class="vault-list">
+              <div class="vitem">
+                <div class="vitem-title">💡 OpenRouter DeepSeek Free Model</div>
+                <div class="vitem-tags"><span class="vtag">AI</span><span class="vtag">→ Project</span></div>
+              </div>
+              <div class="vitem">
+                <div class="vitem-title">⚡ Android TEE Hardware Enclave</div>
+                <div class="vitem-tags"><span class="vtag">Security</span><span class="vtag">→ Research</span></div>
+              </div>
+              <div class="vitem">
+                <div class="vitem-title">🎵 Vadya Ambient Soundscapes</div>
+                <div class="vitem-tags"><span class="vtag">Audio</span><span class="vtag">→ Project</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BYOK Token -->
+          <div class="sv" id="v-token">
+            <div class="byok-wrap">
+              <textarea id="byokInput" class="byok-ta" rows="3"
+                placeholder="Paste your OpenRouter prompt here...">Analyze zero-trust architecture paper using OpenRouter free DeepSeek model and summarize key security findings.</textarea>
+              <button class="btn btn-primary byok-btn" onclick="calcTokens()">⚡ Check Token Savings</button>
+              <div class="byok-results">
+                <div class="byok-row"><span>Original</span><span id="bOrig">—</span></div>
+                <div class="byok-row"><span>Compressed</span><span id="bComp" class="green-val">—</span></div>
+                <div class="byok-row"><span>Saved</span><span id="bSaved" class="coral-val">—</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SECTION 9: DEVELOPER / CREATOR SHOWCASE ══════════ -->
+  <section class="developer" id="developer" aria-labelledby="devHeading">
+    <div class="dev-inner">
+      <div class="dev-left reveal-left">
+        <span class="section-badge">SOLO CREATOR · MADE IN INDIA</span>
+        <h2 id="devHeading">Created by<br><em class="accent-em">Naveen Telasang</em></h2>
+        <p class="dev-bio">Systems Architect &amp; Security Researcher from India. Built <span
+            class="brand-orange">Pariyojana</span> single-handedly to give users 100% control over their personal data,
+          projects, and daily focus without corporate ads or subscriptions.</p>
+        <div class="dev-links">
+          <a href="https://naveencyber.gt.tc/?i=1" class="dev-link" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            Portfolio: naveencyber.gt.tc
+          </a>
+          <a href="https://github.com/Naveen-21-Cyber" class="dev-link" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            GitHub: github.com/Naveen-21-Cyber
+          </a>
+          <a href="https://cyberbuddy.gt.tc/?i=1" class="dev-link" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Cyber Security Buddy: cyberbuddy.gt.tc
+          </a>
+        </div>
+      </div>
+      <div class="dev-right reveal-right">
+        <div class="doodle-card" id="doodleCard">
+          <div class="dc-tape"></div>
+          <div class="dc-logo-wrap">
+            <img src="app_logo.png" alt="Pariyojana" class="dc-logo" onerror="this.style.display='none'">
+          </div>
+          <div class="dc-name">Naveen Telasang</div>
+          <div class="dc-role">SYSTEMS ARCHITECT · SECURITY RESEARCHER</div>
+          <div class="dc-crafted">✦ Crafted Solo in India · Zero Ads · Zero Subscriptions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ DOWNLOAD CTA ══════════ -->
+  <section class="download" id="download" aria-labelledby="downloadHeading">
+    <div class="dl-content reveal-up">
+      <span class="section-badge"><span class="brand-orange">100% FREE ($0)</span> &amp; OPEN SOURCE</span>
+      <h2 id="downloadHeading">Ready To Organize Your Life?<br><em class="accent-em">Download <span
+            class="brand-orange">Pariyojana</span> Today.</em></h2>
+      <p class="dl-sub">No sign-ups. No subscriptions ($0). No ads. No data harvesting.<br>Download the free Android APK
+        or view the open source code on GitHub.</p>
+      <div class="dl-actions">
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest/download/Pariyojana.apk" class="btn btn-primary" id="dlApkBtn" target="_blank"
+          rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2v13M5 9l7 7 7-7" />
+            <rect x="2" y="19" width="20" height="3" rx="1.5" />
+          </svg>
+          Download Android APK ($0 Free)
+        </a>
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          View Source Code on GitHub
+        </a>
+      </div>
+
+      <div class="dl-oss-highlights">
+        <span class="oss-chip">⭐ MIT Licensed</span>
+        <span class="oss-chip">🛡️ SQLCipher Encrypted</span>
+        <span class="oss-chip"> Made in India</span>
+        <span class="oss-chip">🔒 Hardware KeyStore Bound</span>
+      </div>
+
+      <p class="dl-note">Requires Android 10+ · <span class="brand-orange">100% Encrypted</span> with SQLCipher &amp;
+        Android KeyStore TEE</p>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT FORM ══════════ -->
+  <section class="contact" id="contact" aria-labelledby="contactHeading">
+    <div class="section-header">
+      <span class="section-badge">REACH THE CREATOR</span>
+      <h2 id="contactHeading" class="reveal-up">Got Questions Or Suggestions?</h2>
+      <p class="section-sub reveal-up">Send a message directly to Naveen Telasang.</p>
+    </div>
+    <div class="contact-wrap reveal-up">
+      <form action="https://formsubmit.co/naveencyber@proton.me" method="POST" class="contact-form" id="contactForm">
+        <input type="hidden" name="_csrf_token" id="csrfTokenVal" value="">
+        <input type="hidden" name="_subject" value="Pariyojana — Direct Website Message">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="http://pariyojana.gt.tc/?msg=sent">
+        <input type="hidden" name="_template" value="table">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userName" class="form-label">Your Name</label>
+            <input type="text" id="userName" name="name" class="form-input" placeholder="Arjuna" required
+              maxlength="100" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="userEmail" class="form-label">Email Address</label>
+            <input type="email" id="userEmail" name="email" class="form-input" placeholder="you@example.com" required
+              maxlength="120" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="userMsg" class="form-label">Message</label>
+          <textarea id="userMsg" name="message" class="form-textarea"
+            placeholder="Share your thoughts, questions, or feature ideas..." required maxlength="2000"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="app_logo.png" alt="Pariyojana" class="footer-logo-img" onerror="this.style.display='none'">
+          <span class="footer-logo-name"><span class="brand-orange">Pariyojana</span></span>
+        </div>
+        <p class="footer-motto">"Master Your Execution. Guard Your Sovereignty."</p>
+        <p class="footer-gita">योगः कर्मसु कौशलम् — Excellence in action is true Yoga — BG 2.50</p>
+        <p class="footer-credit">✦ <span class="brand-orange">Made in India</span> · Open Source Community Software by
+          Naveen Telasang</p>
+      </div>
+      <div class="footer-cols">
+        <div class="fcol">
+          <h3 class="fcol-title">Navigation</h3>
+          <a href="#what-is-it">What Is It?</a>
+          <a href="#only-app">Why Unique</a>
+          <a href="#ai-security">BYOK AI &amp; Auth</a>
+          <a href="#why-important">Why Need It?</a>
+          <a href="#who-is-it-for">Who Is It For?</a>
+          <a href="#sanskrit-story">Made In India</a>
+          <a href="#features">Key Features</a>
+          <a href="#demo">Live Demo</a>
+          <a href="#download">Download</a>
+        </div>
+        <div class="fcol">
+          <h3 class="fcol-title">Developer</h3>
+          <a href="https://naveencyber.gt.tc/?i=1" target="_blank" rel="noopener noreferrer">Portfolio</a>
+          <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://cyberbuddy.gt.tc/?i=1" target="_blank" rel="noopener noreferrer">Cyber Security Buddy</a>
+        </div>
+        <div class="fcol">
+          <h3 class="fcol-title">Legal &amp; Meta</h3>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="robots.txt">robots.txt</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span class="brand-orange">Pariyojana</span> — <span class="brand-orange">Made in India</span> · Open
+        Source Community Project · Created by Naveen Telasang · MIT License</span>
+    </div>
+  </footer>
+
+  <script src="script.js?v=1.0.2"></script>
+</body>
+
+</html>

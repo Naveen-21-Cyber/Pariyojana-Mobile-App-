@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust system CAs (default) -->
+            <certificates src="system"/>
+            <!-- Also trust user-installed CAs for debug builds -->
+            <certificates src="user"/>
+        </trust-anchors>
+    </base-config>
+    <!-- Explicitly allow OpenRouter and Jina Reader APIs -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">openrouter.ai</domain>
+        <domain includeSubdomains="true">r.jina.ai</domain>
+        <domain includeSubdomains="true">integrate.api.nvidia.com</domain>
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
