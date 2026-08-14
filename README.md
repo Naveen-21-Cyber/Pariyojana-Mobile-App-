@@ -1,15 +1,19 @@
 # PARIYOJANA (परियोजना) v1.0.0
-### Sovereign Focus & Productivity Vault for Android 🇮🇳
+### Sovereign Focus, Productivity & Research Vault for Android 🇮🇳
+
+<div align="center">
 
 [![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.0.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)
 [![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20%F0%9F%87%AE%F0%9F%87%B3-FF9933?style=for-the-badge)](http://pariyojana.gt.tc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](LICENSE)
-[![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](http://pariyojana.gt.tc/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
+[![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](SECURITY.md)
 [![BYOK AI: OpenRouter Supported](https://img.shields.io/badge/BYOK%20AI-OpenRouter%20%7C%20DeepSeek%20%7C%20Claude%20%7C%20GPT--4o-8B5CF6?style=for-the-badge)](http://pariyojana.gt.tc/)
 
-**Official Website:** [http://pariyojana.gt.tc/](http://pariyojana.gt.tc/)  
-**GitHub Repository:** [https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-)
+**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.0.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Contribute](CONTRIBUTING.md)**
+
+</div>
 
 ---
 
@@ -19,8 +23,8 @@
   <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">
     <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.0.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
   </a>
-  <p><em>👉 Direct 1-Click Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">Pariyojana.apk (v1.0.0 Production Release)</a></strong></em><br/>
-  Compatible with Android 10, 11, 12, 13, 14, and 15+ · Ultra-smooth 120 FPS</p>
+  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">Pariyojana.apk (v1.0.0 Production Release)</a></strong></em><br/>
+  Compatible with Android 10, 11, 12, 13, 14, 15+ · 100% Free ($0) · No Sign-Up · No Ads · 120 FPS</p>
 </div>
 
 ---
@@ -29,7 +33,10 @@
 
 Named after the Sanskrit word **परियोजना** (*Pariyojana* — *"A Plan of Noble Action"*), this app is crafted to restore complete personal data sovereignty to creators, developers, researchers, and students.
 
-Unlike commercial tools that monetize your personal notes, project roadmaps, and job applications on remote surveillance clouds, **Pariyojana is 100% offline-first**. All your data lives exclusively on your local Android device in a 256-bit SQLCipher-encrypted database.
+Unlike commercial tools that monetize your thoughts, project roadmaps, and career dossiers on remote surveillance clouds, **Pariyojana is 100% offline-first**. All your data lives exclusively on your local Android device in a 256-bit SQLCipher-encrypted database protected by Android KeyStore hardware enclaves.
+
+> *"Master Your Execution. Guard Your Sovereignty."*  
+> **योगः कर्मसु कौशलम्** *(Excellence in Action is Yoga)*
 
 ---
 
@@ -79,42 +86,81 @@ Unlike commercial tools that monetize your personal notes, project roadmaps, and
 
 ---
 
-## ✨ Core Pillars & Features
+## ⚔️ How Pariyojana Compares
 
-### 1. 💡 Idea Vault & Sovereign Cherishing System
-- Capture thoughts, startup ideas, and research snippets instantly.
-- Tag classification, importance scoring, and AI-driven expansion.
-- Local AES-256 encrypted storage with instant zero-lag search.
+| Feature | **Pariyojana** 🇮🇳 | Notion / Asana | Jira Cloud | Obsidian (Sync) |
+|---|:---:|:---:|:---:|:---:|
+| **Pricing** | **100% Free ($0 Lifetime)** | $10 – $25/mo | $8 – $15/user/mo | $4 – $8/mo |
+| **Storage Architecture** | **Local Device Only** | Cloud Server | Cloud Server | Cloud Sync |
+| **Database Encryption** | **SQLCipher 256-bit AES** | Plaintext on Server | Plaintext on Server | E2EE Add-on |
+| **Hardware KeyStore Bound** | **✅ Android TEE HSM** | ❌ No | ❌ No | ❌ No |
+| **Anti-Forensic RAM Zeroing**| **✅ Yes (Instant Wipe)** | ❌ No | ❌ No | ❌ No |
+| **AI Intelligence Model** | **BYOK OpenRouter / Free** | $20/mo Addon | ❌ No | Plugin Dependent |
+| **Account Requirement** | **Zero (No Account)** | Mandatory Account | Mandatory Account | Account for Sync |
+| **Academic Rebuttal Hub** | **✅ Built-in** | ❌ No | ❌ No | ❌ No |
+| **Open Source** | **✅ MIT Licensed** | ❌ Closed Source | ❌ Closed Source | ❌ Closed Source |
 
-### 2. 📋 Scrum & Agile Project Kanban Stage
-- Full agile Kanban boards with custom swimlanes, WIP limits, and milestone metrics.
-- Skeuomorphic folder trees with filesystem-grade storage asset indexing.
-- Real-time GitHub commit telemetry and repository synchronization.
+---
 
-### 3. 📄 Academic Research Tracker & World of Science Revisions
-- Comprehensive research paper tracker with SSRN Stall Detection.
-- **World of Science Revisions Suite**: Track peer-review action items, editorial requirements, and reviewer comments.
-- **AI Rebuttal Letter Generator**: Automatically draft formal scientific responses to journal reviewers.
+## ✨ Core Feature Modules
 
-### 4. 🤖 BYOK (Bring Your Own Key) Multi-Model AI Suite
-- **OpenRouter (Recommended & Free Tier Ready):** Access DeepSeek R1, Llama 3.3 70B, Gemini 2.0 Flash Free, and Claude 3.5 Sonnet.
-- **Direct Providers:** Native Gemini 2.0, OpenAI GPT-4o, Anthropic Claude, and Groq integration.
-- **Zero Privacy Leakage:** API calls route directly from your device to the LLM provider. Zero intermediary logging.
+### 1. 💡 Sovereign Idea Vault & Cherishing System
+- Capture thoughts, breakthrough startup concepts, and research sparks in seconds.
+- Tag taxonomy, priority matrix, and AI-assisted idea expansion.
+- Local AES-256 encrypted storage with instantaneous zero-latency search.
 
-### 5. 🛡️ Zero-Knowledge Biometric Vault & Anti-Forensics
+### 2. 📋 6-Stage Scrum & Agile Kanban Stage
+- Visual pipeline: `Backlog` → `Sprint` → `In Progress` → `QA` → `Security Audit` → `Shipped`.
+- Skeuomorphic folder trees with filesystem-grade asset indexing.
+- 30-Day Activity Heatmap tracking daily consistency streaks.
+
+### 3. 🌐 Academic Research Tracker & World of Science Revisions
+- Study PDF library with SSRN submission stall detection.
+- **World of Science Action Items**: Checklist for reviewer comments, revisions, and journal deadlines.
+- **AI Rebuttal Generator**: Draft formal, courteous, and scientifically rigorous rebuttal letters to reviewers.
+
+### 4. 🤖 BYOK (Bring Your Own Key) Multi-Model AI Studio
+- **OpenRouter Support**: DeepSeek R1, Llama 3.3 70B, Gemini 2.0 Flash Free, Claude 3.5 Sonnet, and GPT-4o.
+- **Zero Privacy Leakage**: Direct on-device HTTPS requests to LLM APIs. Zero intermediary servers.
+- Model switcher allowing you to compare answers across multiple AI engines.
+
+### 5. 💼 Job Application Tracker & Indian LPA Tax Engine
+- End-to-end funnel: `Applied` → `Screening` → `Technical` → `HR` → `Offer` → `Rejected`.
+- **LPA Tax & In-Hand Calculator**: New & Old Indian Tax Regime breakdown with monthly in-hand salary projections.
+- AI Company Dossier generator & resume keyword matcher.
+
+### 6. 🛡️ Biometric KeySafe & Anti-Forensic RAM Zeroing
 - Fingerprint / PIN authenticated private partition.
-- **Master API Key Safe**: Encrypted storage for all your developer API keys.
-- **Anti-Forensic RAM Zeroing**: Instantly clears sensitive decrypted key buffers from device memory on lock.
+- **Master API KeySafe**: Hardware-sealed storage for developer keys and credentials.
+- **Anti-Forensics Engine**: Overwrites decrypted keys with zeroes (`0x00`) in RAM on app background/lock.
 
-### 6. 🎧 Focus Shield & Sacred Gita Wisdom
-- Deep work distraction blocker with customizable focus countdown timers.
-- Integrated ambient soundscapes: Daily Digest, Milestone Fanfare, Stealth Pulse, and Sacred Gita Om.
-- Sacred Gita daily guidance for mental clarity, stoic resilience, and purpose.
+### 7. 🕉️ Focus Shield & Sacred Bhagavad Gita Wisdom
+- Deep work distraction blocker with custom Pomodoro sprint durations.
+- 15 curated Sanskrit Bhagavad Gita verses for equanimity, detachment from outcome, and stoic focus.
+- Offline Vadya ambient soundscapes (*Daily Digest*, *Milestone Fanfare*, *Sacred Gita Om*).
 
-### 7. ⚡ 120 FPS High-Performance Engine
-- Hardware-accelerated Flutter 3.29 rendering pipeline.
-- Lightweight translucent frosted glass architecture with `RepaintBoundary` isolation.
-- Zero frame drops, zero unconstrained GPU overdraw, ultra-responsive touch gestures.
+### 8. ⚡ 120 FPS High-Refresh Velvet Engine
+- Hardware-accelerated Flutter 3.29 rendering pipeline with `RepaintBoundary` isolation.
+- Zero frame drops, fluid physics-based gestures, and battery-friendly dark mode.
+
+---
+
+## 🔒 Security & Threat Model
+
+```mermaid
+flowchart LR
+    A[User Biometrics] -->|TEE Auth| B[Android KeyStore HSM]
+    B -->|Derives 256-bit Key| C[SQLCipher Engine]
+    C -->|Encrypted Read/Write| D[(Encrypted SQLite DB)]
+    E[BYOK AI API Key] -->|Encrypted At Rest| F[Master KeySafe]
+    F -->|Decrypted in Memory| G[API Call]
+    G -->|App Lock Event| H[Anti-Forensic RAM Zeroing 0x00]
+```
+
+- **Encryption at Rest:** 256-bit AES cipher in CBC mode with 64,000 PBKDF2 iterations.
+- **Key Derivation:** Hardware-backed Master Key derived via Android KeyStore TEE.
+- **Memory Safety:** Anti-forensic byte clearing ensures zero decrypted keys remain in memory dumps.
+- **Screenshot Protection:** DRM `FLAG_SECURE` prevents accidental OS recents caching.
 
 ---
 
@@ -132,10 +178,9 @@ graph TD
 
 - **Framework:** Flutter 3.29+ (Android Native)
 - **State Management:** Riverpod 2.6 (Feature-First Clean Architecture)
-- **Navigation:** GoRouter 17.0+ (Typed Routes)
-- **Local Database:** Drift + SQLCipher (Encrypted SQLite at rest)
-- **Security:** AES-256 Key Derivation, Zero-Knowledge Biometric Auth
-- **Sound & Haptics:** AudioPlayers with asset-cached micro-tones
+- **Navigation:** GoRouter 17.0+ (Typed Declarative Routes)
+- **Local Database:** Drift + SQLCipher (Encrypted SQLite)
+- **Haptics & Audio:** AudioPlayers with asset-cached micro-tones
 
 ---
 
@@ -159,22 +204,33 @@ flutter pub get
 # 3. (Optional) Configure environment variables
 cp .env.example .env
 
-# 4. Run database & model generators
+# 4. Run database & code generators
 flutter pub run build_runner build --delete-conflicting-outputs
 
-# 5. Build production APK
-flutter build apk --release
+# 5. Build optimized production APK
+flutter build apk --release --no-tree-shake-icons
 ```
 
-The compiled APK will be located at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
+The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
+
+---
+
+## 🤝 Community & Contributing
+
+Pariyojana is built for the global open-source community by sovereign developers. We welcome contributions from builders worldwide!
+
+- 🐛 **Found a bug?** Open an [Issue](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues).
+- 💡 **Have a feature idea?** Start a [Discussion](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/discussions).
+- 🛠️ **Want to write code?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) and pick up a `good first issue`.
+- ⭐ **Love the project?** Give us a star on GitHub — it helps Pariyojana reach more sovereign builders!
 
 ---
 
 ## 🇮🇳 Made in India — For Sovereign Builders Worldwide
 
-Pariyojana is built with passion and craftsmanship by an independent developer dedicated to user privacy, open systems, and digital sovereignty.
+Pariyojana is proudly designed, engineered, and maintained with passion in India for builders worldwide who care about digital freedom, privacy, and craftsmanship.
 
-- **Developer:** [Naveen](https://github.com/Naveen-21-Cyber)
+- **Lead Developer:** [Naveen](https://github.com/Naveen-21-Cyber)
 - **Website:** [http://pariyojana.gt.tc/](http://pariyojana.gt.tc/)
 - **Repository:** [https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-)
 
