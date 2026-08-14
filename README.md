@@ -166,7 +166,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter build apk --release
 ```
 
-The compiled APK will be located at: `build/app/outputs/flutter-apk/app-release.apk`.
+The compiled APK will be located at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
 
 ---
 
