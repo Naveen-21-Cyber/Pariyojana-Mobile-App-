@@ -31,25 +31,11 @@ class ClayCard extends StatefulWidget {
 
 class _ClayCardState extends State<ClayCard> {
   bool _isPressed = false;
-  double _tiltX = 0.0;
-  double _tiltY = 0.0;
 
-  void _handlePanUpdate(DragUpdateDetails details) {
-    final size = context.size;
-    if (size != null && size.width > 0 && size.height > 0) {
-      setState(() {
-        _tiltX = ((details.localPosition.dy - size.height / 2) / (size.height / 2) * -0.05).clamp(-0.05, 0.05);
-        _tiltY = ((details.localPosition.dx - size.width / 2) / (size.width / 2) * 0.05).clamp(-0.05, 0.05);
-      });
+  void _resetPress() {
+    if (_isPressed) {
+      setState(() => _isPressed = false);
     }
-  }
-
-  void _resetTilt() {
-    setState(() {
-      _tiltX = 0.0;
-      _tiltY = 0.0;
-      _isPressed = false;
-    });
   }
 
   @override
@@ -105,9 +91,6 @@ class _ClayCardState extends State<ClayCard> {
       margin: widget.margin,
       transformAlignment: Alignment.center,
       transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001)
-        ..rotateX(_tiltX)
-        ..rotateY(_tiltY)
         // ignore: deprecated_member_use
         ..scale(scale),
       clipBehavior: Clip.antiAlias,
@@ -143,8 +126,8 @@ class _ClayCardState extends State<ClayCard> {
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) => _resetTilt(),
-      onTapCancel: () => _resetTilt(),
+      onTapUp: (_) => _resetPress(),
+      onTapCancel: () => _resetPress(),
       onTap: widget.onTap,
       child: cardWidget,
     );
