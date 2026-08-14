@@ -11,7 +11,7 @@
 [![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](SECURITY.md)
 [![BYOK AI: OpenRouter Supported](https://img.shields.io/badge/BYOK%20AI-OpenRouter%20%7C%20DeepSeek%20%7C%20Claude%20%7C%20GPT--4o-8B5CF6?style=for-the-badge)](http://pariyojana.gt.tc/)
 
-**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.0.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Contribute](CONTRIBUTING.md)**
+**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.0.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
 
 </div>
 
@@ -215,6 +215,49 @@ The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
 
 ---
 
+## 🗺️ Product Roadmap
+
+- [x] **v1.0.0 (Aug 15, 2026 — 80th Independence Day Launch):**
+  - Production-ready release with 256-bit SQLCipher local database.
+  - BYOK AI Studio (OpenRouter, DeepSeek R1, GPT-4o, Claude 3.5, Gemini 2.0 Flash).
+  - World of Science Revisions Suite & SSRN Stall Detector.
+  - Job Application Tracker & Indian LPA Tax Engine.
+  - Bhagavad Gita Focus Shield & Vadya soundscapes.
+  - ProGuard/R8 optimized release (`Pariyojana.apk`).
+- [ ] **v1.1.0 (Q4 2026):**
+  - Git synchronization for encrypted `.velvet` backup archives.
+  - Sanskrit & Hindi native Text-to-Speech for daily Gita shlokas.
+  - On-device lightweight vector search for local note embeddings.
+- [ ] **v2.0.0 (2027):**
+  - Decentralized local-network P2P sync via libp2p.
+  - Cross-device companion desktop bridge.
+
+---
+
+## ❓ Frequently Asked Questions (FAQ)
+
+<details>
+<summary><strong>Is Pariyojana really 100% free with no hidden subscriptions?</strong></summary>
+<p>Yes! Pariyojana is 100% Free ($0 Lifetime) and licensed under the permissive MIT open-source license. There are no paywalls, locked features, or trial periods.</p>
+</details>
+
+<details>
+<summary><strong>Do I need an internet connection to use Pariyojana?</strong></summary>
+<p>No! Pariyojana is 100% offline-native. All notes, projects, research papers, and job dossiers are stored directly on your phone. Internet access is only needed when you query online AI models using your BYOK key or check for GitHub updates.</p>
+</details>
+
+<details>
+<summary><strong>How are my AI API keys protected?</strong></summary>
+<p>Your API keys are encrypted at rest using your device's Android KeyStore TEE Hardware Enclave. Decrypted keys only exist in RAM during the duration of an API call and are immediately zeroed out (<code>0x00</code>) when the app is locked or sent to the background.</p>
+</details>
+
+<details>
+<summary><strong>How do I create backups of my data?</strong></summary>
+<p>You can export AES-256 encrypted <code>.velvet</code> backup files at any time from <strong>Settings → Export Backup</strong>. You can restore your data onto any Android device running Pariyojana.</p>
+</details>
+
+---
+
 ## 🤝 Community & Contributing
 
 Pariyojana is built for the global open-source community by sovereign developers. We welcome contributions from builders worldwide!
@@ -228,8 +271,9 @@ Pariyojana is built for the global open-source community by sovereign developers
 
 ## 🇮🇳 Made in India — For Sovereign Builders Worldwide
 
-Pariyojana is proudly designed, engineered, and maintained with passion in India for builders worldwide who care about digital freedom, privacy, and craftsmanship.
+Pariyojana is proudly designed, engineered, and maintained with passion under **Cyber_buddy** for builders worldwide who care about digital freedom, privacy, and craftsmanship.
 
+- **Organization:** [Cyber_buddy on LinkedIn](https://www.linkedin.com/company/cyber-buddy3/)
 - **Lead Developer:** [Naveen](https://github.com/Naveen-21-Cyber)
 - **Website:** [http://pariyojana.gt.tc/](http://pariyojana.gt.tc/)
 - **Repository:** [https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-)
