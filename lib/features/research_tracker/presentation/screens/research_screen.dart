@@ -91,15 +91,23 @@ class _ResearchScreenState extends ConsumerState<ResearchScreen> {
   Widget build(BuildContext context) {
     ref.listen<int?>(quickCaptureTriggerProvider, (previous, next) {
       if (next == 2) {
-        _showAddPaperSheet();
-        ref.read(quickCaptureTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showAddPaperSheet();
+            ref.read(quickCaptureTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 
     ref.listen<String?>(quickAddTriggerProvider, (previous, next) {
       if (next == 'research') {
-        _showAddPaperSheet();
-        ref.read(quickAddTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showAddPaperSheet();
+            ref.read(quickAddTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 

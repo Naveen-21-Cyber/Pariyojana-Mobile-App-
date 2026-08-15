@@ -67,8 +67,12 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
   Widget build(BuildContext context) {
     ref.listen<int?>(quickCaptureTriggerProvider, (previous, next) {
       if (next == 3) {
-        _showAddJobSheet();
-        ref.read(quickCaptureTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showAddJobSheet();
+            ref.read(quickCaptureTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 

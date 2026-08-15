@@ -375,61 +375,65 @@ class _HnFeedScreenState extends ConsumerState<HnFeedScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                  Row(
-                                    children: [
-                                      if (story.isSecurity) ...[
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFFEF2F2),
-                                            borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(color: const Color(0xFFFCA5A5)),
-                                          ),
-                                          child: const Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Icon(Icons.shield_rounded, size: 12, color: Color(0xFFDC2626)),
-                                              SizedBox(width: 4),
-                                              Text(
-                                                'CYBER SECURITY',
-                                                style: TextStyle(
-                                                  fontSize: 9,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Color(0xFFDC2626),
-                                                  letterSpacing: 0.6,
+                                    Row(
+                                      children: [
+                                        if (story.isSecurity) ...[
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFFEF2F2),
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(color: const Color(0xFFFCA5A5)),
+                                            ),
+                                            child: const Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(Icons.shield_rounded, size: 11, color: Color(0xFFDC2626)),
+                                                SizedBox(width: 3),
+                                                Text(
+                                                  'SECURITY',
+                                                  style: TextStyle(
+                                                    fontSize: 8.5,
+                                                    fontWeight: FontWeight.w900,
+                                                    color: Color(0xFFDC2626),
+                                                    letterSpacing: 0.4,
+                                                  ),
                                                 ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 6),
+                                        ],
+                                        Flexible(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                                            decoration: BoxDecoration(
+                                              color: VelvetColors.surface(context),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: Text(
+                                              story.domain,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                fontSize: 9.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: VelvetColors.textPrimary(context),
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                        const SizedBox(width: 8),
-                                      ],
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                        decoration: BoxDecoration(
-                                          color: VelvetColors.surface(context),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Text(
-                                          story.domain,
+                                        const SizedBox(width: 6),
+                                        const Icon(Icons.star_rounded, size: 14, color: Colors.amber),
+                                        const SizedBox(width: 2),
+                                        Text(
+                                          '${story.score}',
                                           style: TextStyle(
-                                            fontSize: 9.5,
+                                            fontSize: 10.5,
                                             fontWeight: FontWeight.bold,
                                             color: VelvetColors.textPrimary(context),
                                           ),
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      const Icon(Icons.star_rounded, size: 14, color: Colors.amber),
-                                      const SizedBox(width: 2),
-                                      Text(
-                                        '${story.score}',
-                                        style: TextStyle(
-                                          fontSize: 10.5,
-                                          fontWeight: FontWeight.bold,
-                                          color: VelvetColors.textPrimary(context),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 8),
@@ -569,21 +573,28 @@ class _HnFeedScreenState extends ConsumerState<HnFeedScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const Icon(Icons.analytics_rounded, size: 16, color: VelvetColors.coralPeach),
-                  const SizedBox(width: 6),
-                  Text(
-                    'TECH NEWS & SECURITY METRICS',
-                    style: TextStyle(
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w900,
-                      color: VelvetColors.textPrimary(context),
-                      letterSpacing: 1.0,
+              Flexible(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.analytics_rounded, size: 15, color: VelvetColors.coralPeach),
+                    const SizedBox(width: 5),
+                    Flexible(
+                      child: Text(
+                        'TECH NEWS & SECURITY METRICS',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w900,
+                          color: VelvetColors.textPrimary(context),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              const SizedBox(width: 6),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(

@@ -89,15 +89,23 @@ class _ProjectsScreenState extends ConsumerState<ProjectsScreen> {
   Widget build(BuildContext context) {
     ref.listen<int?>(quickCaptureTriggerProvider, (previous, next) {
       if (next == 1) {
-        _showAddProjectSheet();
-        ref.read(quickCaptureTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showAddProjectSheet();
+            ref.read(quickCaptureTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 
     ref.listen<String?>(quickAddTriggerProvider, (previous, next) {
       if (next == 'project') {
-        _showAddProjectSheet();
-        ref.read(quickAddTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _showAddProjectSheet();
+            ref.read(quickAddTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 

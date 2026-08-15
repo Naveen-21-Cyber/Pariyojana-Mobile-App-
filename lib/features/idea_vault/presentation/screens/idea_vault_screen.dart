@@ -1016,8 +1016,12 @@ class _IdeaVaultScreenState extends ConsumerState<IdeaVaultScreen> {
   Widget build(BuildContext context) {
     ref.listen<int?>(quickCaptureTriggerProvider, (previous, next) {
       if (next == 0) {
-        _focusNode.requestFocus();
-        ref.read(quickCaptureTriggerProvider.notifier).state = null;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _focusNode.requestFocus();
+            ref.read(quickCaptureTriggerProvider.notifier).state = null;
+          }
+        });
       }
     });
 
