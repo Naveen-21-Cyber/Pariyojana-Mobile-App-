@@ -13,6 +13,9 @@ import '../../shared_widgets/gita_shloka_dialog.dart';
 import '../../shared_widgets/executive_profile_sheet.dart';
 import '../focus_shield/presentation/focus_shield_overlay.dart';
 
+import '../../shared_widgets/app_introduction_sheet.dart';
+import '../../core/providers/feature_toggles_provider.dart';
+
 final quickCaptureTriggerProvider = StateProvider<int?>((ref) => null);
 
 class NavigationShell extends ConsumerStatefulWidget {
@@ -39,11 +42,31 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_shlokaShown) {
-        _shlokaShown = true;
-        GitaStartupDialog.showIfNeeded(context, ref);
-      }
+      _showFirstTimeBlueprintIfNeeded();
     });
+  }
+
+  Future<void> _showFirstTimeBlueprintIfNeeded() async {
+    try {
+      final prefs = ref.read(sharedPreferencesProvider);
+      final blueprintShown = prefs.getBool('pariyojana_app_blueprint_shown') ?? false;
+      if (!blueprintShown) {
+        await prefs.setBool('pariyojana_app_blueprint_shown', true);
+        if (mounted) {
+          await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => const AppIntroductionSheet(),
+          );
+        }
+      }
+    } catch (_) {}
+
+    if (mounted && !_shlokaShown) {
+      _shlokaShown = true;
+      await GitaStartupDialog.showIfNeeded(context, ref);
+    }
   }
 
   @override
@@ -91,38 +114,53 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Layer 1: Dynamic Island
+                  // A. Dynamic Island Pill
                   const Align(
                     alignment: Alignment.topCenter,
                     child: DynamicIslandHeader(),
                   ),
-                  const SizedBox(height: 6),
 
-                  // Layer 2: Glassmorphic Round-Edged Top Navigation Bar
+                  const SizedBox(height: 8),
+
+                  // B. Top Bar (Logo Left, Actions Right)
                   GlassContainer(
                     borderRadius: 22,
                     blurSigma: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Left: Circle Monogram + Pariyojana
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const PariyojanaLogo(size: 30),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Pariyojana',
-                              style: TextStyle(
-                                fontFamily: GoogleFonts.outfit().fontFamily,
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                color: VelvetColors.textPrimary(context),
-                                letterSpacing: 0.2,
-                              ),
+                        // Left: Logo + App Name (Tapping opens App Blueprint Deck)
+                        InkWell(
+                          borderRadius: BorderRadius.circular(14),
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => const AppIntroductionSheet(),
+                            );
+                          },
+                          child: Tooltip(
+                            message: 'Executive App Blueprint & Philosophy Deck',
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const PariyojanaLogo(size: 30),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Pariyojana',
+                                  style: TextStyle(
+                                    fontFamily: GoogleFonts.outfit().fontFamily,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: VelvetColors.textPrimary(context),
+                                    letterSpacing: 0.2,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
 
                         // Right: Knowledge/AI Graph + Settings
