@@ -7,7 +7,7 @@
 
   <!-- ══════════ SECURITY HEADERS ══════════ -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://formsubmit.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formsubmit.co; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests;">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://formsubmit.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://formsubmit.co; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -32,18 +32,20 @@
   <link rel="icon" type="image/png" href="app_logo.png">
   <link rel="apple-touch-icon" href="app_logo.png">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Fonts Preconnect & Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Noto+Serif+Devanagari:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap">
   <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Serif+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Noto+Serif+Devanagari:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap"
     rel="stylesheet">
 
   <!-- GSAP + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js" defer></script>
-  <link rel="stylesheet" href="style.css?v=1.0.2">
+  <link rel="stylesheet" href="style.css?v=1.0.3">
 </head>
 
 <body>

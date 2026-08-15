@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Noto+Serif+Devanagari:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap');
+
 /* ═══════════════════════════════════════════════════════════════════
    PARIYOJANA — Premium Design System
    Made in India by Naveen Telasang
@@ -21,10 +23,10 @@
   --text-1: #F0F0F4;
   --text-2: rgba(240, 240, 244, 0.72);
   --text-3: rgba(240, 240, 244, 0.42);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-gita: 'Noto Serif Devanagari', serif;
+  --font-head: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+  --font-gita: 'Noto Serif Devanagari', 'Mangal', 'Lohit Devanagari', Georgia, serif;
   --r-sm: 10px;
   --r-md: 18px;
   --r-lg: 24px;
