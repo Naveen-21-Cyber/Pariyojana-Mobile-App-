@@ -67,4 +67,5 @@ backups/
 *Amazon*
 *.p12
 *.cer
-
+key.properties
+*.properties.local
