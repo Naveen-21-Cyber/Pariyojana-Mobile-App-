@@ -1,0 +1,45 @@
+Pariyojana (परियोजना) is a sovereign, 100% offline-first personal operating system and deep research command center built for developers, cybersecurity researchers, students, and ambitious creators.
+
+Designed with local-first 256-bit SQLCipher encryption and zero-knowledge architecture, Pariyojana gives you complete data sovereignty with zero tracking, zero paywalls, and 120 FPS fluid physics.
+
+Key Feature Modules:
+
+⚡ 1. QUICK-CAPTURE IDEA VAULT
+• Instant audio/voice capture with live waveform visualizer and speech-to-text.
+• Rich Markdown editor with live preview, syntax highlighting, and tags.
+• Instant search with fuzzy indexing across all stored knowledge.
+
+📊 2. 6-STAGE SCRUM & KANBAN ENGINE
+• Full project lifecycle tracking: Backlog → Grooming → In Progress → Review → Blocked → Done.
+• Subtask checklists with automatic completion progress calculation.
+• Priority tags (Low, Medium, High, Critical) and deadline countdowns.
+• Skeuomorphic file/folder tree navigator with multi-level nesting.
+
+🔬 3. DEEP RESEARCH & DOSSIER HUB
+• Live ArXiv Paper Explorer: Search millions of peer-reviewed computer science, AI, and math preprints.
+• BibTeX citation manager with 1-click clipboard export.
+• Tech News & Threat Radar: Integrated Hacker News and Cyber Security advisory feed with silent caching.
+
+💼 4. JOB APPLICATION & SALARY TRACKER
+• 5-Stage Job Pipeline: Saved → Applied → Shortlisted → Interview → Offer.
+• Smart Salary Intelligence Engine with real-time Take-Home & Net In-Hand calculations for Indian (INR) and US (USD) tax regimes.
+• Resume & portfolio attachment binder with secure document storage.
+
+🤖 5. SOVEREIGN MITNICK BYOK AI ASSISTANT
+• Bring-Your-Own-Key (BYOK) multi-provider AI hub (OpenAI, Claude, Gemini, Groq, DeepSeek, Ollama, Perplexity, OpenRouter).
+• 6 Specialized Agent Personas (Scrum Master, Vulnerability Researcher, Executive Career Coach, Literature Reviewer, Code Architect, Gita Focus Guide).
+• Hardware KeyStore TEE encryption for all API credentials.
+
+🛡️ 6. GITA FOCUS SHIELD & DEEP WORK TIMER
+• Pomodoro technique and custom deep-work focus sessions with audio-haptic pulses.
+• Contextual Bhagavad Gita wisdom cards mapped to your emotional and focus states.
+• Offline ambient study soundscapes (White Noise, Binaural Beats, Rainy Night, Lo-Fi Cafe).
+
+🔒 ZERO-KNOWLEDGE SECURITY ARCHITECTURE
+• 256-Bit SQLCipher AES Database Encryption at rest.
+• Biometric Fingerprint / Face authentication lock with auto-timeout.
+• Anti-Forensic Screen Shield (FLAG_SECURE) against malware screenshots.
+• Zero third-party data tracking, zero ads, zero telemetry selling.
+
+100% Free and Open Source under the MIT License.
+Built with pride for the global developer and research community.

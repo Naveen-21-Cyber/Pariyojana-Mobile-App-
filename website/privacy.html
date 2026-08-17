@@ -3,129 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy · PARIYOJANA</title>
-  <meta name="description" content="Pariyojana Privacy Policy — 100% Offline-First, Local SQLCipher Encryption, Zero Data Collection.">
-  <link rel="icon" type="image/png" href="app_logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <title>Privacy Policy - Pariyojana</title>
+  <link rel="icon" type="image/png" href="../assets/branding/app_icon.png">
+  <link rel="stylesheet" href="style.css?v=1.0.3">
   <style>
+    body {
+      background: #0F172A;
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
     .privacy-container {
       max-width: 860px;
-      margin: 140px auto 80px;
-      padding: 0 24px;
+      margin: 0 auto;
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
-    .privacy-card {
-      background: var(--surface);
-      border: 1px solid var(--border-faint);
-      border-radius: var(--r-xl);
-      padding: 42px 36px;
-      box-shadow: var(--shadow-card);
-    }
-    .privacy-card h1 {
-      font-family: var(--font-head);
+    h1 {
+      color: #FF8A65;
       font-size: 2.2rem;
-      color: var(--text-1);
       margin-bottom: 8px;
     }
-    .privacy-card h2 {
-      font-family: var(--font-head);
-      font-size: 1.3rem;
-      color: var(--coral);
-      margin: 28px 0 12px;
+    h2 {
+      color: #38BDF8;
+      font-size: 1.4rem;
+      margin-top: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
     }
-    .privacy-card p, .privacy-card li {
-      font-size: 0.95rem;
-      color: var(--text-2);
-      line-height: 1.7;
+    p, li {
+      color: #CBD5E1;
+      font-size: 1rem;
     }
-    .privacy-card ul {
-      margin-left: 20px;
-      margin-top: 8px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
     }
-    .badge-offline {
+    th, td {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: rgba(255, 255, 255, 0.05);
+      color: #FF8A65;
+    }
+    .badge {
       display: inline-block;
-      padding: 4px 12px;
-      background: rgba(16,185,129,0.12);
-      border: 1px solid rgba(16,185,129,0.3);
-      border-radius: 20px;
-      color: var(--mint);
-      font-weight: 700;
-      font-size: 0.78rem;
-      margin-bottom: 20px;
+      padding: 4px 10px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10B981;
+      color: #34D399;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    a {
+      color: #38BDF8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: #94A3B8;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav scrolled" role="navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="app_logo.png" alt="Pariyojana Logo" class="nav-logo-img">
-        <div class="nav-brand-group">
-          <span class="nav-brand-text">PARIYOJANA</span>
-          <span class="nav-version-tag">v1.0 · IN</span>
-        </div>
-      </a>
-      <div class="nav-links">
-        <a href="index.html">← Back to Home</a>
-        <a href="http://pariyojana.gt.tc/">Official Domain</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Privacy Content -->
   <div class="privacy-container">
-    <div class="privacy-card">
-      <span class="badge-offline">🔒 100% Offline-First & Sovereign Privacy Guarantee</span>
-      <h1>Privacy Policy</h1>
-      <p><em>Last updated: August 2026 · Official Domain: <a href="http://pariyojana.gt.tc/" style="color:var(--coral);">http://pariyojana.gt.tc/</a></em></p>
-      
-      <h2>1. Our Core Privacy Philosophy (Sovereignty)</h2>
-      <p>
-        <strong>Pariyojana (परियोजना)</strong> is built on the principle of personal data sovereignty. Your ideas, task lists, research notes, and personal projects belong exclusively to you. We collect <strong>ZERO analytics, ZERO telemetry, and ZERO personal identity data</strong>.
-      </p>
-
-      <h2>2. Local Database & Encryption</h2>
-      <p>
-        All user data is stored locally on your Android device inside an encrypted <strong>SQLCipher 256-bit AES database</strong>. 
-        Your API keys (OpenRouter, Gemini, Claude, GPT-4o, GitHub PAT) are hardware-encrypted in the <strong>Android KeyStore TEE (Trusted Execution Environment)</strong>. Not even the app developer can access your keys or data.
-      </p>
-
-      <h2>3. Bring Your Own Key (BYOK) & AI Processing</h2>
-      <p>
-        When you perform AI tasks (e.g., Idea Refinement, Resume Tailoring), Pariyojana connects <strong>directly from your device</strong> to the provider API using your provided API key. No intermediate telemetry proxy servers are used.
-      </p>
-
-      <h2>4. Optional Google Cloud Sync</h2>
-      <p>
-        If you enable Google Cloud Sync, database backups are uploaded exclusively to your personal <code>Google Drive AppData</code> hidden vault folder. Pariyojana servers never touch or store your backup files.
-      </p>
-
-      <h2>5. Open Source Transparency</h2>
-      <p>
-        Pariyojana is open source. You can audit our full codebase on GitHub anytime:
-        <br>
-        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-" target="_blank" style="color:var(--coral); font-weight:bold;">github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-</a>
-      </p>
-
-      <h2>6. Contact Us</h2>
-      <p>
-        For privacy inquiries or technical questions, contact the developer at 
-        <a href="http://pariyojana.gt.tc/#contact" style="color:var(--coral);">http://pariyojana.gt.tc/</a>.
-      </p>
+    <a href="index.html" class="back-btn">← Back to Pariyojana Home</a>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+      <h1>🛡️ Privacy Policy for Pariyojana</h1>
+      <span class="badge">100% Zero-Knowledge & Offline</span>
     </div>
+    <p><em>Last Updated: August 17, 2026 | Effective Date: August 15, 2026</em><br>
+    <strong>Developer / Organization:</strong> Cyber_buddy | <strong>Package:</strong> <code>com.navii.pariyojana</code></p>
+
+    <h2>1. Executive Privacy Commitment</h2>
+    <p><strong>Pariyojana</strong> is engineered with a strict principle: <strong>Your data belongs exclusively to you.</strong> It is a 100% offline-first, locally encrypted personal operating system for ideas, Kanban projects, research papers, and job applications. We do <strong>not</strong> sell, harvest, monetize, or transmit your personal data to any private or third-party servers.</p>
+
+    <h2>2. Local On-Device Encryption & Data Storage</h2>
+    <ul>
+      <li><strong>SQLCipher 256-bit AES Encryption:</strong> All your notes, research papers, Kanban tasks, and job dossiers are stored strictly on your local device storage inside a hardware-accelerated SQLCipher database.</li>
+      <li><strong>Hardware KeyStore (TEE):</strong> Database passphrases and encryption master keys are derived and protected inside your Android device's hardware <strong>Trusted Execution Environment</strong>.</li>
+      <li><strong>Zero-Knowledge Architecture:</strong> The developer has zero access to your database file or passphrases.</li>
+    </ul>
+
+    <h2>3. BYOK (Bring-Your-Own-Key) AI Reasoning Privacy</h2>
+    <p>Pariyojana allows optional integration with AI reasoning providers (OpenAI, Claude, Gemini, Groq, DeepSeek, Ollama, Perplexity, OpenRouter) via your personal API keys. Requests are sent directly and securely over HTTPS from your device to the official endpoint. Decrypted keys exist in RAM only for active operational requests and are overwritten with zeroes (<code>0x00</code>) upon completion.</p>
+
+    <h2>4. Crash Reporting & Anonymous Performance Metrics</h2>
+    <p>To ensure application stability, Pariyojana uses <strong>Firebase Crashlytics</strong> to receive anonymized crash stack traces and basic OS health telemetry. <strong>No Personally Identifiable Information (PII)</strong>, project titles, or database contents are ever collected.</p>
+
+    <h2>5. Device Permissions Rationale</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Permission</th>
+          <th>Requirement</th>
+          <th>Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Biometrics</strong></td>
+          <td><code>USE_BIOMETRIC</code></td>
+          <td>To locally unlock your encrypted vault using fingerprint / face sensor.</td>
+        </tr>
+        <tr>
+          <td><strong>Notifications</strong></td>
+          <td><code>POST_NOTIFICATIONS</code></td>
+          <td>To deliver local study timers, focus alarms, and app update alerts.</td>
+        </tr>
+        <tr>
+          <td><strong>Storage / Media</strong></td>
+          <td><code>READ_MEDIA_*</code></td>
+          <td>To attach research PDFs, dossiers, or reference photos to projects.</td>
+        </tr>
+        <tr>
+          <td><strong>Internet</strong></td>
+          <td><code>INTERNET</code></td>
+          <td>To query open research metadata (ArXiv, Hacker News) and BYOK AI models.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>6. User Rights & Data Deletion</h2>
+    <p>Since all data lives on your device, you have complete sovereignty. You can delete all your data instantly at any time via <strong>"Factory Reset Vault"</strong> in Settings or Android App Info.</p>
+
+    <h2>7. Open Source Verification & Contact</h2>
+    <p>Pariyojana is 100% open source under the <strong>MIT License</strong>. You can inspect the entire codebase on GitHub.</p>
+    <ul>
+      <li><strong>GitHub Issues:</strong> <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues" target="_blank">Repository Issues</a></li>
+      <li><strong>Developer:</strong> Cyber_buddy (<a href="https://www.linkedin.com/company/cyber-buddy3/" target="_blank">LinkedIn</a>)</li>
+      <li><strong>Email:</strong> <code>cyberbuddy.official@gmail.com</code></li>
+    </ul>
   </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-bottom">
-      <p>© 2026 Pariyojana · Made in India · <a href="index.html" style="color:var(--coral);">Home</a> · <a href="http://pariyojana.gt.tc/">pariyojana.gt.tc</a></p>
-    </div>
-  </footer>
 
 </body>
 </html>
-
