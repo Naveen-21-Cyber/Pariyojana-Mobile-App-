@@ -58,3 +58,13 @@ app.*.map.json
 backups/
 *.velvet
 
+# Developer secrets, private keys & store authentication
+*.pem
+*.key
+*.jks
+*.keystore
+*AMAZON*
+*Amazon*
+*.p12
+*.cer
+
