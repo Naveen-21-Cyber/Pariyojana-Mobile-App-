@@ -1,0 +1,42 @@
+Categories:
+  - Productivity
+  - Development
+  - Science & Education
+License: MIT
+AuthorName: Cyber_buddy
+AuthorEmail: cyberbuddy.official@gmail.com
+SourceCode: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-
+IssueTracker: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues
+Changelog: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases
+
+AutoName: Pariyojana
+Summary: Sovereign Offline Research & Project OS
+Description: |-
+  Pariyojana (परियोजना) is a sovereign, 100% offline-first personal operating system
+  and deep research command center built with local SQLCipher 256-bit AES encryption.
+
+  Features:
+  * Quick-Capture Idea Vault with audio recordings & markdown editor
+  * 6-Stage Scrum & Kanban board with subtask progress tracking
+  * Live ArXiv Research Paper Explorer with 1-click BibTeX citations
+  * 5-Stage Job Application Tracker with Salary Tax Intelligence
+  * Sovereign BYOK AI Studio with 6 specialized personas
+  * Gita Focus Shield with Pomodoro timers & ambient offline soundscapes
+  * Anti-Forensic Screen Shield (FLAG_SECURE) protection against spyware
+
+RepoType: git
+Repo: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    flutter: true
+    subdir: .
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1
