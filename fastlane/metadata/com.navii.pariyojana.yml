@@ -14,6 +14,11 @@ AutoName: Pariyojana
 RepoType: git
 Repo: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-.git
 
+Binaries: https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v%v/Pariyojana.apk
+
+AllowedAPKSigningKeys:
+  - 8dad0d04a50b26d1b6dde6fccbdec1c4a252df0636189ad45753b195a457e550
+
 Builds:
   - versionName: 1.0.0
     versionCode: 1
@@ -22,12 +27,6 @@ Builds:
     subdir: .
     gradle:
       - yes
-
-AllowedAPKSigningKeys:
-  - 8dad0d04a50b26d1b6dde6fccbdec1c4a252df0636189ad45753b195a457e550
-
-Binaries:
-  - https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.0.0/Pariyojana.apk
 
 AutoUpdateMode: Version v%v
 UpdateCheckMode: Tags
