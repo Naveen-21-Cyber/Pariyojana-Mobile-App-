@@ -2051,7 +2051,7 @@ class _DeveloperInfoCard extends ConsumerWidget {
                     ),
                     const SizedBox(height: 2),
                     TranslatedText(
-                      'Pariyojana v1.0.0 (Production Release)',
+                      'Pariyojana v1.1.0 (Production Release)',
                       style: TextStyle(
                           fontSize: 12,
                           color: VelvetColors.textSecondary(context)),
@@ -2066,7 +2066,7 @@ class _DeveloperInfoCard extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'v1.0.0',
+                  'v1.1.0',
                   style: TextStyle(
                     fontFamily: GoogleFonts.jetBrainsMono().fontFamily,
                     fontWeight: FontWeight.bold,
@@ -2098,7 +2098,7 @@ class _DeveloperInfoCard extends ConsumerWidget {
                 if (info != null && info.isUpdateAvailable) {
                   UpdateCheckerService.showUpdateDialog(context, info);
                 } else {
-                  GlassSnackBar.show(context, '✨ Pariyojana is up to date! (v1.0.0)');
+                  GlassSnackBar.show(context, '✨ Pariyojana is up to date! (v${info?.currentVersion ?? "1.1.0"})');
                 }
               }
             },
