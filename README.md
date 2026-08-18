@@ -268,8 +268,11 @@ The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
   - Asset security: `.env` completely isolated from embedded APK bundle to eliminate decompile footprint.
   - Network security config hardened against user-CA MITM attacks.
   - Hardware KeyStore scoped wipe logic preventing transient key destruction.
-  - Offline font bundle enforcement without external Google CDN dependencies.
-  - ProGuard/R8 optimized release (`Pariyojana-v1.1.0.apk`).
+- [x] **v1.1.1 (Aug 18, 2026 — Google Fonts Crash Fix & Amazon Appstore Compliance):**
+  - Font Engine: Resolved runtime fetching exception on typography engine; dynamic font selection across 7+ font families.
+  - Stability & Lifecycle: Fixed Riverpod state disposal race condition in Master PIN and registration setup.
+  - Amazon Fire OS Compatibility: Instant touch feedback and native Account Link dialog fallback for non-GMS devices.
+  - Production App Bundle (`Pariyojana-v1.1.1.aab`) & Direct APK (`Pariyojana-v1.1.1.apk`).
 - [ ] **v1.2.0 (Q4 2026):**
   - Git synchronization for encrypted `.velvet` backup archives.
   - Sanskrit & Hindi native Text-to-Speech for daily Gita shlokas.
