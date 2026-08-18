@@ -25,6 +25,9 @@
   </a>
   <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest">Pariyojana-v1.1.0.apk (v1.1.0 Production Release)</a></strong></em><br/>
   Compatible with Android 10, 11, 12, 13, 14, 15+ · 100% Free ($0) · No Sign-Up · No Ads · 120 FPS</p>
+
+  > ⚠️ **One-Time Upgrade Notice for v1.0.0 Users:**  
+  > *Pariyojana v1.1.0 introduces official **Production Hardware Keystore Signatures**. If you previously installed the v1.0.0 preview build, please **uninstall the old app once** before installing v1.1.0. All future updates from v1.1.0 onwards will install automatically with 1-click in-app OTA!*
 </div>
 
 ---
