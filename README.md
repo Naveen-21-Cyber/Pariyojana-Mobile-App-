@@ -225,11 +225,12 @@ The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
   - Bhagavad Gita Focus Shield & Vadya soundscapes.
   - ProGuard/R8 optimized release (`Pariyojana.apk`).
 - [x] **v1.1.0 (Aug 18, 2026 — Security Hardening & In-App OTA Update):**
-  - Direct in-app OTA update engine with live download progress & 1-tap package installer.
-  - Asset security: `.env` completely isolated from embedded APK bundle.
+  - Direct in-app OTA update engine with live download progress & 1-tap package installer (`REQUEST_INSTALL_PACKAGES`).
+  - Asset security: `.env` completely isolated from embedded APK bundle to eliminate decompile footprint.
   - Network security config hardened against user-CA MITM attacks.
   - Hardware KeyStore scoped wipe logic preventing transient key destruction.
   - Offline font bundle enforcement without external Google CDN dependencies.
+  - ProGuard/R8 optimized release (`Pariyojana-v1.1.0.apk`).
 - [ ] **v1.2.0 (Q4 2026):**
   - Git synchronization for encrypted `.velvet` backup archives.
   - Sanskrit & Hindi native Text-to-Speech for daily Gita shlokas.
