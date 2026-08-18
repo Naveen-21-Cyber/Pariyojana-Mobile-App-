@@ -56,8 +56,11 @@ class UpdateCheckerService {
 
   /// Returns the live app version from pubspec.yaml (via package_info_plus).
   static Future<String> currentAppVersion() async {
-    final info = await PackageInfo.fromPlatform();
-    return info.version; // e.g. "1.1.0"
+    try {
+      final info = await PackageInfo.fromPlatform();
+      if (info.version.isNotEmpty) return info.version;
+    } catch (_) {}
+    return '1.1.0';
   }
 
   /// Check GitHub Releases API for the latest published version.
