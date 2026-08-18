@@ -55,6 +55,42 @@ Unlike commercial tools that monetize your thoughts, project roadmaps, and caree
 <div align="center">
   <table>
     <tr>
+      <td width="33%">
+        <img src="GITHUB/IDEA%20VAULT.png" alt="Sovereign Idea Vault" width="100%" />
+        <p align="center"><strong>💡 Idea Vault</strong><br/><em>Zero-latency encrypted thought capture with priority taxonomy</em></p>
+      </td>
+      <td width="33%">
+        <img src="GITHUB/PROJECTS.png" alt="6-Stage Scrum & Kanban Board" width="100%" />
+        <p align="center"><strong>📋 6-Stage Kanban</strong><br/><em>Visual workflow from Backlog to Shipped with streak heatmap</em></p>
+      </td>
+      <td width="33%">
+        <img src="GITHUB/RESEARCH.png" alt="Academic Research Tracker" width="100%" />
+        <p align="center"><strong>🔬 Research Vault</strong><br/><em>SSRN tracking, WoS review items & AI scientific rebuttal hub</em></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%">
+        <img src="GITHUB/JOB.png" alt="Job Application Tracker & LPA Tax Calculator" width="100%" />
+        <p align="center"><strong>💼 Job Pipeline</strong><br/><em>End-to-end career funnel & Indian New/Old LPA tax engine</em></p>
+      </td>
+      <td width="33%">
+        <img src="GITHUB/SETTINGS.png" alt="Biometric KeySafe & Anti-Forensics" width="100%" />
+        <p align="center"><strong>🛡️ Biometric KeySafe</strong><br/><em>Master API keys hardware-sealed with RAM byte zeroing</em></p>
+      </td>
+      <td width="33%">
+        <img src="GITHUB/SETTINGS%202.png" alt="In-App OTA Updates & Velvet Vault" width="100%" />
+        <p align="center"><strong>⚡ In-App OTA Updater</strong><br/><em>1-tap seamless background updates & encrypted backup export</em></p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br/>
+
+<div align="center">
+  <h3>✨ Design Philosophy & Visual System</h3>
+  <table>
+    <tr>
       <td width="50%">
         <img src="GITHUB/1.png" alt="Reclaim Your Digital Borders" width="100%" />
         <p align="center"><strong>1. Reclaim Your Digital Borders</strong><br/><em>Your Data · Your Device · Zero Subscriptions</em></p>
