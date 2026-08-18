@@ -477,13 +477,25 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
 
       await Future<void>.delayed(const Duration(milliseconds: 600));
 
-      // Trigger Android package installer
-      final result = await OpenFile.open(apkPath);
-      if (result.type != ResultType.done && mounted) {
-        GlassSnackBar.show(context, 'Could not open installer: ${result.message}');
-      }
+      // Trigger Android package installer with explicit APK MIME type
+      final result = await OpenFile.open(
+        apkPath,
+        type: 'application/vnd.android.package-archive',
+      );
 
-      if (mounted) Navigator.pop(context);
+      if (!mounted) return;
+
+      // Close the download dialog immediately so user is not blocked
+      Navigator.pop(context);
+
+      if (result.type != ResultType.done && mounted) {
+        // Fallback: If open_file failed to launch installer, launch via browser/file launcher
+        GlassSnackBar.show(context, 'Opening download link in browser…');
+        final uri = Uri.parse(widget.info.downloadUrl);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      }
     } on DioException catch (e) {
       if (CancelToken.isCancel(e) || _isCancelled) return;
       if (mounted) {
