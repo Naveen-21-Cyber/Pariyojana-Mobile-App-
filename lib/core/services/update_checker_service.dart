@@ -60,7 +60,7 @@ class UpdateCheckerService {
       final info = await PackageInfo.fromPlatform();
       if (info.version.isNotEmpty) return info.version;
     } catch (_) {}
-    return '1.1.0';
+    return '1.1.1';
   }
 
   /// Check GitHub Releases API for the latest published version.

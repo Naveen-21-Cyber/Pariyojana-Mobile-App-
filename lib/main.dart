@@ -24,7 +24,7 @@ import 'core/theme/velvet_colors.dart';
 import 'core/theme/font_provider.dart';
 
 void main() {
-  GoogleFonts.config.allowRuntimeFetching = false; // L1: use bundled fonts, not Google CDN
+  GoogleFonts.config.allowRuntimeFetching = true;
   unawaited(
     runZonedGuarded(
       () async {

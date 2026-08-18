@@ -50,7 +50,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
 
   void _initTerminalLogs() {
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
-    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.1.0      ', LogType.success));
+    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.1.1      ', LogType.success));
     _logs.add(_TerminalLogEntry('  SQLCIPHER AES-256 ENCRYPTED PRODUCTION BACKEND  ', LogType.info));
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
     _logs.add(_TerminalLogEntry('Tap a quick action chip below or type "help".', LogType.system));
@@ -88,7 +88,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
       case 'version':
         setState(() {
           _logs.add(_TerminalLogEntry('🛡️ PARIYOJANA OS VERSION INFO:', LogType.success));
-          _logs.add(_TerminalLogEntry('  App Version : 1.1.0 (Production Release)', LogType.system));
+          _logs.add(_TerminalLogEntry('  App Version : 1.1.1 (Production Release)', LogType.system));
           _logs.add(_TerminalLogEntry('  Cipher Engine: SQLCipher AES-256-GCM', LogType.system));
         });
         break;
@@ -254,7 +254,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'CYBER_TERMINAL v1.1.0',
+                  'CYBER_TERMINAL v1.1.1',
                   style: GoogleFonts.firaCode(fontSize: 12, color: const Color(0xFF8B949E), fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),

@@ -241,6 +241,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
     final router = GoRouter.of(context);
     final auth = ref.read(authServiceProvider.notifier);
+    final userProfileNotifier = ref.read(userProfileProvider.notifier);
     final bio = _bioController.text.trim().isEmpty ? 'Tech Innovator & Project Builder' : _bioController.text.trim();
 
     // Register user profile & setup encrypted Master PIN + optional TOTP 2FA
@@ -254,12 +255,14 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
     if (success) {
       final pinSuccess = await auth.setupPin(pin, _enableBiometrics);
       if (pinSuccess) {
-        await ref.read(userProfileProvider.notifier).updateProfile(
+        await userProfileNotifier.updateProfile(
           fullName: username,
           title: bio,
           avatarUrl: _googlePhotoUrl,
         );
-        router.go('/ideas');
+        if (mounted) {
+          router.go('/ideas');
+        }
         return;
       }
     }
