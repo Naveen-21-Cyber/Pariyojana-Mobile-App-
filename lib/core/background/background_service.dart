@@ -32,7 +32,6 @@ class BackgroundService {
       dailyTaskName,
       dailyTaskName,
       frequency: const Duration(hours: 24),
-      existingWorkPolicy: ExistingPeriodicWorkPolicy.keep,
     );
   }
 

@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:open_file/open_file.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/velvet_colors.dart';
 import '../notifications/notification_service.dart';
@@ -14,6 +18,7 @@ class UpdateInfo {
   final String releaseNotes;
   final String downloadUrl;
   final bool isUpdateAvailable;
+  final bool hasApkAsset;
   final DateTime? releaseDate;
 
   const UpdateInfo({
@@ -23,6 +28,7 @@ class UpdateInfo {
     required this.releaseNotes,
     required this.downloadUrl,
     required this.isUpdateAvailable,
+    this.hasApkAsset = false,
     this.releaseDate,
   });
 }
@@ -32,7 +38,6 @@ final updateCheckerServiceProvider = Provider<UpdateCheckerService>((ref) {
 });
 
 class UpdateCheckerService {
-  static const String currentAppVersion = '1.0.0';
   static const String _repoOwner = 'Naveen-21-Cyber';
   static const String _repoName = 'Pariyojana-Mobile-App-';
   static const String _lastNotifiedVersionKey = 'last_notified_update_version';
@@ -44,13 +49,20 @@ class UpdateCheckerService {
   UpdateCheckerService(this._ref)
       : _dio = Dio(BaseOptions(
           connectTimeout: const Duration(seconds: 8),
-          receiveTimeout: const Duration(seconds: 8),
+          receiveTimeout: const Duration(seconds: 30),
           headers: {'Accept': 'application/vnd.github.v3+json'},
         )),
         _storage = const FlutterSecureStorage();
 
-  /// Check GitHub Releases API for the latest published version
+  /// Returns the live app version from pubspec.yaml (via package_info_plus).
+  static Future<String> currentAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    return info.version; // e.g. "1.1.0"
+  }
+
+  /// Check GitHub Releases API for the latest published version.
   Future<UpdateInfo?> checkForUpdate({bool notifyUserIfAvailable = true}) async {
+    final appVersion = await currentAppVersion();
     try {
       final customRepo = await _storage.read(key: 'custom_update_repo');
       final repoPath = (customRepo != null && customRepo.contains('/'))
@@ -70,27 +82,30 @@ class UpdateCheckerService {
         final publishedAtStr = data['published_at'] as String?;
         final publishedAt = publishedAtStr != null ? DateTime.tryParse(publishedAtStr) : null;
 
-        // Check if there are binary assets (APK) attached
+        // Find APK asset for in-app direct install
         String downloadUrl = htmlUrl;
+        bool hasApk = false;
         if (data['assets'] is List && (data['assets'] as List).isNotEmpty) {
           for (final asset in data['assets'] as List) {
             final assetUrl = asset['browser_download_url'] as String?;
             if (assetUrl != null && assetUrl.endsWith('.apk')) {
               downloadUrl = assetUrl;
+              hasApk = true;
               break;
             }
           }
         }
 
-        final isAvailable = _compareVersions(tagName, currentAppVersion) > 0;
+        final isAvailable = _compareVersions(tagName, appVersion) > 0;
 
         final updateInfo = UpdateInfo(
-          currentVersion: currentAppVersion,
-          latestVersion: tagName.isNotEmpty ? tagName : currentAppVersion,
+          currentVersion: appVersion,
+          latestVersion: tagName.isNotEmpty ? tagName : appVersion,
           title: name,
           releaseNotes: body,
           downloadUrl: downloadUrl,
           isUpdateAvailable: isAvailable,
+          hasApkAsset: hasApk,
           releaseDate: publishedAt,
         );
 
@@ -107,24 +122,24 @@ class UpdateCheckerService {
     } catch (e) {
       debugPrint('UpdateCheckerService check error: $e');
     }
-    return const UpdateInfo(
-      currentVersion: currentAppVersion,
-      latestVersion: currentAppVersion,
+    return UpdateInfo(
+      currentVersion: appVersion,
+      latestVersion: appVersion,
       title: 'Up to Date',
-      releaseNotes: 'You are running the latest version of Pariyojana (v1.0.0).',
-      downloadUrl: 'https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases',
+      releaseNotes: 'You are running the latest version of Pariyojana (v$appVersion).',
+      downloadUrl: 'https://github.com/$_repoOwner/$_repoName/releases',
       isUpdateAvailable: false,
     );
   }
 
-  /// Dispatches a local system notification informing the user of the new update
+  /// Dispatches a local system notification informing the user of the new update.
   Future<void> _dispatchUpdateNotification(UpdateInfo info) async {
     try {
       final notifService = _ref.read(notificationServiceProvider);
       await notifService.showNotification(
         id: 99901,
         title: '🚀 New Update v${info.latestVersion} Available!',
-        body: 'A new release of Pariyojana is ready: ${info.title}. Tap to download and install.',
+        body: 'Pariyojana v${info.latestVersion} is ready. Tap to download and install — no store needed!',
         payload: 'update:${info.downloadUrl}',
       );
     } catch (e) {
@@ -132,7 +147,7 @@ class UpdateCheckerService {
     }
   }
 
-  /// Compares two semver strings: returns 1 if v1 > v2, -1 if v1 < v2, 0 if equal
+  /// Compares two semver strings: returns 1 if v1 > v2, -1 if v1 < v2, 0 if equal.
   int _compareVersions(String v1, String v2) {
     if (v1.isEmpty || v2.isEmpty) return 0;
     final parts1 = v1.split('.').map((e) => int.tryParse(RegExp(r'\d+').stringMatch(e) ?? '0') ?? 0).toList();
@@ -152,7 +167,33 @@ class UpdateCheckerService {
     return 0;
   }
 
-  /// Displays the in-app Update Prompt Dialog
+  // ─── In-App OTA Download + Install ──────────────────────────────────────────
+
+  /// Downloads the APK to the cache directory and triggers the Android installer.
+  /// Shows a progress dialog inside the app — user never leaves.
+  static Future<void> downloadAndInstall(
+    BuildContext context,
+    UpdateInfo info,
+  ) async {
+    if (!info.hasApkAsset) {
+      // Fall back to browser if no APK asset exists
+      final uri = Uri.parse(info.downloadUrl);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+      return;
+    }
+
+    // Show the download progress dialog
+    if (!context.mounted) return;
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => _OtaDownloadDialog(info: info),
+    );
+  }
+
+  /// Displays the in-app Update Prompt Dialog with the OTA install flow.
   static void showUpdateDialog(BuildContext context, UpdateInfo info) {
     showDialog(
       context: context,
@@ -179,6 +220,7 @@ class UpdateCheckerService {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // ── Header ───────────────────────────────────────────────────
                 Row(
                   children: [
                     Container(
@@ -215,7 +257,11 @@ class UpdateCheckerService {
                                 ),
                                 child: Text(
                                   'v${info.latestVersion}',
-                                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: VelvetColors.mint),
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: VelvetColors.mint,
+                                  ),
                                 ),
                               ),
                             ],
@@ -231,6 +277,8 @@ class UpdateCheckerService {
                   ],
                 ),
                 const SizedBox(height: 16),
+
+                // ── Release title ─────────────────────────────────────────────
                 Text(
                   info.title,
                   style: TextStyle(
@@ -240,6 +288,8 @@ class UpdateCheckerService {
                   ),
                 ),
                 const SizedBox(height: 8),
+
+                // ── Release notes ─────────────────────────────────────────────
                 Container(
                   constraints: const BoxConstraints(maxHeight: 180),
                   padding: const EdgeInsets.all(12),
@@ -252,12 +302,48 @@ class UpdateCheckerService {
                     child: Text(
                       info.releaseNotes.isNotEmpty
                           ? info.releaseNotes
-                          : '• Latest security updates and engine optimizations.\n• Adaptive dark mode improvements.\n• Offline-first SQLite database performance enhancements.',
-                      style: TextStyle(fontSize: 12, height: 1.4, color: VelvetColors.textSecondary(context)),
+                          : '• Latest security hardening and engine optimizations.\n'
+                              '• In-app OTA updates — install without leaving the app.\n'
+                              '• Offline-first SQLite performance enhancements.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1.4,
+                        color: VelvetColors.textSecondary(context),
+                      ),
                     ),
                   ),
                 ),
+
+                // ── OTA badge (if APK is directly available) ──────────────────
+                if (info.hasApkAsset) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: VelvetColors.mint.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: VelvetColors.mint.withValues(alpha: 0.3)),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.bolt_rounded, size: 14, color: VelvetColors.mint),
+                        SizedBox(width: 4),
+                        Text(
+                          'Direct install — no Play Store or browser needed',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: VelvetColors.mint,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 20),
+
+                // ── Action buttons ────────────────────────────────────────────
                 Row(
                   children: [
                     Expanded(
@@ -270,7 +356,10 @@ class UpdateCheckerService {
                         onPressed: () => Navigator.pop(dialogCtx),
                         child: Text(
                           'Later',
-                          style: TextStyle(color: VelvetColors.textSecondary(context), fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: VelvetColors.textSecondary(context),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -285,17 +374,20 @@ class UpdateCheckerService {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           elevation: 3,
                         ),
-                        icon: const Icon(Icons.download_rounded, size: 18),
-                        label: const Text('Download Update', style: TextStyle(fontWeight: FontWeight.bold)),
+                        icon: Icon(
+                          info.hasApkAsset
+                              ? Icons.download_for_offline_rounded
+                              : Icons.open_in_browser_rounded,
+                          size: 18,
+                        ),
+                        label: Text(
+                          info.hasApkAsset ? 'Install Update' : 'Download Update',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         onPressed: () async {
                           Navigator.pop(dialogCtx);
-                          final uri = Uri.parse(info.downloadUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri, mode: LaunchMode.externalApplication);
-                          } else {
-                            if (context.mounted) {
-                              GlassSnackBar.show(context, 'Could not open download link: ${info.downloadUrl}');
-                            }
+                          if (context.mounted) {
+                            await downloadAndInstall(context, info);
                           }
                         },
                       ),
@@ -307,6 +399,240 @@ class UpdateCheckerService {
           ),
         );
       },
+    );
+  }
+}
+
+// ─── OTA Download Progress Dialog ────────────────────────────────────────────
+
+class _OtaDownloadDialog extends StatefulWidget {
+  final UpdateInfo info;
+  const _OtaDownloadDialog({required this.info});
+
+  @override
+  State<_OtaDownloadDialog> createState() => _OtaDownloadDialogState();
+}
+
+class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
+  double _progress = 0;
+  String _statusText = 'Preparing download…';
+  bool _isCancelled = false;
+  bool _isDone = false;
+  bool _hasFailed = false;
+  CancelToken? _cancelToken;
+
+  @override
+  void initState() {
+    super.initState();
+    _startDownload();
+  }
+
+  @override
+  void dispose() {
+    _cancelToken?.cancel('Dialog closed');
+    super.dispose();
+  }
+
+  Future<void> _startDownload() async {
+    final dio = Dio(BaseOptions(
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(minutes: 10),
+    ));
+    _cancelToken = CancelToken();
+
+    try {
+      final tempDir = await getTemporaryDirectory();
+      final apkPath = '${tempDir.path}/pariyojana_update_v${widget.info.latestVersion}.apk';
+
+      // Clean up any previous partial download
+      final existing = File(apkPath);
+      if (existing.existsSync()) existing.deleteSync();
+
+      setState(() => _statusText = 'Downloading v${widget.info.latestVersion}…');
+
+      await dio.download(
+        widget.info.downloadUrl,
+        apkPath,
+        cancelToken: _cancelToken,
+        onReceiveProgress: (received, total) {
+          if (!mounted || _isCancelled) return;
+          if (total > 0) {
+            setState(() {
+              _progress = received / total;
+              final mb = (received / 1024 / 1024).toStringAsFixed(1);
+              final totalMb = (total / 1024 / 1024).toStringAsFixed(1);
+              _statusText = 'Downloading… $mb / $totalMb MB';
+            });
+          }
+        },
+      );
+
+      if (_isCancelled) return;
+
+      setState(() {
+        _isDone = true;
+        _statusText = 'Download complete! Launching installer…';
+        _progress = 1.0;
+      });
+
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+
+      // Trigger Android package installer
+      final result = await OpenFile.open(apkPath);
+      if (result.type != ResultType.done && mounted) {
+        GlassSnackBar.show(context, 'Could not open installer: ${result.message}');
+      }
+
+      if (mounted) Navigator.pop(context);
+    } on DioException catch (e) {
+      if (CancelToken.isCancel(e) || _isCancelled) return;
+      if (mounted) {
+        setState(() {
+          _hasFailed = true;
+          _statusText = 'Download failed. Check your connection and try again.';
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _hasFailed = true;
+          _statusText = 'Unexpected error: $e';
+        });
+      }
+    }
+  }
+
+  void _cancel() {
+    _isCancelled = true;
+    _cancelToken?.cancel('User cancelled');
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 28, vertical: 40),
+      child: Container(
+        padding: const EdgeInsets.all(28),
+        decoration: BoxDecoration(
+          color: VelvetColors.cardSurface(context),
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(color: VelvetColors.coralPeach.withValues(alpha: 0.35), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: VelvetColors.coralPeach.withValues(alpha: 0.12),
+              blurRadius: 32,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ── Icon ──────────────────────────────────────────────────────
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    VelvetColors.coralPeach,
+                    VelvetColors.coralPeach.withValues(alpha: 0.6),
+                  ],
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                _isDone
+                    ? Icons.check_circle_outline_rounded
+                    : _hasFailed
+                        ? Icons.error_outline_rounded
+                        : Icons.download_for_offline_rounded,
+                color: Colors.white,
+                size: 32,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // ── Title ─────────────────────────────────────────────────────
+            Text(
+              _isDone
+                  ? 'Update Ready!'
+                  : _hasFailed
+                      ? 'Download Failed'
+                      : 'Installing v${widget.info.latestVersion}',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+                color: VelvetColors.textPrimary(context),
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // ── Status text ───────────────────────────────────────────────
+            Text(
+              _statusText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                color: VelvetColors.textSecondary(context),
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // ── Progress bar ──────────────────────────────────────────────
+            if (!_hasFailed) ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: _isDone ? 1.0 : (_progress > 0 ? _progress : null),
+                  minHeight: 8,
+                  backgroundColor: VelvetColors.border(context),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    _isDone ? VelvetColors.mint : VelvetColors.coralPeach,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 6),
+              if (_progress > 0 && !_isDone)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '${(_progress * 100).toStringAsFixed(0)}%',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: VelvetColors.textSecondary(context),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            ],
+            const SizedBox(height: 20),
+
+            // ── Cancel / Retry button ─────────────────────────────────────
+            if (!_isDone)
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    side: BorderSide(color: VelvetColors.border(context)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  onPressed: _hasFailed ? () => Navigator.pop(context) : _cancel,
+                  child: Text(
+                    _hasFailed ? 'Close' : 'Cancel',
+                    style: TextStyle(
+                      color: VelvetColors.textSecondary(context),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

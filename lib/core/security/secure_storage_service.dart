@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageService {
@@ -98,11 +99,23 @@ class SecureStorageService {
   Future<String?> _safeRead(String key) async {
     try {
       return await _storage.read(key: key);
-    } catch (e) {
-      // Keystore decryption might be corrupted/locked. Attempt to clear and return null to recover.
-      try {
-        await _storage.deleteAll();
-      } catch (_) {}
+    } on PlatformException catch (e) {
+      // Only wipe on confirmed Keystore decryption failure (hardware corruption).
+      // Transient errors (lock, timeout) must NOT destroy the user's DB key.
+      final code = e.code.toLowerCase();
+      final isHardwareFailure = code.contains('badpadding') ||
+          code.contains('keystore') ||
+          code.contains('keymasterexception') ||
+          code.contains('invalidkeyexception') ||
+          code.contains('storageexception');
+      if (isHardwareFailure) {
+        try {
+          await _storage.deleteAll();
+        } catch (_) {}
+      }
+      return null;
+    } catch (_) {
+      // For all other non-platform errors, just return null — do NOT wipe.
       return null;
     }
   }
@@ -110,12 +123,20 @@ class SecureStorageService {
   Future<void> _safeWrite(String key, String value) async {
     try {
       await _storage.write(key: key, value: value);
-    } catch (e) {
-      // Clean up and retry once if Keystore is corrupted
-      try {
-        await _storage.deleteAll();
-        await _storage.write(key: key, value: value);
-      } catch (_) {}
+    } on PlatformException catch (e) {
+      // Only retry-with-wipe on confirmed hardware Keystore corruption.
+      final code = e.code.toLowerCase();
+      final isHardwareFailure = code.contains('keystore') ||
+          code.contains('keymasterexception') ||
+          code.contains('storageexception');
+      if (isHardwareFailure) {
+        try {
+          await _storage.deleteAll();
+          await _storage.write(key: key, value: value);
+        } catch (_) {}
+      }
+    } catch (_) {
+      // Swallow non-platform errors — a write failure should not crash the app.
     }
   }
 

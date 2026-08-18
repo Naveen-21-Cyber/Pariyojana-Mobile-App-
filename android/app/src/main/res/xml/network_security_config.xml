@@ -2,10 +2,9 @@
 <network-security-config>
     <base-config cleartextTrafficPermitted="false">
         <trust-anchors>
-            <!-- Trust system CAs (default) -->
+            <!-- Trust only system CAs — user-installed CAs are NOT trusted (C2 security fix).
+                 This prevents MITM attacks using tools like Burp Suite or mitmproxy. -->
             <certificates src="system"/>
-            <!-- Also trust user-installed CAs for debug builds -->
-            <certificates src="user"/>
         </trust-anchors>
     </base-config>
     <!-- Explicitly allow OpenRouter and Jina Reader APIs -->
