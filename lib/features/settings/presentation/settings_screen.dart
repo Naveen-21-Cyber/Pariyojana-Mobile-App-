@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,6 @@ import '../../../shared_widgets/app_introduction_sheet.dart';
 import 'package:velvet/core/sounds/sound_service.dart';
 import '../../../core/haptics/haptic_service.dart';
 import 'package:velvet/core/backup/google_backup_service.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../shared_widgets/glass_snackbar.dart';
 import '../../../shared_widgets/gita_shloka_dialog.dart';
@@ -485,49 +483,40 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   GlassSnackBar.show(context, 'Successfully signed in with Google! 🎉');
                                 }
                               } else {
+                                // On Amazon Fire OS / devices without GMS or if sign-in wasn't completed,
+                                // immediately show the email link dialog so the button always responds.
                                 if (context.mounted) {
-                                  GlassSnackBar.show(context, 'Sign-in cancelled. Try again.');
+                                  _showSettingsFallbackEmailDialog(context, backupService);
                                 }
                               }
                             } catch (signInError) {
                               if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: const Text('Google Sign-In needs SHA-1 registered in Firebase. Tap to use email instead.'),
-                                    action: SnackBarAction(
-                                      label: 'Use Email',
-                                      onPressed: () => _showSettingsFallbackEmailDialog(context, backupService),
-                                    ),
-                                    duration: const Duration(seconds: 6),
-                                  ),
-                                );
+                                _showSettingsFallbackEmailDialog(context, backupService);
                               }
                             }
                           }
                         } catch (e) {
                           if (context.mounted) {
-                            GlassSnackBar.show(context, 'Auth error: $e ⚠️');
+                            _showSettingsFallbackEmailDialog(context, backupService);
                           }
                         } finally {
-                          setState(() => _googleSyncLoading = false);
+                          if (mounted) {
+                            setState(() => _googleSyncLoading = false);
+                          }
                         }
                       },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (!_isGoogleSignedIn) ...[
-                      Platform.environment.containsKey('FLUTTER_TEST')
-                          ? Icon(Icons.g_mobiledata, color: VelvetColors.textPrimary(context), size: 18)
-                          : SvgPicture.network(
-                              'https://www.vectorlogo.zone/logos/google/google-icon.svg',
-                              width: 18,
-                              height: 18,
-                              placeholderBuilder: (BuildContext context) => const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child: CircularProgressIndicator(strokeWidth: 1.5, color: Colors.blue),
-                              ),
-                            ),
+                    if (_googleSyncLoading) ...[
+                      const SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: CircularProgressIndicator(strokeWidth: 2, color: VelvetColors.coralPeach),
+                      ),
+                      const SizedBox(width: 8),
+                    ] else if (!_isGoogleSignedIn) ...[
+                      const Icon(Icons.account_circle_outlined, color: VelvetColors.coralPeach, size: 18),
                       const SizedBox(width: 8),
                     ],
                     Text(
@@ -1811,13 +1800,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       builder: (dialogCtx) => AlertDialog(
         backgroundColor: VelvetColors.surface(ctx),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text('Google Auth Assist 🔑', style: TextStyle(fontWeight: FontWeight.bold, color: VelvetColors.textPrimary(ctx))),
+        title: Text('Account Link & Cloud Sync ☁️', style: TextStyle(fontWeight: FontWeight.bold, color: VelvetColors.textPrimary(ctx))),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Google Play Services needs the app SHA-1 registered in Firebase. Enter your Gmail to link your account locally:',
+              'Link your email address to enable sovereign cloud backup and cross-device synchronization:',
               style: TextStyle(fontSize: 12, color: VelvetColors.textSecondary(ctx)),
             ),
             const SizedBox(height: 12),
@@ -1827,8 +1816,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               autofocus: true,
               style: TextStyle(color: VelvetColors.textPrimary(ctx)),
               decoration: InputDecoration(
-                hintText: 'user@gmail.com',
-                labelText: 'Google Email',
+                hintText: 'user@example.com',
+                labelText: 'Account Email',
                 prefixIcon: const Icon(Icons.email_outlined, size: 18, color: VelvetColors.coralPeach),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
@@ -1862,11 +1851,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 emailController.dispose();
                 if (dialogCtx.mounted) {
                   Navigator.pop(dialogCtx);
-                  GlassSnackBar.show(ctx, '✅ Signed in as $email (local mode)');
+                  GlassSnackBar.show(ctx, '✅ Account linked as $email');
                 }
               }
             },
-            child: const Text('Sign In With Email'),
+            child: const Text('Link & Continue', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

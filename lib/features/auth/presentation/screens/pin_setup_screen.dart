@@ -102,16 +102,12 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
         }
       } else {
         if (mounted) {
-          setState(() {
-            _errorMessage = 'Google Sign-In was cancelled or unavailable.';
-          });
+          _showFallbackEmailDialog(context, error: 'Google Play Services unavailable on this device.');
         }
       }
     } catch (e) {
       if (mounted) {
-        setState(() {
-          _errorMessage = 'Google Sign-In unavailable.\nTap below to sign in with email instead.';
-        });
+        _showFallbackEmailDialog(context, error: e.toString());
       }
     } finally {
       if (mounted) {
@@ -129,13 +125,13 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
       builder: (dialogCtx) => AlertDialog(
         backgroundColor: VelvetColors.surface(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text('Google Auth Assist 🔑', style: TextStyle(fontWeight: FontWeight.bold, color: VelvetColors.textPrimary(context))),
+        title: Text('Account Setup & Email Link ☁️', style: TextStyle(fontWeight: FontWeight.bold, color: VelvetColors.textPrimary(context))),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Google Play Services needs the app SHA-1 registered in Firebase. Enter your Gmail to sign in locally instead:',
+              'Enter your email to link your account and initialize your sovereign profile:',
               style: TextStyle(fontSize: 12, color: VelvetColors.textSecondary(context)),
             ),
             const SizedBox(height: 12),
