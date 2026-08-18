@@ -1,9 +1,9 @@
-# PARIYOJANA (परियोजना) v1.0.0
+# PARIYOJANA (परियोजना) v1.1.0
 ### Sovereign Focus, Productivity & Research Vault for Android 🇮🇳
 
 <div align="center">
 
-[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.0.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)
+[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.1.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest)
 [![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20%F0%9F%87%AE%F0%9F%87%B3-FF9933?style=for-the-badge)](http://pariyojana.gt.tc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](LICENSE)
@@ -11,7 +11,7 @@
 [![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](SECURITY.md)
 [![BYOK AI: OpenRouter Supported](https://img.shields.io/badge/BYOK%20AI-OpenRouter%20%7C%20DeepSeek%20%7C%20Claude%20%7C%20GPT--4o-8B5CF6?style=for-the-badge)](http://pariyojana.gt.tc/)
 
-**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.0.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
+**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.1.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
 
 </div>
 
@@ -20,10 +20,10 @@
 ## 📥 1-Click Instant APK Download
 
 <div align="center">
-  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">
-    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.0.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
+  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest">
+    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.1.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
   </a>
-  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/raw/main/Pariyojana.apk">Pariyojana.apk (v1.0.0 Production Release)</a></strong></em><br/>
+  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/latest">Pariyojana-v1.1.0.apk (v1.1.0 Production Release)</a></strong></em><br/>
   Compatible with Android 10, 11, 12, 13, 14, 15+ · 100% Free ($0) · No Sign-Up · No Ads · 120 FPS</p>
 </div>
 
@@ -224,7 +224,13 @@ The compiled APK will be at: `build/app/outputs/flutter-apk/Pariyojana.apk`.
   - Job Application Tracker & Indian LPA Tax Engine.
   - Bhagavad Gita Focus Shield & Vadya soundscapes.
   - ProGuard/R8 optimized release (`Pariyojana.apk`).
-- [ ] **v1.1.0 (Q4 2026):**
+- [x] **v1.1.0 (Aug 18, 2026 — Security Hardening & In-App OTA Update):**
+  - Direct in-app OTA update engine with live download progress & 1-tap package installer.
+  - Asset security: `.env` completely isolated from embedded APK bundle.
+  - Network security config hardened against user-CA MITM attacks.
+  - Hardware KeyStore scoped wipe logic preventing transient key destruction.
+  - Offline font bundle enforcement without external Google CDN dependencies.
+- [ ] **v1.2.0 (Q4 2026):**
   - Git synchronization for encrypted `.velvet` backup archives.
   - Sanskrit & Hindi native Text-to-Speech for daily Gita shlokas.
   - On-device lightweight vector search for local note embeddings.
