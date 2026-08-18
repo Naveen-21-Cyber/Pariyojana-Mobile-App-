@@ -42,6 +42,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/splash',
     refreshListenable: refreshListenable,
+    observers: [AnalyticsService().observer],
     redirect: (context, state) {
       final status = ref.read(authServiceProvider);
       final location = state.uri.toString();

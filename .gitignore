@@ -56,7 +56,9 @@ app.*.map.json
 
 # Local encrypted database backups and binary APKs
 backups/
+archive_builds/
 *.velvet
+*.aab
 
 # Developer secrets, private keys & store authentication
 *.pem
