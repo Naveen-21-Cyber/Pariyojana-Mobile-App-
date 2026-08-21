@@ -10,7 +10,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../theme/velvet_colors.dart';
 import '../notifications/notification_service.dart';
-import '../../shared_widgets/glass_snackbar.dart';
 
 class UpdateInfo {
   final String currentVersion;

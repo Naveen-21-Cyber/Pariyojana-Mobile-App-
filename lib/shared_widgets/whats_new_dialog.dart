@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../core/theme/velvet_colors.dart';
 import '../core/haptics/haptic_service.dart';
+import '../core/services/update_checker_service.dart';
 
 class WhatsNewDialog extends ConsumerWidget {
   const WhatsNewDialog({super.key, this.isManualTrigger = false});
@@ -114,14 +115,20 @@ class WhatsNewDialog extends ConsumerWidget {
               ),
               const SizedBox(height: 4),
 
-              Text(
-                'Version 1.1.2 Update Notes',
-                style: GoogleFonts.outfit(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? const Color(0xFFE2E8F0) : VelvetColors.cocoa,
-                ),
-                textAlign: TextAlign.center,
+              FutureBuilder<String>(
+                future: UpdateCheckerService.currentAppVersion(),
+                builder: (context, snapshot) {
+                  final ver = snapshot.data ?? '1.2.0';
+                  return Text(
+                    'Version $ver Update Notes',
+                    style: GoogleFonts.outfit(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? const Color(0xFFE2E8F0) : VelvetColors.cocoa,
+                    ),
+                    textAlign: TextAlign.center,
+                  );
+                },
               ),
               const SizedBox(height: 18),
 
@@ -141,33 +148,33 @@ class WhatsNewDialog extends ConsumerWidget {
                   children: [
                     _buildFeatureItem(
                       context,
-                      icon: '⏰',
-                      title: 'Smart Notification Control',
-                      desc: 'Choose how many reminders you receive (1 to 12 daily). Evenly spaced across active hours with zero spam stacking.',
-                      isDark: isDark,
-                    ),
-                    const Divider(height: 20, color: Colors.black12),
-                    _buildFeatureItem(
-                      context,
-                      icon: '⚡',
-                      title: 'Quick Thought Speed-Capture',
-                      desc: 'Instant 1-tap idea capture sheet with quick tag chips (Innovation, Research, Project, Thought) and encrypted save.',
-                      isDark: isDark,
-                    ),
-                    const Divider(height: 20, color: Colors.black12),
-                    _buildFeatureItem(
-                      context,
-                      icon: '🔤',
-                      title: 'Enhanced Typography Suite',
-                      desc: 'Outfit, SF Pro, Ubuntu, JetBrains Mono, Gilmer, Lufga Sans, Okta Neue, Unifora & Waltograph with zero offline crashes.',
+                      icon: '🧭',
+                      title: 'Humanized Feature Compass',
+                      desc: 'Jargon-free 3-step action recipes and everyday lifehacks across all 24 workspace capabilities.',
                       isDark: isDark,
                     ),
                     const Divider(height: 20, color: Colors.black12),
                     _buildFeatureItem(
                       context,
                       icon: '🛡️',
-                      title: 'Zero-Telemetry Security',
-                      desc: 'Completely removed ad-network and tracking SDKs. Pure SQLCipher AES-256 local encrypted offline vault.',
+                      title: 'Zero-Data-Loss Safety Engine',
+                      desc: 'Protected database engine with automatic .safety_bak snapshot creation and permanent vault defense.',
+                      isDark: isDark,
+                    ),
+                    const Divider(height: 20, color: Colors.black12),
+                    _buildFeatureItem(
+                      context,
+                      icon: '💻',
+                      title: 'Cyber Command Terminal Guard',
+                      desc: '1-tap quick launcher embedded in the Dynamic Island with auto-clamping keyboard viewport mechanics.',
+                      isDark: isDark,
+                    ),
+                    const Divider(height: 20, color: Colors.black12),
+                    _buildFeatureItem(
+                      context,
+                      icon: '⚡',
+                      title: '120 FPS Turbo Optimization',
+                      desc: 'SQLite WAL mode engine and dedicated GPU repaint boundaries for silky sub-millisecond local execution.',
                       isDark: isDark,
                     ),
                   ],

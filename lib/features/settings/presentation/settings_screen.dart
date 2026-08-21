@@ -1469,18 +1469,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'What\'s New in v1.1.2 🚀',
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.outfit().fontFamily,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: VelvetColors.textPrimary(context),
-                  ),
+                FutureBuilder<String>(
+                  future: UpdateCheckerService.currentAppVersion(),
+                  builder: (context, snapshot) {
+                    final ver = snapshot.data ?? '1.2.0';
+                    return Text(
+                      'What\'s New in v$ver 🚀',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.outfit().fontFamily,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: VelvetColors.textPrimary(context),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Smart notification frequency, 1-tap thought capture, 12 font suite & privacy hardening.',
+                  'Humanized Feature Compass, Zero-Data-Loss protection & 120 FPS Turbo acceleration.',
                   style: TextStyle(fontSize: 11.5, color: VelvetColors.textSecondary(context)),
                 ),
               ],
@@ -2480,7 +2486,7 @@ class _DeveloperInfoCard extends ConsumerWidget {
                 child: FutureBuilder<String>(
                   future: UpdateCheckerService.currentAppVersion(),
                   builder: (context, snapshot) {
-                    final ver = snapshot.data ?? '1.1.2';
+                    final ver = snapshot.data ?? '1.2.0';
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -2506,7 +2512,7 @@ class _DeveloperInfoCard extends ConsumerWidget {
               FutureBuilder<String>(
                 future: UpdateCheckerService.currentAppVersion(),
                 builder: (context, snapshot) {
-                  final ver = snapshot.data ?? '1.1.2';
+                  final ver = snapshot.data ?? '1.2.0';
                   return Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(

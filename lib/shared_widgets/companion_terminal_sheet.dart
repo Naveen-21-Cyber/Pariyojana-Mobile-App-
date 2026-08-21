@@ -257,7 +257,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
                 FutureBuilder<String>(
                   future: UpdateCheckerService.currentAppVersion(),
                   builder: (context, snapshot) => Text(
-                    'CYBER_TERMINAL v${snapshot.data ?? "1.1.2"}',
+                    'CYBER_TERMINAL v${snapshot.data ?? "1.2.0"}',
                     style: GoogleFonts.firaCode(fontSize: 12, color: const Color(0xFF8B949E), fontWeight: FontWeight.bold),
                   ),
                 ),
