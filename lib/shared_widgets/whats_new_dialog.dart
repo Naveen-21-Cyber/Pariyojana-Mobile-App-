@@ -12,7 +12,7 @@ class WhatsNewDialog extends ConsumerWidget {
   final bool isManualTrigger;
 
   static const String _storageKey = 'pariyojana_last_seen_whats_new_version';
-  static const String _currentVersionKey = '1.1.2+8';
+  static const String _currentVersionKey = '1.2.0+10';
 
   /// Show the dialog automatically if the user has updated to a new version.
   static Future<void> showIfNeeded(BuildContext context, WidgetRef ref) async {

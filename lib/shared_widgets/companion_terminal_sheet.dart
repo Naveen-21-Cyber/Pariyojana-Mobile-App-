@@ -51,7 +51,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
 
   void _initTerminalLogs() {
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
-    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.1.2      ', LogType.success));
+    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.2.0      ', LogType.success));
     _logs.add(_TerminalLogEntry('  SQLCIPHER AES-256 ENCRYPTED PRODUCTION BACKEND  ', LogType.info));
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
     _logs.add(_TerminalLogEntry('Tap a quick action chip below or type "help".', LogType.system));
