@@ -48,13 +48,17 @@ class GlassSectionHeader extends StatelessWidget {
               Icon(icon, size: 14, color: VelvetColors.coralPeach),
               const SizedBox(width: 6),
             ],
-            Text(
-              title.toUpperCase(),
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 11,
-                letterSpacing: 1.2,
-                color: textColor,
+            Flexible(
+              child: Text(
+                title.toUpperCase(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.5,
+                  letterSpacing: 0.8,
+                  color: textColor,
+                ),
               ),
             ),
           ],

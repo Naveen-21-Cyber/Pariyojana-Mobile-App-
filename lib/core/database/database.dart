@@ -155,6 +155,10 @@ QueryExecutor openConnection(String hexKey) {
     void applyKeyAndValidate(dynamic rawDb) {
       rawDb.execute("PRAGMA key = \"x'$hexKey'\";");
       try {
+        rawDb.execute('PRAGMA journal_mode = WAL;');
+        rawDb.execute('PRAGMA synchronous = NORMAL;');
+        rawDb.execute('PRAGMA cache_size = -8000;');
+        rawDb.execute('PRAGMA temp_store = MEMORY;');
         rawDb.select('PRAGMA user_version;');
       } catch (_) {
         rethrow;

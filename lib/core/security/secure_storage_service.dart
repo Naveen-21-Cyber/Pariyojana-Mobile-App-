@@ -87,6 +87,9 @@ class SecureStorageService {
   static const _mfaEnabledName = 'pariyojana_mfa_enabled';
   static const _notifStartHourKey = 'pariyojana_notif_start_hour';
   static const _notifEndHourKey = 'pariyojana_notif_end_hour';
+  static const _notifDailyFrequencyKey = 'pariyojana_notif_daily_frequency';
+  static const _notifExactHourKey = 'pariyojana_notif_exact_hour';
+  static const _notifExactMinuteKey = 'pariyojana_notif_exact_minute';
 
   // User profile (BYOK — every end-user configures their own)
   static const _profileFullNameKey = 'pariyojana_profile_full_name';
@@ -440,6 +443,33 @@ class SecureStorageService {
 
   Future<void> setNotificationEndHour(int hour) async {
     await _safeWrite(_notifEndHourKey, hour.toString());
+  }
+
+  Future<int> getNotificationDailyFrequency() async {
+    final val = await _safeRead(_notifDailyFrequencyKey);
+    return val != null ? int.tryParse(val) ?? 3 : 3;
+  }
+
+  Future<void> setNotificationDailyFrequency(int count) async {
+    await _safeWrite(_notifDailyFrequencyKey, count.clamp(1, 12).toString());
+  }
+
+  Future<int> getNotificationExactHour() async {
+    final str = await _safeRead(_notifExactHourKey);
+    return str != null ? int.tryParse(str) ?? 9 : 9;
+  }
+
+  Future<void> setNotificationExactHour(int hour) async {
+    await _safeWrite(_notifExactHourKey, hour.clamp(0, 23).toString());
+  }
+
+  Future<int> getNotificationExactMinute() async {
+    final str = await _safeRead(_notifExactMinuteKey);
+    return str != null ? int.tryParse(str) ?? 0 : 0;
+  }
+
+  Future<void> setNotificationExactMinute(int minute) async {
+    await _safeWrite(_notifExactMinuteKey, minute.clamp(0, 59).toString());
   }
 
   Future<void> saveAnthropicApiKey(String key) async {

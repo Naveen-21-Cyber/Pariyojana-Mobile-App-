@@ -56,6 +56,7 @@ function initApp() {
   initGSAP();
   initNav();
   initGitHubStars();
+  initGitHubReleases();
   initTimerDemo();
   initNavToggle();
 }
@@ -226,7 +227,7 @@ function initNavToggle() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   6. GITHUB STARS
+   6. GITHUB STARS & DYNAMIC RELEASES CHANGELOG
 ═══════════════════════════════════════════════════════════════════ */
 function initGitHubStars() {
   const el = document.getElementById('starCount');
@@ -241,6 +242,138 @@ function initGitHubStars() {
       }
     })
     .catch(() => { el.textContent = '⭐ Star'; });
+}
+
+let cachedReleases = [];
+
+function initGitHubReleases() {
+  fetch('https://api.github.com/repos/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases', {
+    headers: { 'Accept': 'application/vnd.github.v3+json' }
+  })
+    .then(r => r.json())
+    .then(releases => {
+      if (Array.isArray(releases) && releases.length > 0) {
+        cachedReleases = releases;
+        const latest = releases[0];
+        const verTag = latest.tag_name || latest.name || 'v1.2.0';
+        const pubDate = new Date(latest.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+        // Update Nav & Badges
+        document.querySelectorAll('.nav-version-tag').forEach(el => el.textContent = verTag);
+
+        const releaseVer = document.getElementById('releaseVersion');
+        if (releaseVer) releaseVer.textContent = `${verTag} Live`;
+
+        const releaseDate = document.getElementById('releaseDate');
+        if (releaseDate) releaseDate.textContent = `Released ${pubDate}`;
+
+        // Find APK download asset if present
+        const apkAsset = latest.assets ? latest.assets.find(a => a.name && a.name.endsWith('.apk')) : null;
+        const apkUrl = apkAsset ? apkAsset.browser_download_url : latest.html_url;
+
+        const releaseDlBtn = document.getElementById('releaseDownloadBtn');
+        if (releaseDlBtn) releaseDlBtn.href = apkUrl;
+
+        const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
+        if (heroPrimaryBtn && apkAsset) heroPrimaryBtn.href = apkUrl;
+
+        const dlApkBtn = document.getElementById('dlApkBtn');
+        if (dlApkBtn && apkAsset) dlApkBtn.href = apkUrl;
+
+        // Parse and render release summary in the card
+        const previewEl = document.getElementById('releaseBodyPreview');
+        if (previewEl && latest.body) {
+          const cleanBody = latest.body
+            .split('\n')
+            .filter(l => l.trim().length > 0)
+            .slice(0, 3)
+            .map(l => `<div class="release-bullet">⚡ ${escapeHtml(l.replace(/^[#*-]+\s*/, ''))}</div>`)
+            .join('');
+          previewEl.innerHTML = cleanBody || '<div class="release-bullet">⚡ Full production release with cryptographic vault & zero-trust offline storage.</div>';
+        }
+      }
+    })
+    .catch(err => {
+      console.log('GitHub Releases offline fallback:', err);
+    });
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function toggleChangelogModal() {
+  const modal = document.getElementById('changelogModal');
+  if (!modal) return;
+  const isOpen = modal.classList.contains('modal--open');
+  if (isOpen) {
+    modal.classList.remove('modal--open');
+    document.body.style.overflow = '';
+  } else {
+    modal.classList.add('modal--open');
+    document.body.style.overflow = 'hidden';
+    renderChangelogModal();
+  }
+}
+
+function renderChangelogModal() {
+  const container = document.getElementById('changelogModalContent');
+  if (!container) return;
+
+  if (cachedReleases.length === 0) {
+    container.innerHTML = `
+      <div class="changelog-item cl-item--current">
+        <div class="cl-ver-row">
+          <div class="cl-title-group">
+            <span class="cl-ver-tag">v1.2.0</span>
+            <span class="cl-current-pill">🟢 Current Running</span>
+          </div>
+          <span class="cl-ver-date">Latest Stable</span>
+        </div>
+        <ul class="cl-notes-list">
+          <li>🧭 <strong>Feature Compass Overhaul:</strong> Interactive 1-tap goal recipes, quick filters, and 3-step action cards.</li>
+          <li>💻 <strong>Cyber Command Terminal Guard:</strong> Exposed directly outside in Dynamic Island Cockpit with zero UI overflow.</li>
+          <li>⚙️ <strong>Settings Stabilization:</strong> Eliminated 2-second layout shift glitch upon screen opening.</li>
+          <li>🔒 <strong>Zero-Trust Security:</strong> SQLCipher 256-bit AES encryption & Biometric KeyStore hardware protection.</li>
+        </ul>
+        <div class="cl-footer-row">
+          <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases" target="_blank" rel="noopener noreferrer" class="cl-link">View Repository on GitHub →</a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = cachedReleases.map((rel, idx) => {
+    const isCurrent = idx === 0;
+    const tag = rel.tag_name || rel.name || `v1.${idx}`;
+    const pubDate = new Date(rel.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const formattedNotes = (rel.body || 'Production release improvements and security updates.')
+      .split('\n')
+      .filter(l => l.trim().length > 0)
+      .map(l => `<li>${escapeHtml(l.replace(/^[#*-]+\s*/, ''))}</li>`)
+      .join('');
+
+    return `
+      <div class="changelog-item ${isCurrent ? 'cl-item--current' : ''}">
+        <div class="cl-ver-row">
+          <div class="cl-title-group">
+            <span class="cl-ver-tag">${escapeHtml(tag)}</span>
+            ${isCurrent ? '<span class="cl-current-pill">🟢 Current Running</span>' : ''}
+          </div>
+          <span class="cl-ver-date">${pubDate}</span>
+        </div>
+        <ul class="cl-notes-list">
+          ${formattedNotes}
+        </ul>
+        <div class="cl-footer-row">
+          <a href="${rel.html_url}" target="_blank" rel="noopener noreferrer" class="cl-link">View Release on GitHub →</a>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 /* ═══════════════════════════════════════════════════════════════════

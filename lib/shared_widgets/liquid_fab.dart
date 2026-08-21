@@ -59,9 +59,12 @@ class _LiquidFabState extends ConsumerState<LiquidFab> with SingleTickerProvider
           bottomRight: Radius.circular(bottomRight),
         );
 
+        final screenWidth = MediaQuery.of(context).size.width;
+        final fabSize = screenWidth < 360 ? 48.0 : screenWidth < 400 ? 52.0 : 56.0;
+
         return SizedBox(
-          width: 58,
-          height: 58,
+          width: fabSize,
+          height: fabSize,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: borderRadius,

@@ -173,6 +173,8 @@ class NotificationService {
     required bool hasActiveJobs,
     int startHour = 9,
     int endHour = 22,
+    int dailyFrequency = 3,
+    int exactMinute = 0,
     dynamic agentGateway,
   }) async {
     // Cancel previous legacy notification IDs
@@ -191,21 +193,12 @@ class NotificationService {
     final activePaperStr = researchPaperTitles.isNotEmpty ? researchPaperTitles.first : 'your research paper';
     final activeJobStr = jobTargetTitles.isNotEmpty ? jobTargetTitles.first : 'your job application';
 
-    // Construct target hours dynamically based on user setting (e.g. 9 to 22)
-    final List<int> targetHours = [];
-    if (startHour <= endHour) {
-      for (int h = startHour; h <= endHour; h++) {
-        targetHours.add(h);
-      }
-    } else {
-      // Overnight window (e.g., 20 PM to 6 AM)
-      for (int h = startHour; h < 24; h++) {
-        targetHours.add(h);
-      }
-      for (int h = 0; h <= endHour; h++) {
-        targetHours.add(h);
-      }
-    }
+    // Compute distributed target hours based on dailyFrequency (1 to 12)
+    final List<int> targetHours = _computeDistributedHours(
+      count: dailyFrequency,
+      startHour: startHour,
+      endHour: endHour,
+    );
 
     List<Map<String, String>> hourlyMessages = [];
 
@@ -267,9 +260,10 @@ class NotificationService {
     final AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'pariyojana_hourly_v4',
       'Pariyojana Hourly Nudges',
-      channelDescription: 'Hourly productivity nudges from 9 AM to 12 AM',
+      channelDescription: 'Smart productivity nudges based on your selected frequency',
       importance: Importance.max,
       priority: Priority.max,
+      tag: 'pariyojana_daily_nudge',
       playSound: true,
       sound: const RawResourceAndroidNotificationSound('notification_tone'),
       audioAttributesUsage: AudioAttributesUsage.alarm,
@@ -277,7 +271,7 @@ class NotificationService {
       vibrationPattern: Int64List.fromList([0, 400, 150, 400]),
     );
 
-    // Schedule 16 hourly notifications using device local timezone
+    // Schedule hourly notifications using device local timezone
     tz.Location scheduleLocation;
     try {
       scheduleLocation = tz.local;
@@ -288,9 +282,10 @@ class NotificationService {
     for (int i = 0; i < targetHours.length && i < hourlyMessages.length; i++) {
       final hour = targetHours[i];
       final msg = hourlyMessages[i];
+      final minute = (dailyFrequency == 1 && i == 0) ? exactMinute : 0;
 
       final tz.TZDateTime nowLocal = tz.TZDateTime.now(scheduleLocation);
-      var scheduledDate = tz.TZDateTime(scheduleLocation, nowLocal.year, nowLocal.month, nowLocal.day, hour, 0);
+      var scheduledDate = tz.TZDateTime(scheduleLocation, nowLocal.year, nowLocal.month, nowLocal.day, hour, minute);
       if (scheduledDate.isBefore(nowLocal)) {
         scheduledDate = scheduledDate.add(const Duration(days: 1));
       }
@@ -310,6 +305,29 @@ class NotificationService {
         );
       } catch (_) {}
     }
+  }
+
+  static List<int> _computeDistributedHours({
+    required int count,
+    int startHour = 9,
+    int endHour = 22,
+  }) {
+    final clamped = count.clamp(1, 12);
+    if (clamped == 1) return [9];
+    if (clamped == 2) return [9, 20];
+    if (clamped == 3) return [9, 14, 20];
+    if (clamped == 4) return [9, 13, 17, 21];
+
+    final int span = (endHour >= startHour) ? (endHour - startHour) : (24 - startHour + endHour);
+    final double step = (clamped > 1) ? span / (clamped - 1) : span.toDouble();
+    final List<int> result = [];
+    for (int i = 0; i < clamped; i++) {
+      final int h = ((startHour + (i * step).round()) % 24);
+      if (!result.contains(h)) {
+        result.add(h);
+      }
+    }
+    return result;
   }
 
   /// Schedule a custom scheduled local notification for a specific idea in Idea Vault.

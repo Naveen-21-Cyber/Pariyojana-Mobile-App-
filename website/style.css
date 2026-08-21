@@ -2695,3 +2695,303 @@ button {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   DYNAMIC LIVE GITHUB RELEASE CARD & CHANGELOG MODAL
+═══════════════════════════════════════════════════════════════════ */
+.release-showcase-section {
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.live-release-card {
+  margin: 0 auto;
+  max-width: 720px;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 112, 67, 0.38);
+  border-radius: 20px;
+  padding: 1.3rem 1.6rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 24px rgba(255, 112, 67, 0.12);
+  text-align: left;
+}
+
+.release-header-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.release-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(255, 112, 67, 0.18);
+  border: 1px solid rgba(255, 112, 67, 0.5);
+  border-radius: 99px;
+  color: #FF7043;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.release-date-badge {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.release-status-chip {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #10B981;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.release-body-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.release-bullet {
+  font-size: 0.85rem;
+  color: #E2E8F0;
+  line-height: 1.45;
+}
+
+.release-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.release-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  background: linear-gradient(135deg, #FF7043, #FF5722);
+  color: #FFF;
+  font-size: 0.84rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.35);
+}
+
+.release-dl-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 87, 34, 0.5);
+  color: #FFF;
+}
+
+.release-notes-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #CBD5E1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.release-notes-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFF;
+}
+
+/* ── CHANGELOG MODAL ── */
+.changelog-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.changelog-modal-backdrop.modal--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.changelog-modal-card {
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  background: #0F172A;
+  border: 1.5px solid rgba(255, 112, 67, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 112, 67, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalPop 0.25s ease-out;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.92) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.changelog-modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.changelog-modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin: 0 0 0.2rem 0;
+}
+
+.changelog-modal-header p {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFF;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 82, 43, 0.3);
+}
+
+.changelog-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.changelog-item {
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.cl-item--current {
+  border-color: rgba(255, 112, 67, 0.4);
+  background: rgba(255, 112, 67, 0.05);
+}
+
+.cl-ver-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.cl-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cl-ver-tag {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #FF7043;
+}
+
+.cl-current-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.cl-ver-date {
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+.cl-notes-list {
+  margin: 0 0 0.75rem 0;
+  padding-left: 1.2rem;
+  color: #CBD5E1;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.cl-notes-list li {
+  margin-bottom: 0.35rem;
+}
+
+.cl-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cl-link {
+  font-size: 0.8rem;
+  color: #60A5FA;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cl-link:hover {
+  text-decoration: underline;
+}

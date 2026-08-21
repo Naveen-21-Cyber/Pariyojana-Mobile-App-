@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'velvet_colors.dart';
 import 'font_provider.dart';
 
@@ -90,7 +89,7 @@ class VelvetTheme {
     );
   }
 
-  static ThemeData getDarkTheme(ThemeAccent accent, {AppFontFamily font = AppFontFamily.outfit}) {
+  static ThemeData getDarkTheme(ThemeAccent accent, {AppFontFamily font = AppFontFamily.ubuntu}) {
     final accentColor = VelvetColors.getAccentColor(accent);
     const darkSurface = VelvetColors.darkSurface;
     const darkBg = VelvetColors.darkBg;
@@ -100,7 +99,7 @@ class VelvetTheme {
     final baseTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      fontFamily: GoogleFonts.getFont(font.googleFontName).fontFamily,
+      fontFamily: font.resolvedFontFamily,
       fontFamilyFallback: const ['sans-serif', 'Arial'],
       colorScheme: ColorScheme.dark(
         primary: accentColor,
@@ -203,12 +202,12 @@ class VelvetTheme {
     );
   }
 
-  static ThemeData getTheme(ThemeAccent accent, {AppFontFamily font = AppFontFamily.outfit}) {
+  static ThemeData getTheme(ThemeAccent accent, {AppFontFamily font = AppFontFamily.ubuntu}) {
     final accentColor = VelvetColors.getAccentColor(accent);
     final baseTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      fontFamily: GoogleFonts.getFont(font.googleFontName).fontFamily,
+      fontFamily: font.resolvedFontFamily,
       fontFamilyFallback: const ['sans-serif', 'Arial'],
       colorScheme: ColorScheme.light(
         primary: accentColor,

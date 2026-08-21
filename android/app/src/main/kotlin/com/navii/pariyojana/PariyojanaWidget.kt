@@ -43,19 +43,19 @@ class PariyojanaWidget : AppWidgetProvider() {
                 views.setTextViewText(R.id.widget_idea_count, ideaCount.toString())
                 views.setTextViewText(R.id.widget_project_count, projectCount.toString())
 
-                // Tap container -> open app main activity
-                val launchIntent = context.packageManager
-                    .getLaunchIntentForPackage(context.packageName)
-                if (launchIntent != null) {
-                    launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    val pendingIntent = PendingIntent.getActivity(
-                        context,
-                        0,
-                        launchIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                    )
-                    views.setOnClickPendingIntent(R.id.widget_container, pendingIntent)
+                // Explicit intent targeting MainActivity to satisfy Android 12+ trampoline restrictions
+                val targetIntent = Intent(context, MainActivity::class.java).apply {
+                    action = Intent.ACTION_MAIN
+                    addCategory(Intent.CATEGORY_LAUNCHER)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 }
+                val pendingIntent = PendingIntent.getActivity(
+                    context,
+                    0,
+                    targetIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                views.setOnClickPendingIntent(R.id.widget_container, pendingIntent)
 
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             } catch (e: Exception) {

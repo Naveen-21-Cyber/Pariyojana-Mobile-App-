@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +8,8 @@ import '../../core/theme/velvet_colors.dart';
 import 'glass_snackbar.dart';
 import 'executive_user_avatar.dart';
 import 'executive_profile_sheet.dart';
+import 'feature_explainer_sheet.dart';
+import 'cyber_command_launcher.dart';
 import '../features/focus_shield/presentation/focus_shield_overlay.dart';
 
 final quickAddTriggerProvider = StateProvider<String?>((ref) => null);
@@ -127,40 +128,39 @@ class _DynamicIslandHeaderState extends ConsumerState<DynamicIslandHeader>
     final expandedWidth = (screenWidth * 0.94).clamp(320.0, 420.0);
     final currentLangCode = ref.watch(languageProvider).toUpperCase();
 
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.selectionClick();
-        setState(() {
-          _isExpanded = !_isExpanded;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 280),
-        curve: Curves.easeOutCubic,
-        width: _isExpanded ? expandedWidth : 255,
-        height: _isExpanded ? 148 : 36,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: VelvetColors.cardSurface(context).withValues(alpha: 0.96),
-          borderRadius: BorderRadius.circular(_isExpanded ? 22 : 18),
-          border: Border.all(
-            color: VelvetColors.coralPeach.withValues(alpha: 0.5),
-            width: 1.3,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.25),
-              blurRadius: _isExpanded ? 18 : 8,
-              offset: const Offset(0, 3),
+    return RepaintBoundary(
+      child: GestureDetector(
+        onTap: () {
+          HapticFeedback.selectionClick();
+          setState(() {
+            _isExpanded = !_isExpanded;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 280),
+          curve: Curves.easeOutCubic,
+          width: _isExpanded ? expandedWidth : 255,
+          height: _isExpanded ? 192 : 36,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          decoration: BoxDecoration(
+            color: VelvetColors.cardSurface(context).withValues(alpha: 0.98),
+            borderRadius: BorderRadius.circular(_isExpanded ? 22 : 18),
+            border: Border.all(
+              color: VelvetColors.coralPeach.withValues(alpha: 0.55),
+              width: 1.3,
             ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(_isExpanded ? 22 : 18),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.22),
+                blurRadius: _isExpanded ? 16 : 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(_isExpanded ? 22 : 18),
             child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: _isExpanded ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
               child: AnimatedCrossFade(
                 duration: const Duration(milliseconds: 180),
                 crossFadeState: _isExpanded
@@ -378,6 +378,36 @@ class _DynamicIslandHeaderState extends ConsumerState<DynamicIslandHeader>
                 label: 'Quick Note 💡',
                 color: VelvetColors.clayTan,
                 onTap: _showQuickNoteDialog,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+
+        // Row 4: Cyber Command Terminal & Feature Compass
+        Row(
+          children: [
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.terminal_rounded,
+                label: 'Command Terminal 💻',
+                color: VelvetColors.coralPeach,
+                onTap: () {
+                  setState(() => _isExpanded = false);
+                  CyberCommandLauncher.show(context);
+                },
+              ),
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: _buildActionButton(
+                icon: Icons.explore_rounded,
+                label: 'Feature Compass 🧭',
+                color: VelvetColors.mint,
+                onTap: () {
+                  setState(() => _isExpanded = false);
+                  FeatureExplainerSheet.show(context);
+                },
               ),
             ),
           ],

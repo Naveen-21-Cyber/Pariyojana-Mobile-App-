@@ -225,7 +225,6 @@ class _AiKeysByokCardState extends ConsumerState<AiKeysByokCard> {
 
   bool _obscureKeys = true;
   bool _isSaving = false;
-  bool _isLoaded = false;
 
   @override
   void initState() {
@@ -286,7 +285,6 @@ class _AiKeysByokCardState extends ConsumerState<AiKeysByokCard> {
         _selectedOpenRouter = _validateModel(savedOpenRouter, _openRouterModels);
         _selectedGroq = _validateModel(savedGroq, _groqModels);
         _selectedHuggingFace = _validateModel(savedHf, _huggingFaceModels);
-        _isLoaded = true;
       });
     }
   }
@@ -317,8 +315,6 @@ class _AiKeysByokCardState extends ConsumerState<AiKeysByokCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_isLoaded) return const SizedBox.shrink();
-
     return ClayCard(
       color: VelvetColors.cardSurface(context),
       padding: const EdgeInsets.all(20),

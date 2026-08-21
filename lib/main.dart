@@ -15,13 +15,22 @@ import 'core/notifications/notification_service.dart';
 import 'core/background/background_service.dart';
 import 'core/haptics/haptic_service.dart';
 import 'package:velvet/core/sounds/sound_service.dart';
-import 'core/analytics/analytics_service.dart';
 import 'core/profile/user_profile_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/home_widget/home_widget_service.dart';
 import 'core/notifications/notification_scheduler.dart';
 import 'core/theme/velvet_colors.dart';
 import 'core/theme/font_provider.dart';
+
+// Manual FirebaseOptions — avoids the google-services Gradle plugin which
+// injects play-services-measurement (Google AD_ID) into the binary.
+const _firebaseOptions = FirebaseOptions(
+  apiKey: 'AIzaSyApVh-ZCts3rnwTfqs_3c1ml1gzYzQL1fg',
+  appId: '1:962236967041:android:2b640bea15f777d1920580',
+  messagingSenderId: '962236967041',
+  projectId: 'pariyojana-5d93c',
+  storageBucket: 'pariyojana-5d93c.firebasestorage.app',
+);
 
 void main() {
   GoogleFonts.config.allowRuntimeFetching = true;
@@ -103,21 +112,43 @@ void main() {
 
       // Initialize Firebase + Analytics + Crashlytics
       try {
-        await Firebase.initializeApp();
+        await Firebase.initializeApp(options: _firebaseOptions);
 
-        // Pass all Flutter framework errors to Crashlytics (silent — no dev notification)
+        // Pass fatal Flutter framework errors to Crashlytics, filtering non-fatal font network errors
         FlutterError.onError = (details) {
-          FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+          final errorStr = details.exception.toString();
+          if (errorStr.contains('google_fonts') ||
+              errorStr.contains('fonts.gstatic.com') ||
+              errorStr.contains('allowRuntimeFetching') ||
+              errorStr.contains('JetBrainsMono') ||
+              errorStr.contains('SocketException')) {
+            debugPrint('Handled font network warning gracefully: $errorStr');
+            return;
+          }
+          try {
+            FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+          } catch (_) {}
         };
 
-        // Pass all uncaught async/platform errors to Crashlytics (silent)
+        // Pass uncaught async/platform errors to Crashlytics (silent)
         PlatformDispatcher.instance.onError = (error, stack) {
-          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+          final errStr = error.toString();
+          if (errStr.contains('fonts.gstatic.com') ||
+              errStr.contains('GoogleFonts') ||
+              errStr.contains('allowRuntimeFetching') ||
+              errStr.contains('JetBrainsMono') ||
+              errStr.contains('SocketException')) {
+            debugPrint('Handled font background network error: $errStr');
+            return true;
+          }
+          try {
+            FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+          } catch (_) {}
           return true;
         };
 
-        final analytics = AnalyticsService();
-        await analytics.logAppOpen();
+        // Local session analytics handled automatically by AnalyticsService on demand.
+
       } catch (e) {
         debugPrint('Firebase init error: $e');
       }

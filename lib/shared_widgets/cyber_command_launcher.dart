@@ -123,16 +123,15 @@ class _CyberCommandLauncherState extends ConsumerState<CyberCommandLauncher> {
 
     final mediaQuery = MediaQuery.of(context);
     final keyboardOffset = mediaQuery.viewInsets.bottom;
-    final availableHeight = mediaQuery.size.height - keyboardOffset - mediaQuery.padding.top - mediaQuery.padding.bottom;
-    // Dynamically limit list height so dialog never exceeds visible viewport center (0px overflow guarantee)
-    final maxListHeight = (availableHeight - 160).clamp(100.0, 280.0);
+    final dialogMaxHeight = (mediaQuery.size.height - keyboardOffset - 48).clamp(180.0, 560.0);
 
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Container(
-        padding: const EdgeInsets.all(18),
+        constraints: BoxConstraints(maxHeight: dialogMaxHeight),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: VelvetColors.surface(context),
           borderRadius: BorderRadius.circular(28),
@@ -172,29 +171,37 @@ class _CyberCommandLauncherState extends ConsumerState<CyberCommandLauncher> {
                   child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 20),
                 ),
                 const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'CYBER COMMAND LAUNCHER',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w900,
-                        color: VelvetColors.textPrimary(context),
-                        letterSpacing: 1.2,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'CYBER COMMAND LAUNCHER',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w900,
+                          color: VelvetColors.textPrimary(context),
+                          letterSpacing: 0.8,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Instant Workspace Command Center',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: VelvetColors.textSecondary(context),
+                      const SizedBox(height: 1),
+                      Text(
+                        'Instant Workspace Command Center',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: VelvetColors.textSecondary(context),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 IconButton(
                   icon: Icon(Icons.close_rounded, size: 22, color: VelvetColors.iconColor(context)),
                   onPressed: () => Navigator.pop(context),
@@ -203,12 +210,12 @@ class _CyberCommandLauncherState extends ConsumerState<CyberCommandLauncher> {
                 ),
               ],
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 12),
 
             // High-contrast Search Bar
             TextField(
               controller: _searchController,
-              autofocus: true,
+              autofocus: false,
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: VelvetColors.textPrimary(context)),
               onChanged: (val) => setState(() => _query = val),
               decoration: InputDecoration(
@@ -217,7 +224,7 @@ class _CyberCommandLauncherState extends ConsumerState<CyberCommandLauncher> {
                 prefixIcon: const Icon(Icons.search_rounded, size: 20, color: VelvetColors.coralPeach),
                 filled: true,
                 fillColor: VelvetColors.inputFill(context),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(color: VelvetColors.border(context), width: 1.5),
@@ -232,11 +239,11 @@ class _CyberCommandLauncherState extends ConsumerState<CyberCommandLauncher> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 12),
 
-            ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: maxListHeight),
+            Flexible(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

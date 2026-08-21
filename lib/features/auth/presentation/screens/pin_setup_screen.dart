@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/backup/google_backup_service.dart';
 import '../../../../core/security/auth_service.dart';
 import '../../../../core/security/totp_service.dart';
 import '../../../../core/theme/velvet_colors.dart';
 import '../../../../shared_widgets/clay_card.dart';
 import '../../../../shared_widgets/pariyojana_logo.dart';
+import '../../../../shared_widgets/app_introduction_sheet.dart';
 import '../../../../core/profile/user_profile_provider.dart';
 
 class PinSetupScreen extends ConsumerStatefulWidget {
@@ -81,6 +83,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
     try {
       await HapticFeedback.mediumImpact();
       final googleService = ref.read(googleBackupServiceProvider);
+      final userProfileNotifier = ref.read(userProfileProvider.notifier);
       final success = await googleService.signIn();
 
       if (success) {
@@ -95,7 +98,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
             _usernameController.text = displayName;
             _step = 1;
           });
-          await ref.read(userProfileProvider.notifier).updateProfile(
+          await userProfileNotifier.updateProfile(
             fullName: displayName,
             avatarUrl: photoUrl ?? '',
           );
@@ -120,6 +123,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
   void _showFallbackEmailDialog(BuildContext context, {required String error}) {
     final emailController = TextEditingController();
+    final googleService = ref.read(googleBackupServiceProvider);
     showDialog(
       context: context,
       builder: (dialogCtx) => AlertDialog(
@@ -166,7 +170,6 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
             onPressed: () async {
               final email = emailController.text.trim();
               if (email.isNotEmpty && email.contains('@')) {
-                final googleService = ref.read(googleBackupServiceProvider);
                 await googleService.simulateSignIn(email);
                 final displayName = email.split('@').first;
                 if (mounted) {
@@ -251,17 +254,38 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
       totpSecret: _enableAuthenticator ? _totpSecret : null,
       enableBiometrics: _enableBiometrics,
     );
+    if (!mounted) return;
 
     if (success) {
       final pinSuccess = await auth.setupPin(pin, _enableBiometrics);
+      if (!mounted) return;
       if (pinSuccess) {
         await userProfileNotifier.updateProfile(
           fullName: username,
           title: bio,
           avatarUrl: _googlePhotoUrl,
         );
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('pariyojana_show_welcome_on_mount', false);
+          await prefs.setBool('pariyojana_app_blueprint_shown', true);
+        } catch (_) {}
         if (mounted) {
-          router.go('/ideas');
+          await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useRootNavigator: true,
+            backgroundColor: Colors.transparent,
+            builder: (ctx) => AppIntroductionSheet(
+              showCompleteButton: true,
+              onCompleted: () {
+                if (ctx.mounted) Navigator.pop(ctx);
+              },
+            ),
+          );
+          if (mounted) {
+            router.go('/ideas');
+          }
         }
         return;
       }
@@ -1154,31 +1178,36 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
         const SizedBox(height: 24),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: VelvetColors.textPrimary(context),
                 side: BorderSide(color: VelvetColors.border(context)),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
               ),
               onPressed: () => setState(() => _step = 0),
               child: const Text('Back'),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: VelvetColors.coralPeach,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-              ),
-              onPressed: _onRegisterSubmit,
-              child: Text(
-                _isGoogleAuthenticated
-                    ? 'Lock Workspace & Initialize 🛡️'
-                    : 'Initialize Vault 🚀',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            const SizedBox(width: 10),
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: VelvetColors.coralPeach,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                ),
+                onPressed: _onRegisterSubmit,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    _isGoogleAuthenticated
+                        ? 'Lock Workspace & Initialize 🛡️'
+                        : 'Initialize Vault 🚀',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ),
           ],

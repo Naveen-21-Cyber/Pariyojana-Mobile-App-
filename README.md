@@ -1,9 +1,9 @@
-# PARIYOJANA (परियोजना) v1.1.1
+# PARIYOJANA (परियोजना) v1.2.0
 ### Sovereign Focus, Productivity & Research Vault for Android 🇮🇳
 
 <div align="center">
 
-[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.1.1)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.1.1/Pariyojana-v1.1.1.apk)
+[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana.apk_(v1.2.0)-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk)
 [![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20%F0%9F%87%AE%F0%9F%87%B3-FF9933?style=for-the-badge)](http://pariyojana.gt.tc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](LICENSE)
@@ -11,7 +11,7 @@
 [![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](SECURITY.md)
 [![BYOK AI: OpenRouter Supported](https://img.shields.io/badge/BYOK%20AI-OpenRouter%20%7C%20DeepSeek%20%7C%20Claude%20%7C%20GPT--4o-8B5CF6?style=for-the-badge)](http://pariyojana.gt.tc/)
 
-**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.1.1)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.1.1/Pariyojana-v1.1.1.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
+**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.2.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
 
 </div>
 
@@ -20,14 +20,11 @@
 ## 📥 1-Click Instant APK Download
 
 <div align="center">
-  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.1.1/Pariyojana-v1.1.1.apk">
-    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.1.1)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
+  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk">
+    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.2.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
   </a>
-  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.1.1/Pariyojana-v1.1.1.apk">Pariyojana-v1.1.1.apk (v1.1.1 Production Release)</a></strong></em><br/>
+  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk">Pariyojana-v1.2.0.apk (v1.2.0 Production Release)</a></strong></em><br/>
   Compatible with Android 10, 11, 12, 13, 14, 15+ · 100% Free ($0) · No Sign-Up · No Ads · 120 FPS</p>
-
-  > ⚠️ **One-Time Upgrade Notice for v1.0.0 Users:**  
-  > *Pariyojana v1.1.1 introduces official **Production Hardware Keystore Signatures**. If you previously installed the v1.0.0 preview build, please **uninstall the old app once** before installing v1.1.1. All future updates from v1.1.1 onwards will install automatically with 1-click in-app OTA!*
 </div>
 
 ---

@@ -22,7 +22,7 @@ class GlassContainer extends StatelessWidget {
     this.padding,
     this.margin,
     this.borderRadius = 20.0,
-    this.blurSigma = 12.0,
+    this.blurSigma = 8.0,
     this.tintColor,
   });
 
@@ -31,42 +31,42 @@ class GlassContainer extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     final fill = tintColor ?? (isDark 
-        ? const Color(0xFF161B22).withValues(alpha: 0.75)
+        ? const Color(0xFF161B22).withValues(alpha: 0.85)
         : VelvetColors.glassFill);
 
-    return Container(
-      width: width,
-      height: height,
-      margin: margin,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: isDark
-            ? [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.4),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
-                ),
-              ]
-            : [
-                BoxShadow(
-                  color: VelvetColors.cocoa.withValues(alpha: 0.08),
-                  blurRadius: 24,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 8),
-                ),
-                BoxShadow(
-                  color: Colors.white.withValues(alpha: 0.25),
-                  blurRadius: 16,
-                  offset: const Offset(-2, -2),
-                ),
-              ],
-      ),
-      child: RepaintBoundary(
+    return RepaintBoundary(
+      child: Container(
+        width: width,
+        height: height,
+        margin: margin,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: isDark
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.35),
+                    blurRadius: 14,
+                    offset: const Offset(0, 4),
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: VelvetColors.cocoa.withValues(alpha: 0.06),
+                    blurRadius: 16,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 4),
+                  ),
+                  BoxShadow(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    blurRadius: 10,
+                    offset: const Offset(-1, -1),
+                  ),
+                ],
+        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadius),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
+            filter: ImageFilter.blur(sigmaX: blurSigma.clamp(2.0, 10.0), sigmaY: blurSigma.clamp(2.0, 10.0)),
             child: Container(
               padding: padding,
               decoration: BoxDecoration(

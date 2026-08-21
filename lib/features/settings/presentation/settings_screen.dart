@@ -15,10 +15,12 @@ import '../../../shared_widgets/glass_section_header.dart';
 import '../../../shared_widgets/app_introduction_sheet.dart';
 import 'package:velvet/core/sounds/sound_service.dart';
 import '../../../core/haptics/haptic_service.dart';
+import '../../../core/notifications/notification_service.dart';
 import 'package:velvet/core/backup/google_backup_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../shared_widgets/glass_snackbar.dart';
 import '../../../shared_widgets/gita_shloka_dialog.dart';
+import '../../../shared_widgets/whats_new_dialog.dart';
 import 'widgets/github_connection_card.dart';
 import 'widgets/ai_keys_byok_card.dart';
 import '../../../shared_widgets/cyber_command_launcher.dart';
@@ -28,6 +30,7 @@ import '../../../shared_widgets/help_pariyojana_grow_badge.dart';
 import '../../../../core/profile/user_profile_provider.dart';
 import '../../../shared_widgets/anti_forensics_dialog.dart';
 import '../../../shared_widgets/workspace_tab_guide_modal.dart';
+import '../../../shared_widgets/feature_explainer_sheet.dart';
 import '../../../../core/services/update_checker_service.dart';
 
 
@@ -50,6 +53,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _isGoogleSignedIn = false;
   String? _googleUserEmail;
   bool _googleSyncLoading = false;
+  // Exact time for single daily reminder (only used when _dailyNotifFrequency == 1)
+  int _exactReminderHour = 9;
+  int _exactReminderMinute = 0;
 
   @override
   void initState() {
@@ -66,6 +72,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _googleUserEmail = prefs.getString('velvet_google_user_email');
       _startHour = prefs.getInt('pariyojana_notif_start_hour') ?? 9;
       _endHour = prefs.getInt('pariyojana_notif_end_hour') ?? 22;
+      _dailyNotifFrequency = prefs.getInt('pariyojana_notif_daily_frequency') ?? 3;
+      _exactReminderHour = prefs.getInt('pariyojana_notif_exact_hour') ?? 9;
+      _exactReminderMinute = prefs.getInt('pariyojana_notif_exact_minute') ?? 0;
     } catch (_) {}
     _loadSettings();
   }
@@ -74,6 +83,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void dispose() {
     super.dispose();
   }
+
+  int _dailyNotifFrequency = 3;
 
   Future<void> _loadSettings() async {
     try {
@@ -91,6 +102,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         backupService.getUserEmail(),
         secureStorage.getNotificationStartHour(),
         secureStorage.getNotificationEndHour(),
+        secureStorage.getNotificationDailyFrequency(),
+        secureStorage.getNotificationExactHour(),
+        secureStorage.getNotificationExactMinute(),
       ]);
 
       if (mounted) {
@@ -104,6 +118,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _googleUserEmail = results[6] as String?;
           _startHour = results[7] as int;
           _endHour = results[8] as int;
+          _dailyNotifFrequency = results[9] as int;
+          _exactReminderHour = results[10] as int;
+          _exactReminderMinute = results[11] as int;
           _isLoading = false;
         });
 
@@ -113,6 +130,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         unawaited(prefs.setBool('velvet_notify_project_stale', _notifyProject));
         unawaited(prefs.setBool('velvet_notify_research_paper', _notifyPaper));
         unawaited(prefs.setBool('velvet_notify_job_application', _notifyJob));
+        unawaited(prefs.setInt('pariyojana_notif_daily_frequency', _dailyNotifFrequency));
+        unawaited(prefs.setInt('pariyojana_notif_exact_hour', _exactReminderHour));
+        unawaited(prefs.setInt('pariyojana_notif_exact_minute', _exactReminderMinute));
         unawaited(prefs.setBool('velvet_google_signed_in', _isGoogleSignedIn));
         if (_googleUserEmail != null) {
           unawaited(prefs.setString('velvet_google_user_email', _googleUserEmail!));
@@ -317,6 +337,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         const SizedBox(height: 12),
                         _buildBiometricUnlockTile(context),
                         const SizedBox(height: 12),
+                        _buildCyberCommandTerminalCard(context),
+                        const SizedBox(height: 12),
                         _buildSettingItem(
                           context,
                           icon: Icons.gavel_rounded,
@@ -345,6 +367,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           title: 'Executive Blueprint & Deep Feature Guides',
                           icon: Icons.auto_stories_rounded,
                         ),
+                        const SizedBox(height: 12),
+                        _buildFeatureCompassCard(context),
+                        const SizedBox(height: 12),
+                        _buildWhatsNewCard(context),
                         const SizedBox(height: 12),
                         _buildIntroGuideCard(context),
                         const SizedBox(height: 12),
@@ -875,13 +901,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               context,
               icon: Icons.terminal_rounded,
               title: 'Command Centre Terminal 💻',
-              subtitle: 'Enable OS companion command terminal shell (Default: OFF)',
-              onTap: () => CyberCommandLauncher.show(context),
+              subtitle: toggles.isCmdCentreEnabled
+                  ? 'Tap to open the OS companion command terminal'
+                  : 'Enable OS companion command terminal shell (Default: OFF)',
+              // Only open when already enabled — tap when OFF just enables the toggle
+              onTap: toggles.isCmdCentreEnabled ? () => CyberCommandLauncher.show(context) : null,
               trailing: Switch(
                 value: toggles.isCmdCentreEnabled,
                 onChanged: (val) {
                   ref.read(featureTogglesProvider.notifier).setCmdCentreEnabled(val);
-                  GlassSnackBar.show(context, val ? '💻 Command Terminal Enabled' : 'Command Terminal Disabled');
+                  GlassSnackBar.show(context, val ? '💻 Command Terminal Enabled — tap to open' : 'Command Terminal Disabled');
                 },
                 activeThumbColor: VelvetColors.coralPeach,
                 activeTrackColor: VelvetColors.coralPeach.withValues(alpha: 0.5),
@@ -950,6 +979,100 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         },
         activeThumbColor: VelvetColors.coralPeach,
         activeTrackColor: VelvetColors.coralPeach.withValues(alpha: 0.5),
+      ),
+    );
+  }
+
+  Widget _buildCyberCommandTerminalCard(BuildContext context) {
+    final toggles = ref.watch(featureTogglesProvider);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return ClayCard(
+      color: isDark ? const Color(0xFF1E232B) : VelvetColors.surface(context),
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: VelvetColors.coralPeach.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(13),
+                  border: Border.all(color: VelvetColors.coralPeach.withValues(alpha: 0.4), width: 1.5),
+                ),
+                child: const Icon(Icons.terminal_rounded, color: VelvetColors.coralPeach, size: 20),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Cyber Command Terminal 💻',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.bold,
+                        color: VelvetColors.textPrimary(context),
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'CLI diagnostics & system inspector',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        color: VelvetColors.textSecondary(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 4),
+              Switch(
+                value: toggles.isCmdCentreEnabled,
+                onChanged: (val) {
+                  ref.read(featureTogglesProvider.notifier).setCmdCentreEnabled(val);
+                  GlassSnackBar.show(context, val ? '💻 Terminal Enabled' : 'Terminal Disabled');
+                },
+                activeThumbColor: VelvetColors.coralPeach,
+                activeTrackColor: VelvetColors.coralPeach.withValues(alpha: 0.5),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            height: 40,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                if (!toggles.isCmdCentreEnabled) {
+                  ref.read(featureTogglesProvider.notifier).setCmdCentreEnabled(true);
+                }
+                CyberCommandLauncher.show(context);
+              },
+              icon: const Icon(Icons.flash_on_rounded, size: 15),
+              label: const Text(
+                '⚡ Open Terminal',
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: VelvetColors.coralPeach,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -1084,7 +1207,291 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
         ),
+        const SizedBox(height: 12),
+        _buildSettingItem(
+          context,
+          icon: Icons.notifications_active_rounded,
+          title: 'Daily Reminder Frequency',
+          subtitle: 'Receive $_dailyNotifFrequency focus reminder${_dailyNotifFrequency > 1 ? 's' : ''}/day evenly spaced',
+          trailing: GestureDetector(
+            onTap: () => _showNotificationFrequencyPicker(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: VelvetColors.coralPeach.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: VelvetColors.coralPeach.withValues(alpha: 0.4)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$_dailyNotifFrequency / day',
+                    style: TextStyle(color: VelvetColors.textPrimary(context), fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(Icons.tune_rounded, color: VelvetColors.iconColor(context), size: 14),
+                ],
+              ),
+            ),
+          ),
+        ),
+        // When frequency = 1, show exact time picker for that single reminder
+        if (_dailyNotifFrequency == 1) ...[
+          const SizedBox(height: 12),
+          _buildSettingItem(
+            context,
+            icon: Icons.alarm_rounded,
+            title: 'Reminder Time ⏰',
+            subtitle: 'Exact time for your single daily reminder',
+            trailing: GestureDetector(
+              onTap: () => _showExactTimePicker(context),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: VelvetColors.periwinkle.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: VelvetColors.periwinkle.withValues(alpha: 0.5)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      TimeOfDay(hour: _exactReminderHour, minute: _exactReminderMinute).format(context),
+                      style: const TextStyle(color: VelvetColors.periwinkle, fontWeight: FontWeight.bold, fontSize: 13),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(Icons.edit_rounded, color: VelvetColors.periwinkle, size: 14),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ],
+    );
+  }
+
+  void _showNotificationFrequencyPicker(BuildContext context) {
+    int tempFreq = _dailyNotifFrequency;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => StatefulBuilder(
+        builder: (modalCtx, setModalState) => Container(
+          decoration: BoxDecoration(
+            color: VelvetColors.surface(context),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            border: Border.all(color: VelvetColors.border(context)),
+          ),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Daily Reminder Frequency ⏰',
+                style: TextStyle(
+                  fontFamily: GoogleFonts.outfit().fontFamily,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: VelvetColors.textPrimary(context),
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Choose how many notifications you want per day ($tempFreq per day). Reminders will be evenly spaced between ${_formatHour(_startHour)} and ${_formatHour(_endHour)} without stacking.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12.5, color: VelvetColors.textSecondary(context)),
+              ),
+              const SizedBox(height: 20),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.center,
+                children: List.generate(12, (index) {
+                  final count = index + 1;
+                  final isSelected = tempFreq == count;
+                  return ChoiceChip(
+                    label: Text(
+                      '$count',
+                      style: TextStyle(
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected ? Colors.white : VelvetColors.textPrimary(context),
+                      ),
+                    ),
+                    selected: isSelected,
+                    selectedColor: VelvetColors.coralPeach,
+                    backgroundColor: VelvetColors.surface(context),
+                    onSelected: (selected) {
+                      if (selected) {
+                        setModalState(() => tempFreq = count);
+                      }
+                    },
+                  );
+                }),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        final secureStorage = ref.read(secureStorageProvider);
+                        final prefs = ref.read(sharedPreferencesProvider);
+                        await secureStorage.setNotificationDailyFrequency(tempFreq);
+                        await prefs.setInt('pariyojana_notif_daily_frequency', tempFreq);
+                        if (mounted) {
+                          setState(() => _dailyNotifFrequency = tempFreq);
+                        }
+                        if (ctx.mounted) {
+                          Navigator.pop(ctx);
+                        }
+
+                        // Trigger instant schedule refresh
+                        try {
+                          final notifService = NotificationService();
+                          final username = await secureStorage.getUsername() ?? 'Explorer';
+                          await notifService.refreshDailySchedules(
+                            username: username,
+                            activeProjectNames: ['Pariyojana Workspace'],
+                            hasUnpublishedPapers: false,
+                            hasActiveJobs: false,
+                            startHour: tempFreq == 1 ? _exactReminderHour : _startHour,
+                            endHour: _endHour,
+                            dailyFrequency: tempFreq,
+                            exactMinute: tempFreq == 1 ? _exactReminderMinute : 0,
+                          );
+                        } catch (_) {}
+
+                        if (mounted) {
+                          GlassSnackBar.show(this.context, '⏰ Updated: $tempFreq reminder(s)/day scheduled');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: VelvetColors.coralPeach,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                      child: const Text('Save Frequency', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureCompassCard(BuildContext context) {
+    return ClayCard(
+      color: VelvetColors.periwinkle.withValues(alpha: 0.18),
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: VelvetColors.periwinkle.withValues(alpha: 0.25),
+              shape: BoxShape.circle,
+              border: Border.all(color: VelvetColors.periwinkle, width: 1.5),
+            ),
+            child: const Icon(Icons.explore_rounded, color: VelvetColors.periwinkle, size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Feature Compass & Capability Guide 🧭',
+                  style: TextStyle(
+                    fontFamily: GoogleFonts.outfit().fontFamily,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: VelvetColors.textPrimary(context),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Search & discover what every single feature, button, and tool does with 1-tap jump actions.',
+                  style: TextStyle(fontSize: 11.5, color: VelvetColors.textSecondary(context)),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios_rounded, size: 18, color: VelvetColors.iconColor(context)),
+            onPressed: () => FeatureExplainerSheet.show(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWhatsNewCard(BuildContext context) {
+    return ClayCard(
+      color: VelvetColors.coralPeach.withValues(alpha: 0.15),
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: VelvetColors.coralPeach.withValues(alpha: 0.25),
+              shape: BoxShape.circle,
+              border: Border.all(color: VelvetColors.coralPeach, width: 1.5),
+            ),
+            child: const Text('🚀', style: TextStyle(fontSize: 22)),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'What\'s New in v1.1.2 🚀',
+                  style: TextStyle(
+                    fontFamily: GoogleFonts.outfit().fontFamily,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: VelvetColors.textPrimary(context),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Smart notification frequency, 1-tap thought capture, 12 font suite & privacy hardening.',
+                  style: TextStyle(fontSize: 11.5, color: VelvetColors.textSecondary(context)),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_forward_ios_rounded, size: 18, color: VelvetColors.iconColor(context)),
+            onPressed: () => WhatsNewDialog.showManual(context),
+          ),
+        ],
+      ),
     );
   }
 
@@ -1562,7 +1969,49 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
+  void _showExactTimePicker(BuildContext context) async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: _exactReminderHour, minute: _exactReminderMinute),
+    );
+    if (picked != null) {
+      final secureStorage = ref.read(secureStorageProvider);
+      final prefs = ref.read(sharedPreferencesProvider);
+      await secureStorage.setNotificationExactHour(picked.hour);
+      await secureStorage.setNotificationExactMinute(picked.minute);
+      await prefs.setInt('pariyojana_notif_exact_hour', picked.hour);
+      await prefs.setInt('pariyojana_notif_exact_minute', picked.minute);
+      if (mounted) {
+        setState(() {
+          _exactReminderHour = picked.hour;
+          _exactReminderMinute = picked.minute;
+        });
+      }
 
+      // Trigger instant schedule refresh
+      try {
+        final notifService = NotificationService();
+        final username = await secureStorage.getUsername() ?? 'Explorer';
+        await notifService.refreshDailySchedules(
+          username: username,
+          activeProjectNames: ['Pariyojana Workspace'],
+          hasUnpublishedPapers: false,
+          hasActiveJobs: false,
+          startHour: picked.hour,
+          endHour: _endHour,
+          dailyFrequency: 1,
+          exactMinute: picked.minute,
+        );
+      } catch (_) {}
+
+      if (mounted) {
+        GlassSnackBar.show(
+          this.context,
+          '⏰ Daily reminder set for ${picked.format(this.context)}',
+        );
+      }
+    }
+  }
 
   String _getCurrentLanguageName(String code) {
     try {
@@ -2782,27 +3231,34 @@ class _EditableUserProfileCard extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const Icon(Icons.lock_outline_rounded, size: 12, color: VelvetColors.coralPeach),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'SQLCipher AES-256 Vault Protected',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: VelvetColors.textSecondary(context),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.lock_outline_rounded, size: 12, color: VelvetColors.coralPeach),
+                                  const SizedBox(width: 6),
+                                  Flexible(
+                                    child: Text(
+                                      'SQLCipher AES-256 Vault Protected',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: 9.5,
+                                        fontWeight: FontWeight.w600,
+                                        color: VelvetColors.textSecondary(context),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
+                            const SizedBox(width: 6),
                             Text(
                               'HARDWARE ENCLAVE',
                               style: TextStyle(
                                 fontFamily: GoogleFonts.jetBrainsMono().fontFamily,
                                 fontSize: 8.5,
                                 fontWeight: FontWeight.w900,
-                                letterSpacing: 0.8,
+                                letterSpacing: 0.6,
                                 color: VelvetColors.coralPeach,
                               ),
                             ),
@@ -2898,8 +3354,7 @@ void _showFontPickerSheet(BuildContext context, WidgetRef ref) {
                         ),
                         title: Text(
                           f.displayName,
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.getFont(f.googleFontName).fontFamily,
+                          style: f.getPreviewTextStyle(context).copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             color: VelvetColors.textPrimary(context),

@@ -206,33 +206,35 @@ class _MitnickChatScreenState extends ConsumerState<MitnickChatScreen> {
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: VelvetColors.textPrimary(context), size: 19),
           onPressed: () => context.pop(),
         ),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: VelvetColors.coralPeach.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(10),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: VelvetColors.coralPeach.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.terminal_rounded, color: VelvetColors.coralPeach, size: 18),
               ),
-              child: const Icon(Icons.terminal_rounded, color: VelvetColors.coralPeach, size: 18),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              notifier.currentPersona == AgentPersona.mitnick
-                  ? 'MITNICK AI // ZERO-TRUST'
-                  : notifier.currentPersona == AgentPersona.newton
-                      ? 'NEWTON AI // SCHOLAR'
-                      : 'STEVE JOBS AI // VISION',
-              style: TextStyle(
-                fontFamily: GoogleFonts.outfit().fontFamily,
-                fontWeight: FontWeight.w900,
-                fontSize: 16,
-                letterSpacing: 1.2,
-                color: VelvetColors.textPrimary(context),
+              const SizedBox(width: 8),
+              Text(
+                notifier.currentPersona == AgentPersona.mitnick
+                    ? 'MITNICK AI // ZERO-TRUST'
+                    : notifier.currentPersona == AgentPersona.newton
+                        ? 'NEWTON AI // SCHOLAR'
+                        : 'STEVE JOBS AI // VISION',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 14.5,
+                  letterSpacing: 0.8,
+                  color: VelvetColors.textPrimary(context),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -269,14 +271,16 @@ class _MitnickChatScreenState extends ConsumerState<MitnickChatScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Persona Switcher Bar
-              Padding(
+              // Persona Switcher Bar (Horizontally scrollable to eliminate all chip overflow)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildPersonaChip(ref, notifier, AgentPersona.mitnick, '🕵️‍♂️ Kevin Mitnick', VelvetColors.coralPeach),
+                    const SizedBox(width: 8),
                     _buildPersonaChip(ref, notifier, AgentPersona.newton, '🔬 Isaac Newton', VelvetColors.periwinkle),
+                    const SizedBox(width: 8),
                     _buildPersonaChip(ref, notifier, AgentPersona.jobs, '💼 Steve Jobs', VelvetColors.mint),
                   ],
                 ),

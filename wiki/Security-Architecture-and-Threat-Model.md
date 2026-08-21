@@ -20,7 +20,7 @@ Pariyojana assumes an **untrusted device environment** where:
 │  2. Android KeyStore TEE Hardware Enclave (`flutter_secure_storage`)   │
 │  3. Master KeySafe for Developer BYOK API Keys                         │
 │  4. Anti-Forensic RAM Zeroing (`0x00`) on Memory Release               │
-│  5. Android DRM `FLAG_SECURE` Screenshot & OS Recents Shield          │
+│  5. Android DRM `FLAG_SECURE` Screenshot & OS Recents Shield           │
 │  6. Biometric Unlock (Android BiometricPrompt API)                     │
 └────────────────────────────────────────────────────────────────────────┘
 ```

@@ -32,8 +32,6 @@ class GoogleBackupServiceImpl implements GoogleBackupService {
     SecureStorageService? secureStorage,
   })  : _googleSignIn = googleSignIn ??
             GoogleSignIn(
-              serverClientId:
-                  '962236967041-i761g5d908cideg170daha86o7g9r0f5.apps.googleusercontent.com',
               scopes: [
                 'https://www.googleapis.com/auth/drive.appdata',
                 'email',

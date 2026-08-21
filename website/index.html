@@ -234,6 +234,34 @@
     </div>
   </div>
 
+  <!-- ══════════ DYNAMIC LIVE GITHUB RELEASE & CHANGELOG SECTION (AFTER STAR BANNER, BEFORE WHAT IS PARIYOJANA) ══════════ -->
+  <section class="release-showcase-section" id="live-release-section" aria-label="Latest Release and Updates">
+    <div class="live-release-card reveal-up" id="liveReleaseCard">
+      <div class="release-header-row">
+        <div class="release-tag-badge">
+          <span class="live-pulse-dot"></span>
+          <span id="releaseVersion">v1.2.0 Live</span>
+        </div>
+        <span class="release-date-badge" id="releaseDate">Latest Stable Release</span>
+        <span class="release-status-chip">🟢 Production Ready</span>
+      </div>
+      <div class="release-body-preview" id="releaseBodyPreview">
+        <div class="release-bullet">⚡ Feature Compass 2.0 with 1-tap interactive goal recipes &amp; guidance</div>
+        <div class="release-bullet">⚡ Cyber Command Terminal Guard accessible directly in Dynamic Island Cockpit</div>
+        <div class="release-bullet">⚡ Instant Settings Screen rendering &amp; zero-trust local SQLCipher encryption</div>
+      </div>
+      <div class="release-actions-row">
+        <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases" id="releaseDownloadBtn" class="release-dl-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v13M5 9l7 7 7-7"/><rect x="2" y="19" width="20" height="3" rx="1.5"/></svg>
+          <span>Direct APK Download</span>
+        </a>
+        <button class="release-notes-toggle-btn" id="releaseNotesToggleBtn" onclick="toggleChangelogModal()" type="button">
+          <span>📋 View Full Release Changelog</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ SECTION 1: WHAT IS PARIYOJANA & HOW IT HELPS ══════════ -->
   <section class="explain-sec" id="what-is-it" aria-labelledby="whatHeading">
     <div class="section-header">
@@ -1107,7 +1135,23 @@
     </div>
   </footer>
 
-  <script src="script.js?v=1.0.2"></script>
+  <!-- ══════════ GITHUB RELEASES CHANGELOG MODAL ══════════ -->
+  <div class="changelog-modal-backdrop" id="changelogModal" onclick="if(event.target===this)toggleChangelogModal()">
+    <div class="changelog-modal-card">
+      <div class="changelog-modal-header">
+        <div class="modal-title-group">
+          <h3>🚀 Pariyojana Release History &amp; Changelog</h3>
+          <p>Live synchronized with GitHub Releases (@Naveen-21-Cyber)</p>
+        </div>
+        <button class="modal-close-btn" onclick="toggleChangelogModal()" aria-label="Close modal">✕</button>
+      </div>
+      <div class="changelog-modal-body" id="changelogModalContent">
+        <!-- Dynamically injected by initGitHubReleases() -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=1.0.3"></script>
 </body>
 
 </html>

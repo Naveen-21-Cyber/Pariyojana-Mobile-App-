@@ -114,24 +114,29 @@ class _AiSmartDigestCardState extends ConsumerState<AiSmartDigestCard> {
           GestureDetector(
             onTap: () => setState(() => _isExpanded = !_isExpanded),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const Icon(Icons.psychology_rounded, color: accentColor, size: 22),
-                    const SizedBox(width: 8),
-                    Text(
-                      'AI Smart Digest 🧠',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.outfit().fontFamily,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: VelvetColors.textPrimary(context),
+                Expanded(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.psychology_rounded, color: accentColor, size: 22),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          'AI Smart Digest 🧠',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.bold,
+                            color: VelvetColors.textPrimary(context),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
                       padding: EdgeInsets.zero,
@@ -167,21 +172,20 @@ class _AiSmartDigestCardState extends ConsumerState<AiSmartDigestCard> {
                     GestureDetector(
                       onTap: () => ref.read(aiDigestProvider.notifier).generateDigest(context: context),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: accentColor.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: accentColor),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.auto_awesome_rounded, size: 13, color: accentColor),
-                            const SizedBox(width: 4),
+                            Icon(Icons.auto_awesome_rounded, size: 12, color: accentColor),
+                            SizedBox(width: 4),
                             Text(
                               'Generate',
                               style: TextStyle(
-                                fontFamily: GoogleFonts.outfit().fontFamily,
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
                                 color: accentColor,

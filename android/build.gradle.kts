@@ -4,7 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.google.gms:google-services:4.5.0")
+        // NOTE: google-services plugin classpath intentionally REMOVED.
+        // It injects play-services-measurement which triggers Amazon Appstore ad-network rejection.
     }
 }
 

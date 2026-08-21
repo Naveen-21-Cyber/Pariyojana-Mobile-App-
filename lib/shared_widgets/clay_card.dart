@@ -50,7 +50,7 @@ class _ClayCardState extends State<ClayCard> {
       if (widget.color == VelvetColors.cream ||
           widget.color == VelvetColors.clayTan ||
           widget.color == Colors.white ||
-          widget.color.computeLuminance() > 0.35) {
+          widget.color == const Color(0xFFFFFBF7)) {
         effectiveColor = VelvetColors.darkCard;
       }
     }

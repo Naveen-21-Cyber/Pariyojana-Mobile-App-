@@ -6,7 +6,10 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
-    id("com.google.gms.google-services")
+    // NOTE: google-services plugin intentionally REMOVED.
+    // It injects play-services-measurement (Google Analytics/AD_ID) automatically,
+    // causing Amazon Appstore Content Policy rejections.
+    // Firebase Crashlytics is initialized manually via FirebaseOptions in main.dart.
 }
 
 val keystoreProperties = Properties()

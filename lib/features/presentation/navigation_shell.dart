@@ -10,7 +10,10 @@ import '../../shared_widgets/liquid_fab.dart';
 import '../../shared_widgets/pariyojana_logo.dart';
 import '../../shared_widgets/dynamic_island.dart';
 import '../../shared_widgets/gita_shloka_dialog.dart';
+import '../../shared_widgets/whats_new_dialog.dart';
+import '../../shared_widgets/quick_thought_capture_sheet.dart';
 import '../../shared_widgets/executive_profile_sheet.dart';
+import '../../shared_widgets/feature_explainer_sheet.dart';
 import '../focus_shield/presentation/focus_shield_overlay.dart';
 
 import '../../shared_widgets/app_introduction_sheet.dart';
@@ -49,8 +52,11 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
   Future<void> _showFirstTimeBlueprintIfNeeded() async {
     try {
       final prefs = ref.read(sharedPreferencesProvider);
+      final forceWelcome = prefs.getBool('pariyojana_show_welcome_on_mount') ?? false;
       final blueprintShown = prefs.getBool('pariyojana_app_blueprint_shown') ?? false;
-      if (!blueprintShown) {
+
+      if (forceWelcome || !blueprintShown) {
+        await prefs.setBool('pariyojana_show_welcome_on_mount', false);
         await prefs.setBool('pariyojana_app_blueprint_shown', true);
         if (mounted) {
           await showModalBottomSheet(
@@ -66,6 +72,9 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
     if (mounted && !_shlokaShown) {
       _shlokaShown = true;
       await GitaStartupDialog.showIfNeeded(context, ref);
+      if (mounted) {
+        await WhatsNewDialog.showIfNeeded(context, ref);
+      }
     }
   }
 
@@ -123,11 +132,12 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
                   const SizedBox(height: 8),
 
                   // B. Top Bar (Logo Left, Actions Right)
-                  GlassContainer(
-                    borderRadius: 22,
-                    blurSigma: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                    child: Row(
+                  RepaintBoundary(
+                    child: GlassContainer(
+                      borderRadius: 22,
+                      blurSigma: 8,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                      child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Left: Logo + App Name (Tapping opens App Blueprint Deck)
@@ -163,12 +173,22 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
                           ),
                         ),
 
-                        // Right: Knowledge/AI Graph + Settings
+                        // Right: Feature Compass + Knowledge/AI Graph + Settings
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.hub_outlined, color: VelvetColors.coralPeach, size: 22),
+                              icon: const Icon(Icons.explore_outlined, color: VelvetColors.coralPeach, size: 22),
+                              tooltip: 'Feature Compass & Explainer 🧭',
+                              onPressed: () {
+                                FeatureExplainerSheet.show(
+                                  context,
+                                  initialTabIndex: widget.navigationShell.currentIndex + 1,
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.hub_outlined, color: VelvetColors.periwinkle, size: 22),
                               tooltip: 'Mitnick AI',
                               onPressed: () => context.push('/mitnick'),
                             ),
@@ -186,47 +206,58 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
 
-            // 2. Screen Content: Expanded to fill remaining height with ZERO overlap
-            Expanded(
-              child: widget.navigationShell,
-            ),
-          ],
-        ),
+          // 2. Screen Content: Expanded to fill remaining height with ZERO overlap
+          Expanded(
+            child: widget.navigationShell,
+          ),
+        ],
       ),
-      floatingActionButton: LiquidFab(
-        onPressed: () => _showSpeedDialSheet(context, ref),
-        icon: const Icon(Icons.add, color: Colors.white, size: 28),
-        tooltip: 'Quick Capture Speed Dial',
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        color: Colors.transparent,
-        child: SafeArea(
-          minimum: const EdgeInsets.only(bottom: 12),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: GlassContainer(
-              borderRadius: 24,
-              blurSigma: 20,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavItem(context, 0, Icons.lightbulb_outline, 'Vault'),
-                  _buildNavItem(context, 1, Icons.folder_open_outlined, 'Projects'),
-                  const SizedBox(width: 48), // Space for FAB
-                  _buildNavItem(context, 2, Icons.menu_book_outlined, 'Research'),
-                  _buildNavItem(context, 3, Icons.work_outline_outlined, 'Jobs'),
-                ],
+    ),
+    floatingActionButton: LiquidFab(
+      onPressed: () => _showSpeedDialSheet(context, ref),
+      icon: const Icon(Icons.add, color: Colors.white, size: 28),
+      tooltip: 'Quick Capture Speed Dial',
+    ),
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    bottomNavigationBar: Builder(
+      builder: (context) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final outerHPad = screenWidth < 360 ? 8.0 : screenWidth < 400 ? 12.0 : 16.0;
+        final innerHPad = screenWidth < 360 ? 4.0 : 8.0;
+        final fabSpacerWidth = screenWidth < 360 ? 32.0 : screenWidth < 400 ? 38.0 : 44.0;
+
+        return RepaintBoundary(
+          child: Container(
+            color: Colors.transparent,
+            child: SafeArea(
+              minimum: const EdgeInsets.only(bottom: 12),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: outerHPad),
+                child: GlassContainer(
+                  borderRadius: 24,
+                  blurSigma: 8,
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: innerHPad),
+                  child: Row(
+                    children: [
+                      Expanded(child: _buildNavItem(context, 0, Icons.lightbulb_outline, 'Vault')),
+                      Expanded(child: _buildNavItem(context, 1, Icons.folder_open_outlined, 'Projects')),
+                      SizedBox(width: fabSpacerWidth), // Space for FAB
+                      Expanded(child: _buildNavItem(context, 2, Icons.menu_book_outlined, 'Research')),
+                      Expanded(child: _buildNavItem(context, 3, Icons.work_outline_outlined, 'Jobs')),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
+    ),
     );
   }
 
@@ -242,24 +273,28 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
         ? VelvetColors.coralPeach
         : (isDark ? Colors.white.withValues(alpha: 0.6) : VelvetColors.cocoa.withValues(alpha: 0.55));
     final screenWidth = MediaQuery.of(context).size.width;
-    final hPad = screenWidth < 360 ? 6.0 : screenWidth < 400 ? 9.0 : 12.0;
+    final iconSize = screenWidth < 360 ? 20.0 : 22.0;
+    final fontSize = screenWidth < 360 ? 10.0 : 11.0;
 
     return InkWell(
       onTap: () => _onTap(context, index),
       borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: color, size: 22),
+            Icon(icon, color: color, size: iconSize),
             const SizedBox(height: 3),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 9.5,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: color,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: color,
+                ),
               ),
             ),
           ],
@@ -329,6 +364,25 @@ class _NavigationShellState extends ConsumerState<NavigationShell> with WidgetsB
                 runSpacing: 8,
                 alignment: WrapAlignment.center,
                 children: [
+                  ActionChip(
+                    avatar: const Icon(Icons.explore_rounded, size: 14, color: VelvetColors.coralPeach),
+                    label: const Text('Feature Guide 🧭', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      FeatureExplainerSheet.show(
+                        context,
+                        initialTabIndex: widget.navigationShell.currentIndex + 1,
+                      );
+                    },
+                  ),
+                  ActionChip(
+                    avatar: const Icon(Icons.flash_on_rounded, size: 14, color: VelvetColors.coralPeach),
+                    label: const Text('Quick Thought ⚡', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      QuickThoughtCaptureSheet.show(context);
+                    },
+                  ),
                   ActionChip(
                     avatar: const Icon(Icons.account_circle_outlined, size: 14, color: VelvetColors.coralPeach),
                     label: const Text('Executive Profile 👤', style: TextStyle(fontSize: 10.5)),

@@ -215,6 +215,17 @@ class GitaStartupDialog extends ConsumerWidget {
     );
   }
 
+  /// Show a random shloka manually on-demand.
+  static Future<void> showManual(BuildContext context) async {
+    final shloka = _kGitaShlokas[Random().nextInt(_kGitaShlokas.length)];
+    await showDialog(
+      context: context,
+      useRootNavigator: true,
+      barrierDismissible: true,
+      builder: (context) => GitaStartupDialog(shloka: shloka),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEnabled = ref.watch(gitaShlokaEnabledProvider);

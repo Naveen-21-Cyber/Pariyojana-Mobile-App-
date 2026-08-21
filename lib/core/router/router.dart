@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../security/auth_service.dart';
-import '../analytics/analytics_service.dart';
 import '../providers/feature_toggles_provider.dart';
 import '../../features/presentation/navigation_shell.dart';
 
