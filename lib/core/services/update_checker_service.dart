@@ -204,24 +204,13 @@ class UpdateCheckerService {
     return 0;
   }
 
-  // ─── In-App OTA Download + Install ──────────────────────────────────────────
-
   /// Downloads the APK to the cache directory and triggers the Android installer.
   /// Shows a progress dialog inside the app — user never leaves.
   static Future<void> downloadAndInstall(
     BuildContext context,
     UpdateInfo info,
   ) async {
-    if (!info.hasApkAsset) {
-      // Fall back to browser if no APK asset exists
-      final uri = Uri.parse(info.downloadUrl);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      }
-      return;
-    }
-
-    // Show the download progress dialog
+    // Show the in-app download progress dialog with 4-mirror fallback
     if (!context.mounted) return;
     await showDialog<void>(
       context: context,
