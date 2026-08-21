@@ -1,17 +1,17 @@
-# PARIYOJANA (परियोजना) v1.2.0
+# PARIYOJANA (परियोजना) v1.2.1
 ### Sovereign Focus, Productivity & Research Vault for Android 🇮🇳
 
 <div align="center">
 
-[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana--v1.2.0.apk-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk)
-[![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/tag/v1.2.0)
+[![⚡ 1-Click Download Pariyojana APK](https://img.shields.io/badge/⚡_1--Click_Direct_Download-Pariyojana--v1.2.1.apk-FF522B?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.1/Pariyojana-v1.2.1.apk)
+[![GitHub Release](https://img.shields.io/github/v/release/Naveen-21-Cyber/Pariyojana-Mobile-App-?style=for-the-badge&color=10B981&label=Release)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/tag/v1.2.1)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20%F0%9F%87%AE%F0%9F%87%B3-FF9933?style=for-the-badge)](http://pariyojana.gt.tc/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
 [![Security: SQLCipher Encrypted](https://img.shields.io/badge/Security-256--bit%20SQLCipher%20AES-FFB347?style=for-the-badge)](SECURITY.md)
 [![BYOK AI: OpenRouter Supported](https://img.shields.io/badge/BYOK%20AI-OpenRouter%20%7C%20DeepSeek%20%7C%20Claude%20%7C%20GPT--4o-8B5CF6?style=for-the-badge)](http://pariyojana.gt.tc/)
 
-**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.2.0)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
+**[Official Website](http://pariyojana.gt.tc/)** · **[Download APK (v1.2.1)](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.1/Pariyojana-v1.2.1.apk)** · **[Documentation](http://pariyojana.gt.tc/#features)** · **[Bug Report](https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/issues)** · **[Cyber_buddy](https://www.linkedin.com/company/cyber-buddy3/)**
 
 </div>
 
@@ -20,23 +20,24 @@
 ## 📥 1-Click Instant APK Download
 
 <div align="center">
-  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk">
-    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.2.0)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
+  <a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.1/Pariyojana-v1.2.1.apk">
+    <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_PARIYOJANA_APK_(v1.2.1)-100%25_FREE_%26_OFFLINE-FF522B?style=for-the-badge&logo=android&logoColor=white" height="52" alt="Download Pariyojana APK" />
   </a>
-  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.0/Pariyojana-v1.2.0.apk">Pariyojana-v1.2.0.apk (v1.2.0 Production Release)</a></strong></em><br/>
+  <p><em>👉 Direct Download: <strong><a href="https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/v1.2.1/Pariyojana-v1.2.1.apk">Pariyojana-v1.2.1.apk (v1.2.1 Production Release)</a></strong></em><br/>
   Compatible with Android 10, 11, 12, 13, 14, 15+ · 100% Free ($0) · No Sign-Up · No Ads · 120 FPS</p>
 </div>
 
 ---
 
-## 🌟 What's New in v1.2.0 — The Human-Centered Stability Release
+## 🌟 What's New in v1.2.1 — The Human-Centered Stability Release
 
 - 🧭 **Humanized Feature Compass**: Jargon-free explanations, 3-step action recipes, and real-life everyday hacks across all 24 workspace capabilities.
-- 🛡️ **Zero Data Deletion Guarantee**: Completely removed destructive database probe handlers; added automatic `.safety_bak` snapshots to ensure user data is never lost.
-- 💻 **Cyber Command Terminal Outside Quick Access**: Instant 1-tap terminal launcher embedded directly in the Dynamic Island with responsive keyboard clamping.
+- 🛡️ **Zero Data Deletion Guarantee**: Protected SQLite WAL database engine; automatic `.safety_bak` snapshots to ensure user data is never lost.
+- 📡 **Direct In-App OTA Updates**: Streamlined in-app update downloader with multi-CDN fallback mirrors and 1-tap installation.
+- 💻 **Cyber Command Terminal Guard**: Instant 1-tap terminal launcher embedded directly in the Dynamic Island with responsive keyboard clamping.
 - 🚀 **Guaranteed Executive Welcome Guide**: Newly registered accounts immediately experience the 5-page blueprint walkthrough.
 - 🛡️ **Zero-Crash Resilience**: Full offline font protection, safe Riverpod provider lifecycles, and Android 12+ intent trampoline fixes.
-- ⚡ **120 FPS Turbo Engine**: SQLite WAL (Write-Ahead Logging) mode, dedicated GPU repaint boundaries, and sub-millisecond local reads/writes.
+- ⚡ **120 FPS Turbo Engine**: Dedicated GPU repaint boundaries, sub-millisecond local reads/writes, and zero lag.
 
 ---
 
