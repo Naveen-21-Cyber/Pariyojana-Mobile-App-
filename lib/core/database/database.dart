@@ -177,7 +177,8 @@ QueryExecutor openConnection(String hexKey) {
     } catch (e) {
       if (file.existsSync()) {
         try {
-          file.deleteSync();
+          final backupFile = File('${file.path}.safety_bak');
+          file.copySync(backupFile.path);
         } catch (_) {}
       }
       return NativeDatabase(file, setup: applyKeyAndValidate);

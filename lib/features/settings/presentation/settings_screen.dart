@@ -2477,41 +2477,53 @@ class _DeveloperInfoCard extends ConsumerWidget {
               Icon(Icons.info_outline_rounded, color: VelvetColors.iconColor(context), size: 24),
               const SizedBox(width: 16),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TranslatedText(
-                      'Version & Updates',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: VelvetColors.textPrimary(context)),
-                    ),
-                    const SizedBox(height: 2),
-                    TranslatedText(
-                      'Pariyojana v1.1.1 (Production Release)',
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: VelvetColors.textSecondary(context)),
-                    ),
-                  ],
+                child: FutureBuilder<String>(
+                  future: UpdateCheckerService.currentAppVersion(),
+                  builder: (context, snapshot) {
+                    final ver = snapshot.data ?? '1.1.2';
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TranslatedText(
+                          'Version & Updates',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: VelvetColors.textPrimary(context)),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Pariyojana v$ver (Production Release)',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: VelvetColors.textSecondary(context)),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: VelvetColors.coralPeach.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  'v1.1.1',
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.jetBrainsMono().fontFamily,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: VelvetColors.coralPeach,
-                  ),
-                ),
+              FutureBuilder<String>(
+                future: UpdateCheckerService.currentAppVersion(),
+                builder: (context, snapshot) {
+                  final ver = snapshot.data ?? '1.1.2';
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: VelvetColors.coralPeach.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      'v$ver',
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.jetBrainsMono().fontFamily,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: VelvetColors.coralPeach,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

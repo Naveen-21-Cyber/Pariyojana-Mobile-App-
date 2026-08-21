@@ -33,7 +33,7 @@ Contact: $portfolio | GitHub: $github
 🚀 FEATURED ENGINEERING PROJECTS
 1. PARIYOJANA OS: Personal Command Center with SQLCipher AES-256 local encryption and glass-clay UI.
 
-Generated via Pariyojana OS v1.1.1 (Community Release)
+Generated via Pariyojana OS v1.1.2 (Community Release)
 ''';
   }
 

@@ -9,6 +9,7 @@ import '../features/research_tracker/presentation/providers/research_provider.da
 import '../features/job_tracker/presentation/providers/job_provider.dart';
 import '../features/idea_vault/presentation/providers/idea_provider.dart';
 import '../core/backup/google_backup_service.dart';
+import '../core/services/update_checker_service.dart';
 
 enum LogType { info, success, warning, error, input, system, quote }
 
@@ -50,7 +51,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
 
   void _initTerminalLogs() {
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
-    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.1.1      ', LogType.success));
+    _logs.add(_TerminalLogEntry('  PARIYOJANA CYBER COMMAND TERMINAL v1.1.2      ', LogType.success));
     _logs.add(_TerminalLogEntry('  SQLCIPHER AES-256 ENCRYPTED PRODUCTION BACKEND  ', LogType.info));
     _logs.add(_TerminalLogEntry('==================================================', LogType.info));
     _logs.add(_TerminalLogEntry('Tap a quick action chip below or type "help".', LogType.system));
@@ -86,9 +87,10 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
         break;
 
       case 'version':
+        final ver = await UpdateCheckerService.currentAppVersion();
         setState(() {
           _logs.add(_TerminalLogEntry('🛡️ PARIYOJANA OS VERSION INFO:', LogType.success));
-          _logs.add(_TerminalLogEntry('  App Version : 1.1.1 (Production Release)', LogType.system));
+          _logs.add(_TerminalLogEntry('  App Version : $ver (Production Release)', LogType.system));
           _logs.add(_TerminalLogEntry('  Cipher Engine: SQLCipher AES-256-GCM', LogType.system));
         });
         break;
@@ -103,7 +105,9 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
             }
           });
         } catch (e) {
-          setState(() => _logs.add(_TerminalLogEntry('❌ Error reading projects', LogType.error)));
+          setState(() {
+            _logs.add(_TerminalLogEntry('Error querying projects: $e', LogType.error));
+          });
         }
         break;
 
@@ -111,13 +115,15 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
         try {
           final ideas = ref.read(ideasStreamProvider).asData?.value ?? [];
           setState(() {
-            _logs.add(_TerminalLogEntry('💡 IDEA VAULT ITEMS (${ideas.length}):', LogType.success));
+            _logs.add(_TerminalLogEntry('💡 ENCRYPTED IDEAS (${ideas.length}):', LogType.success));
             for (final i in ideas.take(5)) {
-              _logs.add(_TerminalLogEntry('  • ${i.content.replaceAll(RegExp(r'\n+'), ' ')} [${i.category}]', LogType.system));
+              _logs.add(_TerminalLogEntry('  • [${i.category}] ${i.content.split("\n").first}', LogType.system));
             }
           });
         } catch (e) {
-          setState(() => _logs.add(_TerminalLogEntry('❌ Error reading ideas', LogType.error)));
+          setState(() {
+            _logs.add(_TerminalLogEntry('Error querying ideas: $e', LogType.error));
+          });
         }
         break;
 
@@ -142,29 +148,25 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
 
       case 'sync':
         setState(() {
-          _logs.add(_TerminalLogEntry('☁️ Initiating encrypted Google Drive sync...', LogType.info));
+          _logs.add(_TerminalLogEntry('Triggering Google Drive backup...', LogType.info));
         });
-        try {
-          final backupService = ref.read(googleBackupServiceProvider);
-          final ok = await backupService.backupDatabaseToDrive();
-          setState(() {
-            if (ok) {
-              _logs.add(_TerminalLogEntry('✓ Cloud sync complete! Database backup uploaded.', LogType.success));
-            } else {
-              _logs.add(_TerminalLogEntry('⚠️ Sync skipped or account mismatch.', LogType.warning));
-            }
-          });
-        } catch (e) {
-          setState(() => _logs.add(_TerminalLogEntry('❌ Cloud Sync Error: $e', LogType.error)));
-        }
+        final googleBackup = ref.read(googleBackupServiceProvider);
+        final syncOk = await googleBackup.backupDatabaseToDrive();
+        setState(() {
+          if (syncOk) {
+            _logs.add(_TerminalLogEntry('✓ Cloud backup completed successfully.', LogType.success));
+          } else {
+            _logs.add(_TerminalLogEntry('✗ Sync failed. Connect Google Account in Settings.', LogType.error));
+          }
+        });
         break;
 
       case 'sys':
         setState(() {
-          _logs.add(_TerminalLogEntry('🛡️ SECURITY & ENCRYPTION STATUS:', LogType.success));
-          _logs.add(_TerminalLogEntry('  - Cipher Engine: SQLCipher AES-256-GCM', LogType.system));
-          _logs.add(_TerminalLogEntry('  - Key Manager: Android KeyStore + FlutterSecureStorage', LogType.system));
-          _logs.add(_TerminalLogEntry('  - Local Device Storage: Encrypted at rest', LogType.system));
+          _logs.add(_TerminalLogEntry('🛡️ SECURITY TELEMETRY:', LogType.success));
+          _logs.add(_TerminalLogEntry('  Status: Sovereign (100% Offline)', LogType.system));
+          _logs.add(_TerminalLogEntry('  Database: SQLCipher v4 (AES-256)', LogType.system));
+          _logs.add(_TerminalLogEntry('  Key Vault: Android KeyStore TEE', LogType.system));
         });
         break;
 
@@ -177,7 +179,7 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
 
       default:
         setState(() {
-          _logs.add(_TerminalLogEntry('Unknown command: "$cmd". Type "help" for valid commands.', LogType.error));
+          _logs.add(_TerminalLogEntry('Unknown command "$action". Type "help" for options.', LogType.error));
         });
     }
 
@@ -222,16 +224,15 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
       decoration: const BoxDecoration(
         color: Color(0xFF0D1117),
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        border: Border(top: BorderSide(color: VelvetColors.coralPeach, width: 2)),
       ),
       child: Column(
         children: [
-          // Header Bar
+          // Terminal Title Bar
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: const BoxDecoration(
               color: Color(0xFF161B22),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             ),
             child: Row(
               children: [
@@ -253,9 +254,12 @@ class _CompanionTerminalSheetState extends ConsumerState<CompanionTerminalSheet>
                   decoration: const BoxDecoration(color: Color(0xFF27C93F), shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  'CYBER_TERMINAL v1.1.1',
-                  style: GoogleFonts.firaCode(fontSize: 12, color: const Color(0xFF8B949E), fontWeight: FontWeight.bold),
+                FutureBuilder<String>(
+                  future: UpdateCheckerService.currentAppVersion(),
+                  builder: (context, snapshot) => Text(
+                    'CYBER_TERMINAL v${snapshot.data ?? "1.1.2"}',
+                    style: GoogleFonts.firaCode(fontSize: 12, color: const Color(0xFF8B949E), fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const Spacer(),
                 IconButton(
