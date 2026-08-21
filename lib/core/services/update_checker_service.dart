@@ -478,7 +478,8 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
         _progress = 1.0;
       });
 
-      await Future<void>.delayed(const Duration(milliseconds: 600));
+      if (!mounted) return;
+      Navigator.pop(context);
 
       // Trigger Android package installer with explicit APK MIME type
       final result = await OpenFile.open(
@@ -486,14 +487,8 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
         type: 'application/vnd.android.package-archive',
       );
 
-      if (!mounted) return;
-
-      // Close the download dialog immediately so user is not blocked
-      Navigator.pop(context);
-
-      if (result.type != ResultType.done && mounted) {
+      if (result.type != ResultType.done) {
         // Fallback: If open_file failed to launch installer, launch via browser/file launcher
-        GlassSnackBar.show(context, 'Opening download link in browser…');
         final uri = Uri.parse(widget.info.downloadUrl);
         if (await canLaunchUrl(uri)) {
           await launchUrl(uri, mode: LaunchMode.externalApplication);
