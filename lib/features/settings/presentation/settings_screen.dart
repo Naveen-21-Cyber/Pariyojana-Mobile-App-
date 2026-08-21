@@ -2549,12 +2549,12 @@ class _DeveloperInfoCard extends ConsumerWidget {
             onPressed: () async {
               GlassSnackBar.show(context, 'Checking GitHub for latest releases... 📡');
               final updateService = ref.read(updateCheckerServiceProvider);
-              final info = await updateService.checkForUpdate(notifyUserIfAvailable: true);
+              final info = await updateService.checkForUpdate(notifyUserIfAvailable: false);
               if (context.mounted) {
-                if (info != null) {
+                if (info != null && info.isUpdateAvailable) {
                   UpdateCheckerService.showUpdateDialog(context, info);
                 } else {
-                  GlassSnackBar.show(context, '✨ Pariyojana is up to date! (v1.2.0)');
+                  GlassSnackBar.show(context, '✨ Pariyojana is fully up to date! (v${info?.currentVersion ?? "1.2.1"})');
                 }
               }
             },

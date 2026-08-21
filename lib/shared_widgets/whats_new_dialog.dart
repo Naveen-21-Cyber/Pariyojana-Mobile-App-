@@ -13,7 +13,7 @@ class WhatsNewDialog extends ConsumerWidget {
   final bool isManualTrigger;
 
   static const String _storageKey = 'pariyojana_last_seen_whats_new_version';
-  static const String _currentVersionKey = '1.2.0+10';
+  static const String _currentVersionKey = '1.2.1+11';
 
   /// Show the dialog automatically if the user has updated to a new version.
   static Future<void> showIfNeeded(BuildContext context, WidgetRef ref) async {
@@ -22,13 +22,18 @@ class WhatsNewDialog extends ConsumerWidget {
       String currentVersion = _currentVersionKey;
       try {
         final packageInfo = await PackageInfo.fromPlatform();
-        currentVersion = '${packageInfo.version}+${packageInfo.buildNumber}';
+        if (packageInfo.version.isNotEmpty) {
+          currentVersion = packageInfo.version;
+        }
       } catch (_) {}
 
       final lastSeen = prefs.getString(_storageKey);
       if (lastSeen == currentVersion) {
         return; // Already seen this version's release notes
       }
+
+      // Mark as seen immediately so it NEVER loops on app reopening
+      await prefs.setString(_storageKey, currentVersion);
 
       if (!context.mounted) return;
 
@@ -38,8 +43,6 @@ class WhatsNewDialog extends ConsumerWidget {
         barrierDismissible: true,
         builder: (context) => const WhatsNewDialog(),
       );
-
-      await prefs.setString(_storageKey, currentVersion);
     } catch (_) {}
   }
 

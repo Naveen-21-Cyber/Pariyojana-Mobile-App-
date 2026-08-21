@@ -258,7 +258,7 @@ function initGitHubReleases() {
         // Find the latest release that contains a valid .apk binary asset
         const releaseWithApk = releases.find(r => r.assets && r.assets.some(a => a.name && a.name.endsWith('.apk'))) || releases[0];
         const latest = releaseWithApk;
-        const verTag = latest.tag_name || latest.name || 'v1.2.0';
+        const verTag = latest.tag_name || latest.name || 'v1.2.1';
         const pubDate = latest.published_at
           ? new Date(latest.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
           : 'Latest Release';
@@ -306,7 +306,7 @@ function initGitHubReleases() {
       }
     })
     .catch(err => {
-      console.log('GitHub Releases API fallback to v1.2.0:', err);
+      console.log('GitHub Releases API fallback to v1.2.1:', err);
     });
 }
 
@@ -339,7 +339,7 @@ function renderChangelogModal() {
       <div class="changelog-item cl-item--current">
         <div class="cl-ver-row">
           <div class="cl-title-group">
-            <span class="cl-ver-tag">v1.2.0</span>
+            <span class="cl-ver-tag">v1.2.1</span>
             <span class="cl-current-pill">🟢 Current Running</span>
           </div>
           <span class="cl-ver-date">Latest Stable</span>
