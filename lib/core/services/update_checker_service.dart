@@ -7,6 +7,7 @@ import 'package:open_file/open_file.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../theme/velvet_colors.dart';
 import '../notifications/notification_service.dart';
 import '../../shared_widgets/glass_snackbar.dart';
@@ -123,7 +124,40 @@ class UpdateCheckerService {
         return updateInfo;
       }
     } catch (e) {
-      debugPrint('UpdateCheckerService check error: $e');
+      debugPrint('UpdateCheckerService GitHub API check error: $e. Using raw fallback.');
+      try {
+        final rawResponse = await _dio.get<String>(
+          'https://raw.githubusercontent.com/$_repoOwner/$_repoName/main/pubspec.yaml',
+          options: Options(responseType: ResponseType.plain),
+        );
+        if (rawResponse.statusCode == 200 && rawResponse.data != null) {
+          final match = RegExp(r'version:\s*([0-9]+\.[0-9]+\.[0-9]+)').firstMatch(rawResponse.data!);
+          if (match != null) {
+            final latestVer = match.group(1)!;
+            final isAvailable = _compareVersions(latestVer, appVersion) > 0;
+            final updateInfo = UpdateInfo(
+              currentVersion: appVersion,
+              latestVersion: latestVer,
+              title: 'Pariyojana v$latestVer Available',
+              releaseNotes: 'Performance improvements, stability upgrades, and bug fixes.',
+              downloadUrl: 'https://github.com/$_repoOwner/$_repoName/releases/download/v$latestVer/Pariyojana-v$latestVer.apk',
+              isUpdateAvailable: isAvailable,
+              hasApkAsset: true,
+              releaseDate: DateTime.now(),
+            );
+            if (isAvailable && notifyUserIfAvailable) {
+              final lastNotified = await _storage.read(key: _lastNotifiedVersionKey);
+              if (lastNotified != latestVer) {
+                await _storage.write(key: _lastNotifiedVersionKey, value: latestVer);
+                await _dispatchUpdateNotification(updateInfo);
+              }
+            }
+            return updateInfo;
+          }
+        }
+      } catch (rawErr) {
+        debugPrint('UpdateCheckerService raw fallback error: $rawErr');
+      }
     }
     return UpdateInfo(
       currentVersion: appVersion,
@@ -438,8 +472,10 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
 
   Future<void> _startDownload() async {
     final dio = Dio(BaseOptions(
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(minutes: 10),
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(minutes: 15),
+      followRedirects: true,
+      maxRedirects: 10,
     ));
     _cancelToken = CancelToken();
 
@@ -449,26 +485,53 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
 
       // Clean up any previous partial download
       final existing = File(apkPath);
-      if (existing.existsSync()) existing.deleteSync();
+      if (existing.existsSync()) {
+        try {
+          existing.deleteSync();
+        } catch (_) {}
+      }
 
       setState(() => _statusText = 'Downloading v${widget.info.latestVersion}…');
 
-      await dio.download(
+      bool downloadSuccess = false;
+      final urlsToTry = <String>[
         widget.info.downloadUrl,
-        apkPath,
-        cancelToken: _cancelToken,
-        onReceiveProgress: (received, total) {
-          if (!mounted || _isCancelled) return;
-          if (total > 0) {
-            setState(() {
-              _progress = received / total;
-              final mb = (received / 1024 / 1024).toStringAsFixed(1);
-              final totalMb = (total / 1024 / 1024).toStringAsFixed(1);
-              _statusText = 'Downloading… $mb / $totalMb MB';
-            });
+        'https://github.com/${UpdateCheckerService._repoOwner}/${UpdateCheckerService._repoName}/releases/download/v${widget.info.latestVersion}/Pariyojana-v${widget.info.latestVersion}.apk',
+        'https://github.com/${UpdateCheckerService._repoOwner}/${UpdateCheckerService._repoName}/raw/main/Pariyojana-v${widget.info.latestVersion}.apk',
+        'https://github.com/${UpdateCheckerService._repoOwner}/${UpdateCheckerService._repoName}/raw/main/Pariyojana.apk',
+      ];
+
+      for (final url in urlsToTry.toSet()) {
+        if (!url.startsWith('http')) continue;
+        try {
+          await dio.download(
+            url,
+            apkPath,
+            cancelToken: _cancelToken,
+            onReceiveProgress: (received, total) {
+              if (!mounted || _isCancelled) return;
+              if (total > 0) {
+                setState(() {
+                  _progress = received / total;
+                  final mb = (received / 1024 / 1024).toStringAsFixed(1);
+                  final totalMb = (total / 1024 / 1024).toStringAsFixed(1);
+                  _statusText = 'Downloading… $mb / $totalMb MB';
+                });
+              }
+            },
+          );
+          if (File(apkPath).existsSync() && File(apkPath).lengthSync() > 1000000) {
+            downloadSuccess = true;
+            break;
           }
-        },
-      );
+        } catch (downloadErr) {
+          debugPrint('Download error from $url: $downloadErr, trying next mirror.');
+        }
+      }
+
+      if (!downloadSuccess) {
+        throw Exception('All download mirrors failed. Check your internet connection.');
+      }
 
       if (_isCancelled) return;
 
@@ -477,6 +540,16 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
         _statusText = 'Download complete! Launching installer…';
         _progress = 1.0;
       });
+
+      // Request Unknown App Install permission on Android if needed
+      if (Platform.isAndroid) {
+        try {
+          final installStatus = await Permission.requestInstallPackages.status;
+          if (installStatus.isDenied || installStatus.isPermanentlyDenied) {
+            await Permission.requestInstallPackages.request();
+          }
+        } catch (_) {}
+      }
 
       if (!mounted) return;
       Navigator.pop(context);
@@ -488,7 +561,7 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
       );
 
       if (result.type != ResultType.done) {
-        // Fallback: If open_file failed to launch installer, launch via browser/file launcher
+        // Fallback: If open_file failed to launch installer, launch via browser
         final uri = Uri.parse(widget.info.downloadUrl);
         if (await canLaunchUrl(uri)) {
           await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -499,14 +572,14 @@ class _OtaDownloadDialogState extends State<_OtaDownloadDialog> {
       if (mounted) {
         setState(() {
           _hasFailed = true;
-          _statusText = 'Download failed. Check your connection and try again.';
+          _statusText = 'Download interrupted. Check connection or use browser download.';
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
           _hasFailed = true;
-          _statusText = 'Unexpected error: $e';
+          _statusText = 'Download failed: $e';
         });
       }
     }
