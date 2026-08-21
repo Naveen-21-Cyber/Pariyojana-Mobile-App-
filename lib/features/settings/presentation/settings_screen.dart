@@ -2551,10 +2551,10 @@ class _DeveloperInfoCard extends ConsumerWidget {
               final updateService = ref.read(updateCheckerServiceProvider);
               final info = await updateService.checkForUpdate(notifyUserIfAvailable: true);
               if (context.mounted) {
-                if (info != null && info.isUpdateAvailable) {
+                if (info != null) {
                   UpdateCheckerService.showUpdateDialog(context, info);
                 } else {
-                  GlassSnackBar.show(context, '✨ Pariyojana is up to date! (v${info?.currentVersion ?? "1.1.1"})');
+                  GlassSnackBar.show(context, '✨ Pariyojana is up to date! (v1.2.0)');
                 }
               }
             },

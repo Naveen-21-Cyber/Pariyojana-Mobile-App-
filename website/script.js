@@ -254,9 +254,14 @@ function initGitHubReleases() {
     .then(releases => {
       if (Array.isArray(releases) && releases.length > 0) {
         cachedReleases = releases;
-        const latest = releases[0];
+
+        // Find the latest release that contains a valid .apk binary asset
+        const releaseWithApk = releases.find(r => r.assets && r.assets.some(a => a.name && a.name.endsWith('.apk'))) || releases[0];
+        const latest = releaseWithApk;
         const verTag = latest.tag_name || latest.name || 'v1.2.0';
-        const pubDate = new Date(latest.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const pubDate = latest.published_at
+          ? new Date(latest.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          : 'Latest Release';
 
         // Update Nav & Badges
         document.querySelectorAll('.nav-version-tag').forEach(el => el.textContent = verTag);
@@ -269,32 +274,39 @@ function initGitHubReleases() {
 
         // Find APK download asset if present
         const apkAsset = latest.assets ? latest.assets.find(a => a.name && a.name.endsWith('.apk')) : null;
-        const apkUrl = apkAsset ? apkAsset.browser_download_url : latest.html_url;
+        const apkUrl = apkAsset ? apkAsset.browser_download_url : `https://github.com/Naveen-21-Cyber/Pariyojana-Mobile-App-/releases/download/${verTag}/Pariyojana-${verTag}.apk`;
 
         const releaseDlBtn = document.getElementById('releaseDownloadBtn');
-        if (releaseDlBtn) releaseDlBtn.href = apkUrl;
+        if (releaseDlBtn) {
+          releaseDlBtn.href = apkUrl;
+          if (apkAsset && apkAsset.size) {
+            const sizeMb = (apkAsset.size / (1024 * 1024)).toFixed(1);
+            const span = releaseDlBtn.querySelector('span');
+            if (span) span.textContent = `Direct APK Download (${sizeMb} MB)`;
+          }
+        }
 
         const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
-        if (heroPrimaryBtn && apkAsset) heroPrimaryBtn.href = apkUrl;
+        if (heroPrimaryBtn) heroPrimaryBtn.href = apkUrl;
 
-        const dlApkBtn = document.getElementById('dlApkBtn');
-        if (dlApkBtn && apkAsset) dlApkBtn.href = apkUrl;
+        const navCta = document.getElementById('navCta');
+        if (navCta) navCta.href = apkUrl;
 
         // Parse and render release summary in the card
         const previewEl = document.getElementById('releaseBodyPreview');
         if (previewEl && latest.body) {
           const cleanBody = latest.body
             .split('\n')
-            .filter(l => l.trim().length > 0)
+            .filter(l => l.trim().length > 0 && !l.startsWith('#'))
             .slice(0, 3)
-            .map(l => `<div class="release-bullet">⚡ ${escapeHtml(l.replace(/^[#*-]+\s*/, ''))}</div>`)
+            .map(l => `<div class="release-bullet">⚡ ${escapeHtml(l.replace(/^[-*•]\s*/, ''))}</div>`)
             .join('');
           previewEl.innerHTML = cleanBody || '<div class="release-bullet">⚡ Full production release with cryptographic vault & zero-trust offline storage.</div>';
         }
       }
     })
     .catch(err => {
-      console.log('GitHub Releases offline fallback:', err);
+      console.log('GitHub Releases API fallback to v1.2.0:', err);
     });
 }
 

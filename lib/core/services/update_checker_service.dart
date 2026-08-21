@@ -252,11 +252,17 @@ class UpdateCheckerService {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [VelvetColors.coralPeach, VelvetColors.coralPeach.withValues(alpha: 0.7)],
+                          colors: info.isUpdateAvailable
+                              ? [VelvetColors.coralPeach, VelvetColors.coralPeach.withValues(alpha: 0.7)]
+                              : [VelvetColors.mint, VelvetColors.mint.withValues(alpha: 0.7)],
                         ),
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Icon(Icons.system_update_alt_rounded, color: Colors.white, size: 24),
+                      child: Icon(
+                        info.isUpdateAvailable ? Icons.system_update_alt_rounded : Icons.check_circle_outline_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ),
                     const SizedBox(width: 14),
                     Expanded(
@@ -266,7 +272,7 @@ class UpdateCheckerService {
                           Row(
                             children: [
                               Text(
-                                'Update Available',
+                                info.isUpdateAvailable ? 'Update Available' : 'Pariyojana Up to Date',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w800,
@@ -277,15 +283,15 @@ class UpdateCheckerService {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                 decoration: BoxDecoration(
-                                  color: VelvetColors.mint.withValues(alpha: 0.2),
+                                  color: (info.isUpdateAvailable ? VelvetColors.coralPeach : VelvetColors.mint).withValues(alpha: 0.2),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   'v${info.latestVersion}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: VelvetColors.mint,
+                                    color: info.isUpdateAvailable ? VelvetColors.coralPeach : VelvetColors.mint,
                                   ),
                                 ),
                               ),
@@ -293,7 +299,9 @@ class UpdateCheckerService {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            'Current: v${info.currentVersion}',
+                            info.isUpdateAvailable
+                                ? 'Current: v${info.currentVersion}'
+                                : 'You are running the latest official build',
                             style: TextStyle(fontSize: 11, color: VelvetColors.textSecondary(context)),
                           ),
                         ],
@@ -393,20 +401,18 @@ class UpdateCheckerService {
                       flex: 2,
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: VelvetColors.coralPeach,
+                          backgroundColor: info.isUpdateAvailable ? VelvetColors.coralPeach : VelvetColors.mint,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           elevation: 3,
                         ),
                         icon: Icon(
-                          info.hasApkAsset
-                              ? Icons.download_for_offline_rounded
-                              : Icons.open_in_browser_rounded,
+                          info.isUpdateAvailable ? Icons.download_for_offline_rounded : Icons.refresh_rounded,
                           size: 18,
                         ),
                         label: Text(
-                          info.hasApkAsset ? 'Install Update' : 'Download Update',
+                          info.isUpdateAvailable ? 'Install Update ⚡' : 'Reinstall / Repair Build 🔄',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         onPressed: () async {
