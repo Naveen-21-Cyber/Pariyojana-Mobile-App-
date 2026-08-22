@@ -36,8 +36,11 @@
         android:anyDensity="true"
         android:resizeable="true"/>
 
-    <!-- Explicitly remove Google Advertising ID permission for Amazon Appstore & privacy compliance -->
+    <!-- Explicitly remove Google Advertising ID and legacy external storage permissions for privacy compliance -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:node="remove"/>
 
     <queries>
         <intent>

@@ -35,7 +35,7 @@ android {
 
     defaultConfig {
         applicationId = "com.navii.pariyojana"
-        minSdk = 26
+        minSdk = 29
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
