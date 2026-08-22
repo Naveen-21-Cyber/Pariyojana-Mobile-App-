@@ -205,7 +205,7 @@ class GitaStartupDialog extends ConsumerWidget {
     final enabled = ref.read(gitaShlokaEnabledProvider);
     if (!enabled) return;
 
-    final shloka = _kGitaShlokas[Random().nextInt(_kGitaShlokas.length)];
+    final shloka = _kGitaShlokas[Random.secure().nextInt(_kGitaShlokas.length)];
 
     await showDialog(
       context: context,
@@ -217,7 +217,7 @@ class GitaStartupDialog extends ConsumerWidget {
 
   /// Show a random shloka manually on-demand.
   static Future<void> showManual(BuildContext context) async {
-    final shloka = _kGitaShlokas[Random().nextInt(_kGitaShlokas.length)];
+    final shloka = _kGitaShlokas[Random.secure().nextInt(_kGitaShlokas.length)];
     await showDialog(
       context: context,
       useRootNavigator: true,

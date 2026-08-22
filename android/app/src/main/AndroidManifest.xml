@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -15,7 +14,6 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!-- Required for exact alarm scheduling on Android 12+ (API 31+) -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 
     <!-- Explicitly declare all hardware features as OPTIONAL so Fire Tablets are 100% supported -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
@@ -55,6 +53,7 @@
     <application
         android:label="Pariyojana"
         android:name="${applicationName}"
+        android:allowBackup="false"
         android:largeHeap="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"

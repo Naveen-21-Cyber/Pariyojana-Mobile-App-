@@ -48,7 +48,7 @@ class _ExplosionWidgetState extends State<_ExplosionWidget> with SingleTickerPro
     );
 
     // Initialize 24 radiating particles
-    final random = math.Random();
+    final random = math.Random.secure();
     for (int i = 0; i < 24; i++) {
       final angle = random.nextDouble() * 2 * math.pi;
       final speed = 3.0 + random.nextDouble() * 5.0;

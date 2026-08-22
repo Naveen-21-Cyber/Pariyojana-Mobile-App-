@@ -56,7 +56,7 @@ class _FocusTimerWidgetState extends ConsumerState<FocusTimerWidget> {
 
   void _shuffleShloka() {
     setState(() {
-      _shlokaIndex = Random().nextInt(_gitaShlokas.length);
+      _shlokaIndex = Random.secure().nextInt(_gitaShlokas.length);
     });
   }
 

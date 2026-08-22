@@ -132,7 +132,7 @@ final soundServiceProvider = Provider<SoundService>((ref) {
 class SoundService {
   final AudioPlayer _effectPlayer = AudioPlayer();
   final AudioPlayer _musicPlayer  = AudioPlayer();
-  final _random = Random();
+  final _random = Random.secure();
 
   bool    _isUIMuted    = false;
   bool    _isVadyaMuted = true; // OFF by default

@@ -138,7 +138,7 @@ class CompanyDossierService {
           fetchFutures.add(_smartFetch('https://s.jina.ai/$slug+tech+stack+engineering+blog+github+open+source+tools', label: 'Tech Stack & Engineering Blog'));
           fetchFutures.add(_smartFetch('https://s.jina.ai/$slug+layoffs+funding+news+2024+2025+site:techcrunch.com+OR+site:economictimes.com', label: 'Recent News & Layoff Risk'));
           fetchFutures.add(_smartFetch('https://en.wikipedia.org/wiki/$slug', label: 'Wikipedia Corporate History'));
-          fetchFutures.add(_smartFetch('https://www.ambitionbox.com/overview/$slug-overview', label: 'AmbitionBox India Overview'));
+          fetchFutures.add(_smartFetch('https://s.jina.ai/$slug+company+work+culture+overview+india', label: 'Company India Overview Search'));
           fetchFutures.add(_smartFetch('https://www.crunchbase.com/organization/$slug', label: 'Crunchbase Funding Profile'));
           fetchFutures.add(_smartFetch('https://tracxn.com/d/companies/$slug', label: 'Tracxn Funding & Investor Profile'));
           fetchFutures.add(_smartFetch('https://github.com/$slug', label: 'GitHub Org & Open Source Repos'));

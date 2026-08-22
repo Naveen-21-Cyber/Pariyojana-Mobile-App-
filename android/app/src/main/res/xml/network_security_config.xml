@@ -7,14 +7,14 @@
             <certificates src="system"/>
         </trust-anchors>
     </base-config>
-    <!-- Explicitly allow OpenRouter and Jina Reader APIs -->
+    <!-- Explicitly allow OpenRouter, Jina Reader, and Nvidia APIs with system certificates only -->
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">openrouter.ai</domain>
         <domain includeSubdomains="true">r.jina.ai</domain>
+        <domain includeSubdomains="true">s.jina.ai</domain>
         <domain includeSubdomains="true">integrate.api.nvidia.com</domain>
         <trust-anchors>
             <certificates src="system"/>
-            <certificates src="user"/>
         </trust-anchors>
     </domain-config>
 </network-security-config>
